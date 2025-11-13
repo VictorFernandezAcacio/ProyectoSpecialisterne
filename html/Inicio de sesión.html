@@ -8,26 +8,24 @@
     <script src="../js/Inicio de sesión.js"></script>
 </head>
 <body>
-    <div>
-        <div id="sesion">
-            <div id="centrar_contenido">
-                <div id="inicio">
-                    <div class="divs_inicio">
-                        <label for="usuario">Usuario:</label>
-                        <input type="text" id="usuario" name="usuario" maxlength="20"><br>
-                        <div class="div_error" id="error_usuario"></div>
-                    </div>
-                    
-                    <div class="divs_inicio">
-                        <label for="contraseña">Contraseña:</label>
-                        <input type="password" id="contraseña" name="contraseña" maxlength="50"><br>
-                        <div class="div_error" id="error_contraseña"></div>
-                    </div>
+    <div id="sesion">
+        <div id="centrar_contenido">
+            <div id="inicio">
+                <div class="divs_inicio">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" maxlength="20"><br>
+                    <div class="div_error" id="error_usuario"></div>
                 </div>
-                <div id="registro">
-                    <button>REGISTRO</button>
-                    <button>INICIAR</button>
+                
+                <div class="divs_inicio">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" id="contraseña" name="contraseña" maxlength="50"><br>
+                    <div class="div_error" id="error_contraseña"></div>
                 </div>
+            </div>
+            <div id="registro">
+                <button class="btn" id="btn_registro">REGISTRO</button>
+                <button class="btn" id="btn_iniciar" onclick="ERRORES()">INICIAR</button>
             </div>
         </div>
     </div>
