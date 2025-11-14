@@ -44,11 +44,7 @@ function INICIO() {
         if (document.getElementById("usuario").value === Guardado.Nombre[i] && document.getElementById("contraseña").value === Guardado.Contraseña[i]) {
             console.log("FUNCIONA")
             i = Guardado.Nombre.length-1
-        } else if (document.getElementById("contraseña").value.length === 0) {
-            document.getElementById("error_contraseña").textContent = "NO SE A PUESTO LA CONTRASEÑA"
-        } else {
-            document.getElementById("error_contraseña").textContent = "NO SE A ESCRITO BIEN LA CONTRASEÑA"
-        } 
+        }
     }
 }
 
@@ -65,3 +61,4 @@ function mostrar_ocultar() {
         a = 0
     }
 }
+
