@@ -1,0 +1,19 @@
+#header{display: flex; justify-content: space-between;
+    background-color: lightslategray;  height: 30px;
+}
+#viajes_pend{margin-top: 5%;}
+#viajes_realiz{margin-top: 10%;}
+.lista_de_viajes{border: 1px solid black;
+    margin-left: auto; margin-right: auto;
+    width:90%; height: 100px;
+}
+.caja_info_viaje{display:flex; justify-content: space-between; flex-direction: row
+}
+.boton_de_eliminar{background-image: url(../bin.png); background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px; height: 20px;
+}
+.boton_reseña{background-image: url(../scroll.png); background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px; height: 30px;
+}
