@@ -16,6 +16,10 @@ body {
     height: 60px;
     width: 80%;
 }
+#img_descuentos {
+    height: 100%;
+    width: 100%;
+}
 
 
 
@@ -52,4 +56,5 @@ div.precio_estrellas {
 
 a.enlace_viaje{
     color: black;
+
 }
