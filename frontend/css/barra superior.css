@@ -2,7 +2,7 @@
     border: 1px solid black;
     background-color: deeppink;
     display: inline-block;
-    width: 500px;
+    height: 71px;
 }
 #hueco_buscador {
     display: inline-block;
@@ -33,4 +33,5 @@
 }
 #espacio_barra_superior {
     height: 95px;
+
 }
