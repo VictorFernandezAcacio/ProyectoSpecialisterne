@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de sesión</title>
     <link rel="stylesheet" href="../css/Inicio de sesión.css">
-    <script src="../js/Inicio de sesión.js"></script>
+    <script src="../js/Inicio de sesión.js" defer></script>
 </head>
 <body>
     <a href="Inicio.html"><button id="btn_volver">⬅ Volver</button></a>
@@ -19,8 +19,13 @@
                 </div>
                 
                 <div class="divs_inicio">
-                    <label for="contraseña">Contraseña:</label>
-                    <input type="password" id="contraseña" name="contraseña" maxlength="50"><br>
+                    <div class="display_flex">
+                        <div id="div_contraseña">
+                            <label for="contraseña">Contraseña:</label>
+                            <input type="password" id="contraseña" name="contraseña" maxlength="50">
+                        </div>
+                        <button onclick="mostrar_ocultar()" id="btn_mostrar_ocultar">👁️‍🗨️</button>
+                    </div>
                     <div class="div_error" id="error_contraseña"></div>
                 </div>
             </div>
@@ -31,5 +36,4 @@
         </div>
     </div>
 </body>
-
 </html>
