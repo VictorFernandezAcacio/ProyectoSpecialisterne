@@ -21,6 +21,8 @@ function ERROR_usuario() {
     for (let i = 0; i <= Guardado.Nombre.length-1; i++) {
         if (document.getElementById("usuario").value !== Guardado.Nombre[i]) {
             document.getElementById("error_usuario").textContent = "ERROR: NO SE A ESCRITO BIEN EL USUARIO"
+        } else if (document.getElementById("usuario").value === Guardado.Nombre[i]) {
+            return
         }
     }
 }
@@ -35,6 +37,8 @@ function ERROR_contraseña() {
     for (let i = 0; i <= Guardado.Nombre.length-1; i++) {
         if (document.getElementById("contraseña").value !== Guardado.Contraseña[i]) {
             document.getElementById("error_contraseña").textContent = "ERROR: NO SE A PUESTO LA CONTRASEÑA"
+        } else if (document.getElementById("contraseña").value === Guardado.Contraseña[i]) {
+            return
         }
     }
 }
@@ -44,6 +48,9 @@ function INICIO() {
         if (document.getElementById("usuario").value === Guardado.Nombre[i] && document.getElementById("contraseña").value === Guardado.Contraseña[i]) {
             console.log("FUNCIONA")
             i = Guardado.Nombre.length-1
+
+            document.getElementById("error_usuario").textContent = ""
+            document.getElementById("error_contraseña").textContent = ""
         } else {
             console.log("USUARIO NO EXISTENTE")
         }
