@@ -30,6 +30,17 @@ div.div_error {
     height: 30px;
     margin-top: 3px;
 }
+#div_contraseña {
+    display: flex;
+    margin-left: 15px;
+}
+div.display_flex {
+    display: flex;
+}
+#btn_mostrar_ocultar {
+    height: 20px;
+    width: 30px;
+}
 
 #registro {
     display: flex;
