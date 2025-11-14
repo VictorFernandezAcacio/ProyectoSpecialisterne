@@ -1,8 +1,12 @@
+#logo {
+    border: 1px solid black;
+    height: 71px;;
+}
 #buscador {
     border: 1px solid black;
     background-color: deeppink;
     display: inline-block;
-    height: 71px;
+    height: 500px;
 }
 #hueco_buscador {
     display: inline-block;
@@ -12,10 +16,6 @@
     width: 200px;
     
     display: inline-block;
-}
-#logo {
-    border: 1px solid black;
-    width: 200px;
 }
 
 #barra_superior {
@@ -35,3 +35,4 @@
     height: 95px;
 
 }
+
