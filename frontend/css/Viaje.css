@@ -1,0 +1,105 @@
+body {
+    font-family: Arial;
+    user-select: none;
+}
+
+#div_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 50px;
+}
+#información_viaje {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#imagen_viaje {
+    height: 20%;
+    width: 80%;
+}
+#descripción_viaje {
+    border: 1px solid black;
+    display: inline-block;
+    height: 150px;
+    width: 70%;
+}
+#título_estrellas_precio {
+    display: inline-block;
+    width: 20%;
+}
+
+
+
+#contenedor_linea {
+    margin-top: 100px;
+}
+#contenedor_superior_linea {
+    display: flex;
+    justify-content: space-between;
+}
+#linea {
+    background-color: black;
+    height: 8px;
+    width: 100%;
+    border-radius: 4px;
+}
+#título_reseña {
+    font-size: 20px;
+    font-weight: bold;
+
+    display: inline-block;
+}
+#btn_nueva_reseña {
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+#contenedor_reseñas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+div.reseña {
+    border: 1px solid black;
+    width: 80%;
+
+    margin-top: 15px;
+}
+div.contenedor_datos_reseña {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(180, 180, 180);
+    width: 100%;
+}
+span.usuario_viaje {
+    margin-left: 7.5px;
+}
+span.estrellas_viaje {
+    margin-right: 7.5px;
+}
+
+
+
+#alerta_reseña {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+div.contenido_alerta_borrar {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px;
+    margin: 100px auto;
+    text-align: center;
+}
+textarea {
+    height: 200px;
+    width: 400px;
+}
