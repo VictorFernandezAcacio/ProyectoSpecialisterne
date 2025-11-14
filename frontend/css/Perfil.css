@@ -1,6 +1,23 @@
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     user-select: none;
+    background-color: #FFFDD0; /* fondo crema */
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    margin: 40px auto;
+    width: 80%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 div.centrar {
@@ -8,46 +25,64 @@ div.centrar {
     justify-content: center;
     align-items: center;
 }
-#información {
+
+#informacion {
     text-align: right;
     width: 400px;
 }
+
 div.divs_inputs {
     margin-right: 50px;
-    margin-top: 33px;
+    margin-top: 20px;
 }
+
 input {
     width: 170px;
 }
 
-#btn_borrar {
+#btn_guardar,
+#btn_cambiar {
     border: 1px solid black;
-    background-color: red;
+    background-color: green;
     border-radius: 15px;
-    height: 25px;
-    width: 125px;
-
+    height: 30px;
+    width: 200px;
     font-weight: bold;
-
-    margin-top: 50px;
+    margin-top: 20px;
+    cursor: pointer;
 }
-#btn_borrar:hover {
+
+#btn_guardar:hover,
+#btn_cambiar:hover {
     background-color: black;
     color: white;
 }
 
-#alerta_borrar {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-div.contenido_alerta_borrar {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    margin: 100px auto;
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
     text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    font-size: 14px;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer .redes {
+    margin-top: 10px;
+}
+
+footer .redes a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+footer .redes a:hover {
+    text-decoration: underline;
 }
