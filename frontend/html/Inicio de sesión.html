@@ -14,24 +14,21 @@
             <div id="inicio">
                 <div class="divs_inicio">
                     <label for="usuario">Usuario:</label>
-                    <input type="text" id="usuario" name="usuario" maxlength="20"><br>
+                    <!-- Mock data -->
+                    <input type="text" id="usuario" name="usuario" maxlength="20" value="usuario_demo"><br>
                     <div class="div_error" id="error_usuario"></div>
                 </div>
                 
                 <div class="divs_inicio">
-                    <div class="display_flex">
-                        <div id="div_contraseña">
-                            <label for="contraseña">Contraseña:</label>
-                            <input type="password" id="contraseña" name="contraseña" maxlength="50">
-                        </div>
-                        <button onclick="mostrar_ocultar()" id="btn_mostrar_ocultar">👁️‍🗨️</button>
-                    </div>
+                    <label for="contraseña">Contraseña:</label>
+                    <!-- Mock data -->
+                    <input type="password" id="contraseña" name="contraseña" maxlength="50" value="123456"><br>
                     <div class="div_error" id="error_contraseña"></div>
                 </div>
             </div>
             <div id="registro">
                 <button class="btn" id="btn_registro">REGISTRO</button>
-                <button class="btn" id="btn_iniciar" onclick="Iniciar_Sesión()">INICIAR</button>
+                <button class="btn" id="btn_iniciar" onclick="validarLogin()">INICIAR</button>
             </div>
         </div>
     </div>
