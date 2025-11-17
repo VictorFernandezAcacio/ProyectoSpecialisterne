@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="../css/Inicio de sesión.css">
-    <script src="../js/Inicio de sesión.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de sesión</title>
+
+  <link rel="stylesheet" href="../css/Inicio de sesión.css">
 </head>
 <body>
-    <a href="Inicio.html"><button id="btn_volver">⬅ Volver</button></a>
-    <div id="sesion">
-        <div id="centrar_contenido">
-            <div id="inicio">
-                <div class="divs_inicio">
-                    <label for="usuario">Usuario:</label>
-                    <!-- Mock data -->
-                    <input type="text" id="usuario" name="usuario" maxlength="20" value="usuario_demo"><br>
-                    <div class="div_error" id="error_usuario"></div>
-                </div>
-                
-                <div class="divs_inicio">
-                    <label for="contraseña">Contraseña:</label>
-                    <!-- Mock data -->
-                    <input type="password" id="contraseña" name="contraseña" maxlength="50" value="123456"><br>
-                    <div class="div_error" id="error_contraseña"></div>
-                </div>
-            </div>
-            <div id="registro">
-                <button class="btn" id="btn_registro">REGISTRO</button>
-                <button class="btn" id="btn_iniciar" onclick="validarLogin()">INICIAR</button>
-            </div>
+  <div id="barra_superior">
+    <h1>Inicio de sesión</h1>
+  </div>
+  <div id="espacio_barra_superior"></div>
+
+  <div id="sesion">
+    <div id="centrar_contenido">
+      <div id="inicio">
+        <div class="divs_inicio">
+          <label for="usuario">Usuario:</label>
+          <input type="text" id="usuario" name="usuario" maxlength="20">
+          <div class="div_error" id="error_usuario"></div>
         </div>
+        
+        <div class="divs_inicio">
+          <label for="contrasena">Contraseña:</label>
+          <input type="password" id="contrasena" name="contrasena" maxlength="50">
+          <div class="div_error" id="error_contrasena"></div>
+        </div>
+      </div>
+
+      <div id="registro" class="centrar">
+        <button class="btn" id="btn_registro">REGISTRO</button>
+        <button class="btn" id="btn_iniciar">INICIAR</button>
+      </div>
     </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Bug Travel. Todos los derechos reservados.</p>
+    <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
+    <p>Dirección: Calle Ejemplo 123, Barcelona, España</p>
+    <div class="redes">
+      <a href="https://facebook.com" target="_blank">🌐 Facebook</a>
+      <a href="https://instagram.com" target="_blank">📸 Instagram</a>
+      <a href="https://linkedin.com" target="_blank">💼 LinkedIn</a>
+    </div>
+  </footer>
+
+  <script src="../js/Inicio de sesión.js" defer></script>
 </body>
 </html>
