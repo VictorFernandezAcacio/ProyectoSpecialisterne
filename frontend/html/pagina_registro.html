@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
     <link rel="stylesheet" href= "pagina_registro.css">
-    <script src="/pagina_registro.js"></script>
+    <script src="pagina_registro.js" defer></script>
 </head>
 <body><div>
     <div id="header">
@@ -25,21 +25,23 @@
                         <div><input type="text" id="usuario" name="usuario" maxlength="20"><br></div>
                     </div> 
                     <div class="divs_registro">
-                        <label for="contraseña">Contraseña:</label>
-                        <div><input type="password" id="contraseña" name="contraseña" maxlength="50"><br></div>
+                        <label for="contrasenya">Contraseña:</label>
+                        <div><input type="password" id="contrasenya" name="contrasenya" maxlength="50"><br></div>
                     </div>
                     <div class="divs_registro">
-                        <label label for="confirmar_contraseña">Confirme la contraseña:</label>
-                        <div><input type="text" id="confirmar_contraseña" name="confirmar_contraseña" maxlength="50"><br></div>
+                        <label label for="confirmar_contrasenya">Confirme la contraseña:</label>
+                        <div><input type="password" id="confirmar_contrasenya" name="confirmar_contrasenya" maxlength="50"><br></div>
                     </div>
                     <div class="divs_registro">
                         <label label for="fecha_de_nacimiento">Fecha de nacimiento</label>
                         <div><input type="date" id="fecha_de_nacimiento" name="fecha_de_nacimiento"><br></div>
                     </div>
+                    <div id="mensaje_ de_error" style="display: none; margin-top: 5%; color: red">
+                        Mensaje de error</div>
                 </div>
             </div>           
                 <div>
-                    <button class= "boton_registrarse">REGISTRARSE</button>
+                    <button class= "boton_registrarse" onclick="registrarse()">REGISTRARSE</button>
                 </div>       
         </div>
 </div></body>
