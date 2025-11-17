@@ -6,6 +6,8 @@
 }
 #registro{display: flex; align-items: center; justify-content:space-evenly;
 }
+#mensaje_de_error{color: red}
 .divs_registro{display: flex; justify-content: space-between;
 }
-.boton_registrarse{margin-left: 80%; border: 2px solid rgb(70, 129, 70); border-radius: 5px; background-color: yellow;}
+.boton_registrarse{margin-left: 80%; border: 2px solid rgb(70, 129, 70);
+    border-radius: 5px; background-color: yellow;}
