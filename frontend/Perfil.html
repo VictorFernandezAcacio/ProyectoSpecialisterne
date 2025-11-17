@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="Perfil.css">
+    <link rel="stylesheet" href="../css/barra_superior.css">
+
+    <!-- JS -->
+    <script src="Perfil.js" defer></script>
+
+    <title>Perfil</title>
+</head>
+<body>
+    <div id="barra_superior">
+    <!-- Logo -->
+    <img id="logo" src="../img/logo.png" alt="Logo de la empresa" style="height:90px; width:auto;">
+
+    <!-- Buscador -->
+    <div id="hueco_buscador">
+        <input type="text" id="buscador" placeholder="Buscar...">
+    </div>
+
+    <!-- Botones -->
+    <div id="div_derecha_barra_superior">
+        <a href="Historial.html"><button>RESERVAS</button></a>
+        <a href="InicioSesion.html"><button>Iniciar Sesión</button></a>
+    </div>
+    </div>
+    <div id="espacio_barra_superior"></div>
+
+
+    <!-- Apartado Perfil -->
+    <section id="perfil">
+        <h2>Datos de Perfil</h2>
+        <div class="centrar">
+            <div id="informacion">
+                <div class="divs_inputs">
+                    <label for="correo">Correo:</label>
+                    <input type="text" id="correo" name="correo"><br>
+                </div>
+                <div class="divs_inputs">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" maxlength="20"><br>
+                </div>
+                <div class="divs_inputs">
+                    <label for="cumpleaños">Cumpleaños:</label>
+                    <input type="date" id="cumpleaños" name="cumpleaños"><br>
+                </div>
+            </div>
+        </div>
+        <div class="centrar">
+            <button id="btn_guardar">GUARDAR CAMBIOS</button>
+        </div>
+    </section>
+
+    <!-- Apartado Cambio de Contraseña -->
+    <section id="cambiar_contraseña">
+        <h2>Cambiar Contraseña</h2>
+        <div class="centrar">
+            <div id="informacion">
+                <div class="divs_inputs">
+                    <label for="actual_contraseña">Contraseña Actual:</label>
+                    <input type="password" id="actual_contraseña" name="actual_contraseña" maxlength="50">
+                    <button type="button" onclick="togglePassword('actual_contraseña')">👁 Mostrar</button><br>
+                </div>
+                <div class="divs_inputs">
+                    <label for="nueva_contraseña">Nueva Contraseña:</label>
+                    <input type="password" id="nueva_contraseña" name="nueva_contraseña" maxlength="50">
+                    <button type="button" onclick="togglePassword('nueva_contraseña')">👁 Mostrar</button><br>
+                </div>
+                <div class="divs_inputs">
+                    <label for="confirmar_contraseña">Confirmar Contraseña:</label>
+                    <input type="password" id="confirmar_contraseña" name="confirmar_contraseña" maxlength="50">
+                    <button type="button" onclick="togglePassword('confirmar_contraseña')">👁 Mostrar</button><br>
+                </div>
+            </div>
+        </div>
+        <div class="centrar">
+            <button id="btn_cambiar" onclick="CambiarContraseña()">CAMBIAR CONTRASEÑA</button>
+        </div>
+    </section>
+        <div class="centrar">
+            <button class="btn btn-conf" onclick="abrirModulo()">Borrar cuenta</button>
+        </div>
+ 
+<!-- Overlay + Modal -->
+<div id="overlay">
+  <div id="modal">
+    <h3>¿Usted está seguro de que quiere eliminar su cuenta?</h3>
+    <button class="btn btn-conf" onclick="confirmElimCuenta()">Sí, eliminar</button>
+    <button class="btn btn-cancel" onclick="cerrarModulo()">Cancelar</button>
+  </div>
+</div>
+  
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Mi Empresa. Todos los derechos reservados.</p>
+        <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
+        <p>Dirección: Calle Ejemplo 123, Barcelona, España</p>
+        <div class="redes">
+            <a href="https://facebook.com" target="_blank">🌐 Facebook</a>
+            <a href="https://instagram.com" target="_blank">📸 Instagram</a>
+            <a href="https://linkedin.com" target="_blank">💼 LinkedIn</a>
+        </div>
+    </footer>
+</body>
+</html>
