@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/Perfil.css">
+    <link rel="stylesheet" href="Perfil.css">
     <link rel="stylesheet" href="../css/barra_superior.css">
 
     <!-- JS -->
-    <script src="../js/Perfil.js" defer></script>
+    <script src="Perfil.js" defer></script>
 
     <title>Perfil</title>
 </head>
@@ -82,6 +82,19 @@
             <button id="btn_cambiar" onclick="CambiarContraseña()">CAMBIAR CONTRASEÑA</button>
         </div>
     </section>
+        <div class="centrar">
+            <button class="btn btn-conf" onclick="abrirModulo()">Borrar cuenta</button>
+        </div>
+ 
+<!-- Overlay + Modal -->
+<div id="overlay">
+  <div id="modal">
+    <h3>¿Usted está seguro de que quiere eliminar su cuenta?</h3>
+    <button class="btn btn-conf" onclick="confirmElimCuenta()">Sí, eliminar</button>
+    <button class="btn btn-cancel" onclick="cerrarModulo()">Cancelar</button>
+  </div>
+</div>
+  
 
     <!-- Footer -->
     <footer>
