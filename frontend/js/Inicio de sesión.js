@@ -1,64 +1,57 @@
-Guardado = {
+const Guardado = {
     Nombre: ["admin", "admin1"],
     Contraseña: ["12345678", "87654321"],
-}
+};
 
-function Iniciar_Sesión() {
-    ERRORES()
-    INICIO()
-}
-function ERRORES() {
-    ERROR_usuario()
-    ERROR_contraseña()
-}
+function Iniciar_Sesion() {
+    limpiarErrores();
+    const usuario = document.getElementById("usuario").value.trim();
+    const contrasena = document.getElementById("contrasena").value.trim();
 
-function ERROR_usuario() {
-    for (let i = 0; i <= Guardado.Nombre.length-1; i++) {
-        if (document.getElementById("usuario").value !== Guardado.Nombre[i]) {
-            document.getElementById("error_usuario").textContent = "NO SE A ESCRITO BIEN EL USUARIO"
-        } else if (document.getElementById("usuario").value === Guardado.Nombre[i]) {
-            document.getElementById("error_usuario").textContent = ""
-            return
-        }
-    }
-    if (document.getElementById("usuario").value.length === 0) {
-        document.getElementById("error_usuario").textContent = "NO SE A PUESTO EL USUARIO"
-    } else if (document.getElementById("usuario").value > 20) {
-        document.getElementById("error_usuario").textContent = "EL USUARIO A SOBREPASADO EL LIMITE EXISTENTE"
-    }
-}
-function ERROR_contraseña() {
-    if (document.getElementById("contraseña").value.length === 0) {
-        document.getElementById("error_contraseña").textContent = "NO SE A PUESTO LA CONTRASEÑA"
-    } else if (document.getElementById("contraseña").value.length < 8) {
-        document.getElementById("error_contraseña").textContent = "NO SE A ESCRITO BIEN LA CONTRASEÑA"
-    } else if (document.getElementById("contraseña").value < 50) {
-        document.getElementById("error_contraseña").textContent = "LA CONTRASEÑA A SOBREPASADO EL LIMITE EXISTENTE"
+    let usuarioValido = false;
+    let contrasenaValida = false;
+
+    if (usuario.length === 0) {
+        mostrarError("error_usuario", "ERROR: NO SE HA PUESTO EL USUARIO");
+    } else if (usuario.length > 20) {
+        mostrarError("error_usuario", "ERROR: EL USUARIO HA SOBREPASADO EL LÍMITE EXISTENTE");
+    } else if (!Guardado.Nombre.includes(usuario)) {
+        mostrarError("error_usuario", "ERROR: USUARIO INCORRECTO");
     } else {
-        document.getElementById("error_contraseña").textContent = ""
+        usuarioValido = true;
     }
-}
 
-function INICIO() {
-    for (let i = 0; i <= Guardado.Nombre.length-1; i++) {
-        if (document.getElementById("usuario").value === Guardado.Nombre[i] && document.getElementById("contraseña").value === Guardado.Contraseña[i]) {
-            console.log("FUNCIONA")
-            i = Guardado.Nombre.length-1
+    if (contrasena.length === 0) {
+        mostrarError("error_contrasena", "ERROR: NO SE HA PUESTO LA CONTRASEÑA");
+    } else if (contrasena.length < 8) {
+        mostrarError("error_contrasena", "ERROR: CONTRASEÑA DEMASIADO CORTA");
+    } else if (contrasena.length > 50) {
+        mostrarError("error_contrasena", "ERROR: CONTRASEÑA DEMASIADO LARGA");
+    } else {
+        contrasenaValida = true;
+    }
+
+    if (usuarioValido && contrasenaValida) {
+        const index = Guardado.Nombre.indexOf(usuario);
+        if (Guardado.Contraseña[index] === contrasena) {
+            console.log("Inicio de sesión correcto");
+            window.location.href = "../html/Inicio.html";
+        } else {
+            mostrarError("error_contrasena", "ERROR: CONTRASEÑA NO COINCIDE CON EL USUARIO");
         }
     }
 }
 
-
-a = 0
-function mostrar_ocultar() {
-    if (a === 0) {
-        document.getElementById("contraseña").type = "text"
-        document.getElementById("btn_mostrar_ocultar").textContent = "👁️"
-        a = 1
-    } else {
-        document.getElementById("contraseña").type = "password"
-        document.getElementById("btn_mostrar_ocultar").textContent = "👁️‍🗨️"
-        a = 0
-    }
+function mostrarError(id, mensaje) {
+    document.getElementById(id).textContent = mensaje;
 }
 
+function limpiarErrores() {
+    document.getElementById("error_usuario").textContent = "";
+    document.getElementById("error_contrasena").textContent = "";
+}
+
+document.getElementById("btn_iniciar").addEventListener("click", Iniciar_Sesion);
+document.getElementById("btn_registro").addEventListener("click", function () {
+    window.location.href = "../html/pagina_registro.html";
+});
