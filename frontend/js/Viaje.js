@@ -1,62 +1,111 @@
-// Objeto reseña
-const Reseña = {
-    Fecha: "",
-    Estrellas: 0,
-    Comentario: "",
+
+// Hardcoaded ejemplos de viajes:
+
+const Viaje_Japon = {
+  nombre: "Al Sol Naciente...",
+  imagen: scr="../Viaje_a_Japon.png",
+  descripcion:"Algo sobre el viaje a Japón...Algo sobre el viaje a Japón...Algo sobre el viaje a Japón...Algo sobre el viaje a Japón...",
+  destinacion: "Tokyo, Kyoto, Osaka",
+  fecha: "2025-06-15",
+  precio: "5000€",
+  resenyas: [
+    {
+      fecha_resenya: "02/02/2022",
+      autor: "Alice",
+      comentario: "Amazing trip! Loved the temples and food.",
+      estrellas: 5
+    },
+    {
+      fecha_resenya: "01/01/2020",
+      autor: "Bob",
+      comentario: "Great experience, but a bit crowded.",
+      estrellas: 4
+    }
+  ],
+  rating: 4.5
+};
+const Viaje_Tierra_del_Fuego = {
+  nombre: "Al Fin del Mundo",
+  imagen: scr="../Tierra_del_Fuego.png",
+  descripcion:"Algo sobre el viaje a la TF...Algo sobre el viaje a la TF...Algo sobre el viaje a la TF...Algo sobre el viaje a la TF...",
+  destinacion: "Well, Idk, some places in Argentina...",
+  fecha: "2026-09-19",
+  precio: "2400€",
+  resenya: [
+    {
+      fecha_resenya: "02/02/2022",
+      autor: "Alice",
+      comentario: "Amazing trip! Loved the temples and food.",
+      estrellas: 5
+    },
+    {
+      fecha_resenya: "01/01/2020",
+      autor: "Bob",
+      comentario: "Great experience, but a bit crowded.",
+      estrellas: 4
+    }
+  ],
+  rating: 4.5
 };
 
-// Mostrar ventana de reseña
 function Mostrar_Ventana_Reseña() {
     document.getElementById('alerta_reseña').style.display = 'block';
 }
 
-// Ocultar ventana de reseña
 function Quitar_Ventana_Reseña() {
     document.getElementById('alerta_reseña').style.display = 'none';
 }
 
-// Guardar reseña
 function RESEÑAR() {
-    Reseña.Fecha = document.getElementById("fecha_reseña").value;
-    Reseña.Estrellas = document.getElementById("estrellas_reseña").value;
-    Reseña.Comentario = document.getElementById("comentario_reseña").value;
-
-    if (Reseña.Fecha === "" || Reseña.Estrellas === 0 || Reseña.Comentario === "") {
-        alert("Por favor, completa todos los campos antes de enviar la reseña.");
-        return;
+  resenya = {
+      fecha_resenya: "",
+      autor: "",
+      comentario: "",
+      estrellas: ""
     }
-
-    console.log("Nueva reseña registrada:", Reseña);
-
-    // Aquí podrías añadir la reseña al contenedor en la página
-    const contenedor = document.getElementById("contenedor_reseñas");
-    const nuevaReseña = document.createElement("div");
-    nuevaReseña.classList.add("reseña");
-
-    nuevaReseña.innerHTML = `
-        <div class="contenedor_datos_reseña">
-            <span class="usuario_viaje">Usuario</span>
-            <span class="fecha_reseña">${Reseña.Fecha}</span>
-            <span class="estrellas_viaje">${"⭐".repeat(Reseña.Estrellas)}</span>
-        </div>
-        <span class="texto_reseña">${Reseña.Comentario}</span>
-    `;
-
-    contenedor.appendChild(nuevaReseña);
-
-    // Cerrar ventana y limpiar campos
-    Quitar_Ventana_Reseña();
-    document.getElementById("fecha_reseña").value = "";
-    document.getElementById("estrellas_reseña").value = 0;
-    document.getElementById("comentario_reseña").value = "";
+    resenya.fecha_resenya = document.getElementById("fecha_reseña").value;
+    resenya.comentario = document.getElementById("comentario_reseña").value
+    resenya.estrellas = document.getElementById("estrellas_reseña").value
+  Viaje_Japon.resenyas.push(resenya)
+  console.log(Viaje_Japon.resenyas)
+  Renovar_resenyas()
+  Quitar_Ventana_Reseña()
 }
 
-// Poner las estrellas amarillas y el valor
-function marcarEstrellas(valor) {
-    Reseña.Estrellas = valor;
-    
-    for (let i = 1; i <= 5; i++) {
-        document.getElementById("estrella_" + i).style.color =
-        i <= Reseña.Estrellas ? "yellow" : "black";
-    }
+// Funciones para la ventana de pago
+function abrirCardModal() {
+  document.getElementById("overlay").style.display = "flex";
 }
+function cerrarCardModal() {
+  document.getElementById("overlay").style.display = "none";
+}
+function submitCard() {
+  alert("Card data submitted (demo only — not real processing).");
+  cerrarCardModal();
+}
+
+window.document.getElementById("titulo_pagina").innerHTML = Viaje_Japon.nombre
+window.document.getElementById("titulo_viaje").innerHTML = Viaje_Japon.nombre
+window.document.getElementById("precio_viaje").innerHTML = Viaje_Japon.precio
+window.document.getElementById("imagen_viaje").src = Viaje_Japon.imagen
+window.document.getElementById("descripción_viaje").innerHTML = Viaje_Japon.descripcion
+
+function Renovar_resenyas () {
+  htmlpa = "";
+  for (i = 0; i < Viaje_Japon.resenyas.length; i++) {
+    var estrellas = "";
+    for (ii = 0; ii < Viaje_Japon.resenyas[i].estrellas; ii++) {
+      estrellas += "⭐"
+    }
+    htmlpa += "<div class='reseña'>" +
+    "<div class='contenedor_datos_reseña'>" + 
+    "<span class='usuario_viaje' id='usuario_1'>" + Viaje_Japon.resenyas[i].autor + "</span>" +
+    "<span id='fecha_1'>" + Viaje_Japon.resenyas[i].fecha_resenya + "</span>" +
+    "<span class='estrellas_viaje' id='estrellas_1'>" + estrellas + "</span>" +
+    "</div><span class='texto_reseña'>" + Viaje_Japon.resenyas[i].comentario + "</span></div>";
+  }
+  document.getElementById("contenedor_reseñas").innerHTML = htmlpa;
+}
+
+window.Renovar_resenyas()
+
