@@ -99,6 +99,7 @@ body {
 }
 
 img.viajes {
+    background-image: url(../img/inexistente.png);
     width: 100%;
     height: 275px;
     object-fit: cover;
@@ -152,3 +153,4 @@ footer .redes a {
 footer .redes a:hover {
     text-decoration: underline;
 }
+
