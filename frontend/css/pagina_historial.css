@@ -1,19 +1,77 @@
-#header{display: flex; justify-content: space-between;
-    background-color: lightslategray;  height: 30px;
+body {
+    font-family: Arial;
+    user-select: none;
+    font-size: 16px;
 }
-#viajes_pend{margin-top: 5%;}
-#viajes_realiz{margin-top: 10%;}
-.lista_de_viajes{border: 1px solid black;
-    margin-left: auto; margin-right: auto;
+
+
+
+#header{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(186, 198, 210);
+    height: 30px;
+}
+#viajes_pend{
+    margin-top: 5%;
+}
+#viajes_realiz{
+    margin-top: 10%;
+}
+div.lista_de_viajes{
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
     width:90%; height: 100px;
 }
-.caja_info_viaje{display:flex; justify-content: space-between; flex-direction: row
+div.caja_info_viaje{
+    display:flex;
+    justify-content: space-between;
+    flex-direction: row
 }
-.boton_de_eliminar{background-image: url(../bin.png); background-size: contain;
+button.boton_de_eliminar{
+    background-image: url(../img/bin.png);
+    background-size: contain;
     background-repeat: no-repeat;
     width: 20px; height: 20px;
 }
-.boton_reseña{background-image: url(../scroll.png); background-size: contain;
+button.boton_reseña{
+    background-image: url(../img/scroll.png);
+    background-size: contain;
     background-repeat: no-repeat;
     width: 30px; height: 30px;
+}
+
+
+
+@media (min-width: 1920px) {
+    body {
+        font-size: 28px;
+    }
+    div.lista_de_viajes{
+        border: 2px solid black;
+        height: 200px;
+    }
+    button.boton_de_eliminar{
+        width: 40px; height: 40px;
+    }
+    button.boton_reseña{
+        width: 60px; height: 60px;
+    }
+}
+
+@media (min-width: 2560px) {
+    body {
+        font-size: 40px;
+    }
+    div.lista_de_viajes{
+        border: 2.5px solid black;
+        height: 250px;
+    }
+    button.boton_de_eliminar{
+        width: 50px; height: 50px;
+    }
+    button.boton_reseña{
+        width: 75px; height: 75px;
+    }
 }
