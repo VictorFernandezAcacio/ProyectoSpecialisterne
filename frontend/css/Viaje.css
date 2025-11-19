@@ -180,3 +180,186 @@ footer .redes {
     cursor: pointer;
     color: black;
 }
+
+
+@media (min-width: 1920px) {
+    body {
+        font-size: 28px;
+    }
+    #logo {
+        height: 120px;
+    }
+    #banner {
+        height: 500px;
+        margin-bottom: 40px;
+    }
+    #texto_banner h1 {
+        font-size: 72px;
+        margin: 0;
+    }
+    #texto_banner p {
+        font-size: 36px;
+        margin-top: 20px;
+    }
+    #toda_información {
+        margin: 80px auto;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #div_img img {
+        width: 600px;
+        border-radius: 20px;
+        margin-right: 40px;
+    }
+    #información_viaje {
+        flex: 1;
+    }
+    #título_estrellas_precio {
+        margin-top: 40px;
+    }
+    #título_viaje {
+        font-size: 48px;
+    }
+    #precio_viaje {
+        font-size: 40px;
+    }
+    button {
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 16px 30px;
+    }
+    #reseñas {
+        margin: 80px auto;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #título_reseña {
+        font-size: 40px;
+    }
+    .reseña {
+        border-bottom: 2px solid #ccc;
+        padding: 30px 0;
+    }
+    .contenedor_datos_reseña {
+        font-size: 28px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .texto_reseña {
+        font-size: 28px;
+        line-height: 2.8;
+    }
+    .contenido_alerta_borrar {
+        padding: 40px;
+        border-radius: 16px;
+        width: 1000px;
+        margin: 200px auto;
+    }
+    textarea {
+        height: 400px;
+        width: 800px;
+    }
+    footer {
+        padding: 40px;
+        margin-top: 100px;
+        font-size: 28px;
+    }
+    footer p {
+        margin: 10px 0;
+    }
+    footer .redes {
+        margin-top: 20px;
+    }
+}
+
+@media (min-width: 2560px) {
+    #logo {
+        height: 150px;
+    }
+    #banner {
+        height: 625px;
+        margin-bottom: 50px;
+    }
+    #texto_banner h1 {
+        font-size: 90px;
+    }
+    #texto_banner p {
+        font-size: 45px;
+        margin-top: 25px;
+    }
+    #toda_información {
+        margin: 100px auto;
+        padding: 50px;
+        border-radius: 25px;
+        box-shadow: 0 5px 12.5px rgba(0,0,0,0.1);
+    }
+    #div_img img {
+        width: 750px;
+        border-radius: 25px;
+        margin-right: 50px;
+    }
+    #información_viaje {
+        flex: 1;
+    }
+    #título_estrellas_precio {
+        margin-top: 50px;
+    }
+    #título_viaje {
+        font-size: 60px;
+    }
+    #precio_viaje {
+        font-size: 50px;
+    }
+    button {
+        border: 2.5px solid black;
+        border-radius: 25px;
+        padding: 20px 37.5px;
+    }
+    #reseñas {
+        margin: 100px auto;
+        padding: 50px;
+        border-radius: 25px;
+        box-shadow: 0 5px 12.5px rgba(0,0,0,0.1);
+    }
+    #título_reseña {
+        font-size: 50px;
+    }
+    .reseña {
+        border-bottom: 2.5px solid #ccc;
+        padding: 37.5px 0;
+    }
+    .contenedor_datos_reseña {
+        font-size: 35px;
+        margin-bottom: 25px;
+        padding: 12.5px;
+        border-radius: 12.5px;
+    }
+    .texto_reseña {
+        font-size: 35px;
+        line-height: 3.5;
+    }
+
+    .contenido_alerta_borrar {
+        padding: 50px;
+        border-radius: 20px;
+        width: 1250px;
+        margin: 250px auto;
+    }
+    textarea {
+        height: 500px;
+        width: 1000px;
+    }
+    footer {
+        padding: 50px;
+        margin-top: 125px;
+        font-size: 35px;
+    }
+    footer p {
+        margin: 12.5px 0;
+    }
+    footer .redes {
+        margin-top: 25px;
+    }
