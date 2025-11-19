@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/Viaje.css">
-    <link rel="stylesheet" href="../css/barra_superior.css">
-    <script src="../js/Viaje.js defer"></script>
+    <link rel="stylesheet" href="../css/barra superior.css">
+    <script src="../js/Viaje.js" defer></script>
     <title>Viaje</title>
 </head>
 <body>
@@ -36,7 +36,15 @@
             <div id="título_estrellas_precio">
                 <div>
                     <div><span id="título_viaje">Lorem ipsum</span></div>
-                    <div><span id="estrellas_viaje">⭐⭐⭐⭐⭐</span></div>
+                    <div>
+                        <div id="estrellas_viaje">
+                            <span class="estrella" id="estrella_1" onclick="marcarEstrellas(1)">★</span>
+                            <span class="estrella" id="estrella_2" onclick="marcarEstrellas(2)">★</span>
+                            <span class="estrella" id="estrella_3" onclick="marcarEstrellas(3)">★</span>
+                            <span class="estrella" id="estrella_4" onclick="marcarEstrellas(4)">★</span>
+                            <span class="estrella" id="estrella_5" onclick="marcarEstrellas(5)">★</span>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div><span id="precio_viaje">500€</span></div>
