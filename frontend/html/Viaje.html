@@ -40,8 +40,11 @@
         </div>
         <div>
           <div><span id="precio_viaje"></span></div>
-          <button>Comprar</button>
         </div>
+      </div>
+      <!-- Botón comprar en su propia línea -->
+      <div class="boton_compra_linea">
+        <button onclick="MostrarCompra()">Comprar</button>
       </div>
     </div>
   </section>
@@ -50,13 +53,16 @@
   <section id="resenas">
     <div id="contenedor_linea">
       <div id="contenedor_superior_linea">
-        <div></div>
         <div id="titulo_resena">RESENAS</div>
-        <button onclick="MostrarVentanaResena()" id="btn_nueva_resena">Nueva Resena</button>
       </div>
       <div id="linea"></div>
     </div>
     <div id="contenedor_resenas"></div>
+
+    <!-- Botón nueva reseña en su propia línea -->
+    <div class="boton_resena_linea">
+      <button onclick="MostrarVentanaResena()" id="btn_nueva_resena">Nueva Resena</button>
+    </div>
 
     <!-- Ventana nueva reseña -->
     <div id="alerta_resena">
@@ -71,6 +77,21 @@
       </div>
     </div>
   </section>
+
+  <!-- Ventana compra -->
+  <div id="alerta_compra">
+    <div class="contenido_alerta_compra">
+      <h2>Finalizar compra</h2>
+      <label for="nombre">Nombre completo:</label><br>
+      <input type="text" id="nombre" name="nombre"><br><br>
+      <label for="email">Correo electronico:</label><br>
+      <input type="email" id="email" name="email"><br><br>
+      <label for="tarjeta">Numero de tarjeta:</label><br>
+      <input type="text" id="tarjeta" name="tarjeta"><br><br>
+      <button onclick="ConfirmarCompra()">Confirmar</button><br><br>
+      <button onclick="QuitarCompra()">Cancelar</button>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer>
