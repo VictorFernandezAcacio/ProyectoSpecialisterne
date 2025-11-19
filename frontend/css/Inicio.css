@@ -85,7 +85,7 @@ body {
 
 .viajes {
     border: 1px solid black;
-    width: 275px;
+    width: 250px;
     height: 350px;
     display: flex;
     flex-direction: column;
@@ -102,6 +102,8 @@ img.viajes {
     width: 100%;
     height: 275px;
     object-fit: cover;
+
+    background-image: url(../img/inexistente.png);
 }
 
 .titulo_viaje {
@@ -151,4 +153,147 @@ footer .redes a {
 
 footer .redes a:hover {
     text-decoration: underline;
+}
+
+
+
+@media (min-width: 1920px) {
+    body {
+        font-size: 28px;
+    }
+    #logo {
+        height: 120px;
+    }
+    #banner {
+        height: 600px;
+        margin-bottom: 40px;
+    }
+    #texto_banner {
+        padding: 40px;
+        border-radius: 20px;
+    }
+    #texto_banner h1 {
+        font-size: 72px;
+    }
+    #texto_banner p {
+        font-size: 36px;
+        margin-top: 20px;
+    }
+    #centrar {
+        margin-top: 40px;
+    }
+    #descuentos {
+        border: 2px solid black;
+        height: 120px;
+    }
+    .contenido_viajes {
+        margin: 40px auto;
+    }
+    .viajes {
+        border: 2px solid black;
+        width: 380px;
+        height: 600px;
+        margin: 20px;
+    }
+    .viajes:hover {
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    img.viajes {
+        height: 550px;
+        background-image: url(../img/inexistente.png);
+    }
+    .titulo_viaje {
+        font-size: 40px;
+        margin-top: 10px;
+    }
+    .precio_estrellas {
+        padding: 0 20px;
+        margin-top: 20px;
+        font-size: 32px;
+    }
+    footer {
+        padding: 40px;
+        margin-top: 100px;
+        font-size: 28px;
+    }
+    footer p {
+        margin: 10px 0;
+    }
+    footer .redes {
+        margin-top: 20px;
+    }
+    footer .redes a {
+        margin: 0 20px;
+    }
+}
+
+@media (min-width: 2560px) {
+    body {
+        font-size: 40px;
+    }
+    #logo {
+        height: 150px;
+    }
+    #banner {
+        height: 750px;
+        margin-bottom: 50px;
+    }
+    #texto_banner {
+        padding: 50px;
+    }
+
+    #texto_banner h1 {
+        font-size: 90px;
+    }
+
+    #texto_banner p {
+        font-size: 45px;
+        margin-top: 25px;
+    }
+    #centrar {
+        margin-top: 50px;
+    }
+    #descuentos {
+        border: 2.5px solid black;
+        height: 150px;
+    }
+    .contenido_viajes {
+        margin: 50px auto;
+    }
+    .viajes {
+        border: 2.5px solid black;
+        width: 510px;
+        height: 800px;
+        margin: 25px;
+    }
+    .viajes:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    img.viajes {
+        height: 687.5px;
+        background-image: url(../img/inexistente.png);
+    }
+    .titulo_viaje {
+        font-size: 50px;
+        margin-top: 12.5px;
+    }
+    .precio_estrellas {
+        padding: 0 25px;
+        margin-top: 25px;
+        font-size: 40px;
+    }
+    footer {
+        padding: 50px;
+        margin-top: 125px;
+        font-size: 35px;
+    }
+    footer p {
+        margin: 12.5px 0;
+    }
+    footer .redes {
+        margin-top: 25px;
+    }
+    footer .redes a {
+        margin: 0 25px;
+    }
 }
