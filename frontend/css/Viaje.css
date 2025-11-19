@@ -276,6 +276,9 @@ footer .redes {
 }
 
 @media (min-width: 2560px) {
+    body {
+        font-size: 40px;
+    }
     #logo {
         height: 150px;
     }
@@ -363,3 +366,4 @@ footer .redes {
     footer .redes {
         margin-top: 25px;
     }
+}
