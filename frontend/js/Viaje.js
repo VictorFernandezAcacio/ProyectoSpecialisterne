@@ -1,4 +1,4 @@
-// Datos de viajes
+// -------------------- Datos de viajes --------------------
 const viajes = {
   1: {
     titulo: "Viaje 1",
@@ -20,12 +20,26 @@ const viajes = {
     precio: "700€",
     descripcion: "Paquete completo con actividades.",
     imagen: "../img/viaje3.jpg"
+  },
+  4: {
+    titulo: "Viaje 4",
+    estrellas: "⭐⭐⭐",
+    precio: "450€",
+    descripcion: "Escapada económica con alojamiento básico.",
+    imagen: "../img/viaje4.jpg"
+  },
+  5: {
+    titulo: "Viaje 5",
+    estrellas: "⭐⭐⭐⭐",
+    precio: "800€",
+    descripcion: "Viaje de lujo con todo incluido.",
+    imagen: "../img/viaje5.jpg"
   }
-  // Añade más viajes aquí
+  // Añade más viajes aquí si lo necesitas
 };
 
+// -------------------- Cargar datos dinámicos --------------------
 document.addEventListener("DOMContentLoaded", () => {
-  // Obtener id de la URL
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   const viaje = viajes[id];
@@ -42,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Reseñas
+// -------------------- Ventana reseñas --------------------
 const Resena = { Fecha: "", Estrellas: 0, Comentario: "" };
 
 function MostrarVentanaResena() {
@@ -57,7 +71,7 @@ function Resenar() {
   Resena.Comentario = document.getElementById("comentario_resena").value;
 
   if (Resena.Fecha === "" || Resena.Estrellas == 0 || Resena.Comentario === "") {
-    alert("Por favor, completa todos los campos antes de enviar la resena.");
+    alert("Por favor, completa todos los campos antes de enviar la reseña.");
     return;
   }
 
@@ -78,4 +92,30 @@ function Resenar() {
   document.getElementById("fecha_resena").value = "";
   document.getElementById("estrellas_resena").value = 0;
   document.getElementById("comentario_resena").value = "";
+}
+
+// -------------------- Ventana compra --------------------
+function MostrarCompra() {
+  document.getElementById('alerta_compra').style.display = 'block';
+}
+function QuitarCompra() {
+  document.getElementById('alerta_compra').style.display = 'none';
+}
+function ConfirmarCompra() {
+  const nombre = document.getElementById("nombre").value;
+  const email = document.getElementById("email").value;
+  const tarjeta = document.getElementById("tarjeta").value;
+
+  if (nombre === "" || email === "" || tarjeta === "") {
+    alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  alert("Compra realizada con éxito. Gracias por confiar en Bug Travel.");
+  QuitarCompra();
+
+  // Limpiar campos
+  document.getElementById("nombre").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("tarjeta").value = "";
 }
