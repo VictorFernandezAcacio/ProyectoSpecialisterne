@@ -50,3 +50,13 @@ function RESEÑAR() {
     document.getElementById("estrellas_reseña").value = 0;
     document.getElementById("comentario_reseña").value = "";
 }
+
+// Poner las estrellas amarillas y el valor
+function marcarEstrellas(valor) {
+    Reseña.Estrellas = valor;
+    
+    for (let i = 1; i <= 5; i++) {
+        document.getElementById("estrella_" + i).style.color =
+        i <= Reseña.Estrellas ? "yellow" : "black";
+    }
+}
