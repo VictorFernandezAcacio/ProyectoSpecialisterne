@@ -1,13 +1,61 @@
+/* Estilo general */
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     user-select: none;
+    background-color: #FFFDD0;
+    margin: 0;
+    padding: 0;
 }
 
+/* Logo más pequeño */
+#logo {
+    height: 60px;
+    width: auto;
+}
 
+/* Banner arriba */
+#banner {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#texto_banner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    background: rgba(0,0,0,0.4);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#texto_banner h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+#texto_banner p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* Descuentos */
 #centrar {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
 }
 
 #descuentos {
@@ -15,48 +63,92 @@ body {
     background-color: rgb(230, 230, 230);
     height: 60px;
     width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 #img_descuentos {
     height: 100%;
     width: 100%;
+    object-fit: cover;
 }
 
+/* Viajes */
+.contenido_viajes {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px auto;
+    width: 90%;
+    flex-wrap: wrap;
+}
 
-
-div.viajes {
+.viajes {
     border: 1px solid black;
     width: 275px;
     height: 350px;
-
-    display: inline-block;
-}
-div.contenido_viajes {
     display: flex;
-    justify-content: space-around;
-
-    margin-top: 20px;
+    flex-direction: column;
+    margin: 10px;
+    transition: transform 0.2s ease-in-out;
 }
+
+.viajes:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
 img.viajes {
-    background-image: url(../img/inexistente.png)
-    width: 275px;
+    width: 100%;
     height: 275px;
+    object-fit: cover;
 }
-div.titulo_viaje {
-    font-weight: bold;
-    font-size: 24px;
 
-    display: flex;
-    justify-content: center;
+.titulo_viaje {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 5px;
 }
-div.precio_estrellas {
+
+.precio_estrellas {
     display: flex;
     justify-content: space-between;
-    
+    padding: 0 10px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+a.enlace_viaje {
+    color: black;
+    text-decoration: none;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    font-size: 14px;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer .redes {
     margin-top: 10px;
 }
 
-a.enlace_viaje{
-    color: black;
-
+footer .redes a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
 }
 
+footer .redes a:hover {
+    text-decoration: underline;
+}
