@@ -37,6 +37,7 @@ div.contenido_viajes {
     margin-top: 20px;
 }
 img.viajes {
+    background-image: url(../img/inexistente.png)
     width: 275px;
     height: 275px;
 }
@@ -58,3 +59,4 @@ a.enlace_viaje{
     color: black;
 
 }
+
