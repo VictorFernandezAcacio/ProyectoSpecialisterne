@@ -1,89 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Viaje.css">
-    <link rel="stylesheet" href="../css/barra superior.css">
-    <script src="Viaje.js" defer></script>
-    <title id="titulo_pagina">[Nombre del viaje]</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/Viaje.css">
+  <link rel="stylesheet" href="../css/barra_superior.css">
+  <script src="../js/Viaje.js" defer></script>
+  <title>Viaje</title>
 </head>
 <body>
-    <div id="barra_superior">
-        <a href="Inicio.html"><img id="logo" src="../.png" alt="logo"></a>
-        <div id="hueco_buscador"></div>
-        <div id="div_derecha_barra_superior">
-            <a href="Historial.html"><button>RESERVAS</button></a>
-            <a href="Inicio de sesión.html"><button>Iniciar Sesión</button></a>
-        </div>
+  <!-- Barra superior -->
+  <div id="barra_superior">
+    <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
+    <div id="hueco_buscador"></div>
+    <div id="div_derecha_barra_superior">
+      <a href="pagina_historial.html"><button>RESERVAS</button></a>
+      <a href="Inicio de sesion.html"><button>Iniciar Sesion</button></a>
     </div>
-    <div id="espacio_barra_superior"></div>
-    <div id="toda_información">
-        <div id="div_img"><img src="../.png" alt="" id="imagen_viaje"></div>
-        <div id="información_viaje">
-            <span id="descripción_viaje">Descripción del viaje...Descripción del viaje...Descripción del viaje...Descripción del viaje...</span>
-            <div id="título_estrellas_precio">
-                <div>
-                    <div><span id="titulo_viaje">[Titulo del viaje]</span></div>
-                    <div><span id="estrellas_viaje">⭐⭐⭐⭐⭐</span></div>
-                </div>
-                <div>
-                    <div><span id="precio_viaje">500€</span></div>
-                    <button onclick="abrirCardModal()">Comprar</button>
-                </div>
-            </div>
-        </div>
+  </div>
+  <div id="espacio_barra_superior"></div>
+
+  <!-- Banner arriba -->
+  <div id="banner">
+    <div id="texto_banner">
+      <h1 id="titulo_banner">Detalles del Viaje</h1>
+      <p>Explora la experiencia completa de tu destino</p>
     </div>
+  </div>
 
-    <div id="overlay">
-    <div id="card-modal">
-    <h2>Detalles de pago</h2>
-
-    <label>Nombre del titular</label>
-    <input type="text" id="cardName" placeholder="John Doe">
-
-    <label>Número de tarjeta</label>
-    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
-
-    <div class="row">
-      <div>
-        <label>Fecha de vencimento</label>
-        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
-      </div>
-      <div>
-        <label>CVV</label>
-        <input type="password" id="cvv" placeholder="123" maxlength="4">
+  <!-- Información del viaje -->
+  <section id="toda_informacion">
+    <div id="div_img"><img src="" alt="Imagen del viaje" id="imagen_viaje"></div>
+    <div id="informacion_viaje">
+      <span id="descripcion_viaje"></span>
+      <div id="titulo_estrellas_precio">
+        <div>
+          <div><span id="titulo_viaje"></span></div>
+          <div><span id="estrellas_viaje"></span></div>
+        </div>
+        <div>
+          <div><span id="precio_viaje"></span></div>
+          <button>Comprar</button>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="buttons">
-      <button class="btn-cancel" onclick="cerrarCardModal()">Cancel</button>
-      <button class="btn-submit" onclick="submitCard()">Submit</button>
+  <!-- Reseñas -->
+  <section id="resenas">
+    <div id="contenedor_linea">
+      <div id="contenedor_superior_linea">
+        <div></div>
+        <div id="titulo_resena">RESENAS</div>
+        <button onclick="MostrarVentanaResena()" id="btn_nueva_resena">Nueva Resena</button>
+      </div>
+      <div id="linea"></div>
     </div>
-    </div>
-    </div>
+    <div id="contenedor_resenas"></div>
 
-    <div id="reseñas">
-        <div id="contenedor_linea">
-            <div id="contenedor_superior_linea">
-                <div></div>
-                <div id="título_reseña">RESEÑAS</div>
-                <button onclick="Mostrar_Ventana_Reseña()" id="btn_nueva_reseña">Nueva Reseña</button>
-            </div>
-            <div id="linea"></div>
-        </div>
-        <div id="contenedor_reseñas"></div>
-        <div id="alerta_reseña">
-            <div class="contenido_alerta_borrar">
-                <label for="fecha_reseña">Fecha: </label>
-                <input type="date" id="fecha_reseña" name="fecha_reseña">
-                <label for="estrellas_reseña">Estrellas: </label>
-                <input type="number" id="estrellas_reseña" name="estrellas_reseña" min="1" max="5" value="0"><br><br>
-                <textarea name="comentario" id="comentario_reseña" maxlength="500"></textarea><br><br>
-                <button onclick="RESEÑAR()">RESEÑAR</button><br><br>
-                <button onclick="Quitar_Ventana_Reseña()">Cancelar</button>
-            </div>
-        </div>
+    <!-- Ventana nueva reseña -->
+    <div id="alerta_resena">
+      <div class="contenido_alerta_borrar">
+        <label for="fecha_resena">Fecha: </label>
+        <input type="date" id="fecha_resena" name="fecha_resena">
+        <label for="estrellas_resena">Estrellas: </label>
+        <input type="number" id="estrellas_resena" name="estrellas_resena" min="1" max="5" value="0"><br><br>
+        <textarea name="comentario" id="comentario_resena" maxlength="500"></textarea><br><br>
+        <button onclick="Resenar()">Resenar</button><br><br>
+        <button onclick="QuitarVentanaResena()">Cancelar</button>
+      </div>
     </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Bug Travel. Todos los derechos reservados.</p>
+    <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
+    <p>Direccion: Calle Ejemplo 123, Barcelona, Espana</p>
+    <div class="redes">
+      <a href="https://facebook.com" target="_blank">Facebook</a>
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
 </body>
 </html>

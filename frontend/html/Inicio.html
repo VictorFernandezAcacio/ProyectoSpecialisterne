@@ -1,140 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/Inicio.css">
-    <link rel="stylesheet" href="../css/barra_superior.css">
-    <title>Inicio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/Inicio.css">
+  <link rel="stylesheet" href="../css/barra_superior.css">
+  <title>Inicio</title>
 </head>
 <body>
-    <!-- Barra superior -->
-    <div id="barra_superior">
-        <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
-        <div id="buscador">BUSCADOR</div>
-        <div id="div_derecha_barra_superior">
-            <a href="pagina_historial.html"><button>RESERVAS</button></a>
-            <a href="Inicio de sesión.html"><button>Iniciar Sesión</button></a>
-        </div>
+  <!-- Barra superior -->
+  <div id="barra_superior">
+    <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
+    <div id="buscador">BUSCADOR</div>
+    <div id="div_derecha_barra_superior">
+      <a href="pagina_historial.html"><button>RESERVAS</button></a>
+      <a href="Inicio de sesion.html"><button>Iniciar Sesion</button></a>
     </div>
-    <div id="espacio_barra_superior"></div>
+  </div>
+  <div id="espacio_barra_superior"></div>
 
-    <!-- Banner arriba -->
-    <div id="banner">
-        <img src="../img/banner.jpg" alt="Banner principal">
-        <div id="texto_banner">
-            <h1>Bienvenido a Bug Travel</h1>
-            <p>Descubre tus próximas aventuras con nosotros</p>
-        </div>
+  <!-- Banner arriba -->
+  <div id="banner">
+    <img src="../img/banner.jpg" alt="Banner principal">
+    <div id="texto_banner">
+      <h1>Bienvenido a Bug Travel</h1>
+      <p>Descubre tus proximas aventuras con nosotros</p>
     </div>
+  </div>
 
-    <!-- Descuentos -->
-    <div id="centrar">
-        <div id="descuentos"></div>
+  <!-- Descuentos -->
+  <div id="centrar">
+    <div id="descuentos"></div>
+  </div>
+
+  <!-- Bloques de viajes -->
+  <div class="contenido_viajes">
+    <a href="viaje.html?id=1" class="enlace_viaje">
+      <div class="viajes">
+        <img src="../img/viaje1.jpg" alt="Viaje 1" class="viajes">
+        <div class="titulo_viaje"><span>VIAJE 1</span></div>
+        <div class="precio_estrellas"><span>500€</span><span>⭐⭐⭐⭐⭐</span></div>
+      </div>
+    </a>
+    <a href="viaje.html?id=2" class="enlace_viaje">
+      <div class="viajes">
+        <img src="../img/viaje2.jpg" alt="Viaje 2" class="viajes">
+        <div class="titulo_viaje"><span>VIAJE 2</span></div>
+        <div class="precio_estrellas"><span>650€</span><span>⭐⭐⭐⭐</span></div>
+      </div>
+    </a>
+    <a href="viaje.html?id=3" class="enlace_viaje">
+      <div class="viajes">
+        <img src="../img/viaje3.jpg" alt="Viaje 3" class="viajes">
+        <div class="titulo_viaje"><span>VIAJE 3</span></div>
+        <div class="precio_estrellas"><span>700€</span><span>⭐⭐⭐⭐⭐</span></div>
+      </div>
+    </a>
+    <a href="viaje.html?id=4" class="enlace_viaje">
+      <div class="viajes">
+        <img src="../img/viaje4.jpg" alt="Viaje 4" class="viajes">
+        <div class="titulo_viaje"><span>VIAJE 4</span></div>
+        <div class="precio_estrellas"><span>450€</span><span>⭐⭐⭐</span></div>
+      </div>
+    </a>
+    <a href="viaje.html?id=5" class="enlace_viaje">
+      <div class="viajes">
+        <img src="../img/viaje5.jpg" alt="Viaje 5" class="viajes">
+        <div class="titulo_viaje"><span>VIAJE 5</span></div>
+        <div class="precio_estrellas"><span>800€</span><span>⭐⭐⭐⭐</span></div>
+      </div>
+    </a>
+    <a href="viaje.html?id=6" class="enlace_viaje">
+      <div class="viajes">
+        <img src="../img/viaje6.jpg" alt="Viaje 6" class="viajes">
+        <div class="titulo_viaje"><span>VIAJE 6</span></div>
+        <div class="precio_estrellas"><span>600€</span><span>⭐⭐⭐⭐⭐</span></div>
+      </div>
+    </a>
+    <a href="viaje.html?id=7" class="enlace_viaje">
+      <div class="viajes">
+        <img src="../img/viaje7.jpg" alt="Viaje 7" class="viajes">
+        <div class="titulo_viaje"><span>VIAJE 7</span></div>
+        <div class="precio_estrellas"><span>550€</span><span>⭐⭐⭐</span></div>
+      </div>
+    </a>
+    <a href="viaje.html?id=8" class="enlace_viaje">
+      <div class="viajes">
+        <img src="../img/viaje8.jpg" alt="Viaje 8" class="viajes">
+        <div class="titulo_viaje"><span>VIAJE 8</span></div>
+        <div class="precio_estrellas"><span>900€</span><span>⭐⭐⭐⭐⭐</span></div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Bug Travel. Todos los derechos reservados.</p>
+    <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
+    <p>Direccion: Calle Ejemplo 123, Barcelona, Espana</p>
+    <div class="redes">
+      <a href="https://facebook.com" target="_blank">Facebook</a>
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
     </div>
+  </footer>
 
-    <!-- Bloques de viajes fila 1 -->
-    <div class="contenido_viajes">
-        <a href="#" class="enlace_viaje">
-            <div class="viajes">
-                <img src="../img/viaje1.jpg" alt="Viaje 1" class="viajes">
-                <div class="titulo_viaje"><span>VIAJE 1</span></div>
-                <div class="precio_estrellas">
-                    <span>500€</span>
-                    <span>⭐⭐⭐⭐⭐</span>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="enlace_viaje">
-            <div class="viajes">
-                <img src="../img/viaje2.jpg" alt="Viaje 2" class="viajes">
-                <div class="titulo_viaje"><span>VIAJE 2</span></div>
-                <div class="precio_estrellas">
-                    <span>650€</span>
-                    <span>⭐⭐⭐⭐</span>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="enlace_viaje">
-            <div class="viajes">
-                <img src="../img/viaje3.jpg" alt="Viaje 3" class="viajes">
-                <div class="titulo_viaje"><span>VIAJE 3</span></div>
-                <div class="precio_estrellas">
-                    <span>700€</span>
-                    <span>⭐⭐⭐⭐⭐</span>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="enlace_viaje">
-            <div class="viajes">
-                <img src="../img/viaje4.jpg" alt="Viaje 4" class="viajes">
-                <div class="titulo_viaje"><span>VIAJE 4</span></div>
-                <div class="precio_estrellas">
-                    <span>450€</span>
-                    <span>⭐⭐⭐</span>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <!-- Bloques de viajes fila 2 -->
-    <div class="contenido_viajes">
-        <a href="#" class="enlace_viaje">
-            <div class="viajes">
-                <img src="../img/viaje5.jpg" alt="Viaje 5" class="viajes">
-                <div class="titulo_viaje"><span>VIAJE 5</span></div>
-                <div class="precio_estrellas">
-                    <span>800€</span>
-                    <span>⭐⭐⭐⭐</span>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="enlace_viaje">
-            <div class="viajes">
-                <img src="../img/viaje6.jpg" alt="Viaje 6" class="viajes">
-                <div class="titulo_viaje"><span>VIAJE 6</span></div>
-                <div class="precio_estrellas">
-                    <span>600€</span>
-                    <span>⭐⭐⭐⭐⭐</span>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="enlace_viaje">
-            <div class="viajes">
-                <img src="../img/viaje7.jpg" alt="Viaje 7" class="viajes">
-                <div class="titulo_viaje"><span>VIAJE 7</span></div>
-                <div class="precio_estrellas">
-                    <span>550€</span>
-                    <span>⭐⭐⭐</span>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="enlace_viaje">
-            <div class="viajes">
-                <img src="../img/viaje8.jpg" alt="Viaje 8" class="viajes">
-                <div class="titulo_viaje"><span>VIAJE 8</span></div>
-                <div class="precio_estrellas">
-                    <span>900€</span>
-                    <span>⭐⭐⭐⭐⭐</span>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Bug Travel. Todos los derechos reservados.</p>
-        <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
-        <p>Dirección: Calle Ejemplo 123, Barcelona, España</p>
-        <div class="redes">
-            <a href="https://facebook.com" target="_blank">🌐 Facebook</a>
-            <a href="https://instagram.com" target="_blank">📸 Instagram</a>
-            <a href="https://linkedin.com" target="_blank">💼 LinkedIn</a>
-        </div>
-    </footer>
-
-    <!-- JS -->
-    <script src="../js/Inicio.js" defer></script>
+  <!-- JS -->
+  <script src="../js/Inicio.js" defer></script>
 </body>
 </html>
-
