@@ -3,59 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/Viaje.css">
+    <link rel="stylesheet" href="Viaje.css">
     <link rel="stylesheet" href="../css/barra superior.css">
-    <script src="../js/Viaje.js" defer></script>
-    <title>Viaje</title>
+    <script src="Viaje.js" defer></script>
+    <title id="titulo_pagina">[Nombre del viaje]</title>
 </head>
 <body>
-    <!-- Barra superior -->
     <div id="barra_superior">
-        <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
+        <a href="Inicio.html"><img id="logo" src="../.png" alt="logo"></a>
         <div id="hueco_buscador"></div>
         <div id="div_derecha_barra_superior">
-            <a href="pagina_historial.html"><button>RESERVAS</button></a>
+            <a href="Historial.html"><button>RESERVAS</button></a>
             <a href="Inicio de sesión.html"><button>Iniciar Sesión</button></a>
         </div>
     </div>
     <div id="espacio_barra_superior"></div>
-
-    <!-- Banner arriba -->
-    <div id="banner">
-        <div id="texto_banner">
-            <h1>Detalles del Viaje</h1>
-            <p>Explora la experiencia completa de tu destino</p>
-        </div>
-    </div>
-
-    <!-- Información del viaje -->
-    <section id="toda_información">
-        <div id="div_img"><img src="../img/viaje1.jpg" alt="Imagen del viaje" id="imagen_viaje"></div>
+    <div id="toda_información">
+        <div id="div_img"><img src="../.png" alt="" id="imagen_viaje"></div>
         <div id="información_viaje">
-            <span id="descripción_viaje">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore quas animi quis corporis et ex labore recusandae totam.</span>
+            <span id="descripción_viaje">Descripción del viaje...Descripción del viaje...Descripción del viaje...Descripción del viaje...</span>
             <div id="título_estrellas_precio">
                 <div>
-                    <div><span id="título_viaje">Lorem ipsum</span></div>
-                    <div>
-                        <div id="estrellas_viaje">
-                            <span class="estrella" id="estrella_1" onclick="marcarEstrellas(1)">★</span>
-                            <span class="estrella" id="estrella_2" onclick="marcarEstrellas(2)">★</span>
-                            <span class="estrella" id="estrella_3" onclick="marcarEstrellas(3)">★</span>
-                            <span class="estrella" id="estrella_4" onclick="marcarEstrellas(4)">★</span>
-                            <span class="estrella" id="estrella_5" onclick="marcarEstrellas(5)">★</span>
-                        </div>
-                    </div>
+                    <div><span id="titulo_viaje">[Titulo del viaje]</span></div>
+                    <div><span id="estrellas_viaje">⭐⭐⭐⭐⭐</span></div>
                 </div>
                 <div>
                     <div><span id="precio_viaje">500€</span></div>
-                    <button>Comprar</button>
+                    <button onclick="abrirCardModal()">Comprar</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Reseñas -->
-    <section id="reseñas">
+    <div id="overlay">
+    <div id="card-modal">
+    <h2>Detalles de pago</h2>
+
+    <label>Nombre del titular</label>
+    <input type="text" id="cardName" placeholder="John Doe">
+
+    <label>Número de tarjeta</label>
+    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+
+    <div class="row">
+      <div>
+        <label>Fecha de vencimento</label>
+        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+      </div>
+      <div>
+        <label>CVV</label>
+        <input type="password" id="cvv" placeholder="123" maxlength="4">
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn-cancel" onclick="cerrarCardModal()">Cancel</button>
+      <button class="btn-submit" onclick="submitCard()">Submit</button>
+    </div>
+    </div>
+    </div>
+
+    <div id="reseñas">
         <div id="contenedor_linea">
             <div id="contenedor_superior_linea">
                 <div></div>
@@ -64,19 +72,7 @@
             </div>
             <div id="linea"></div>
         </div>
-        <div id="contenedor_reseñas">
-            <div class="reseña">
-                <div class="contenedor_datos_reseña">
-                    <span class="usuario_viaje">Goku</span>
-                    <span class="fecha_reseña">1/1/2025</span>
-                    <span class="estrellas_viaje">⭐⭐⭐⭐⭐</span>
-                </div>
-                <span class="texto_reseña">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint eligendi quis culpa laudantium ex fugiat explicabo dolor.</span>
-            </div>
-            <!-- Más reseñas aquí -->
-        </div>
-
-        <!-- Ventana nueva reseña -->
+        <div id="contenedor_reseñas"></div>
         <div id="alerta_reseña">
             <div class="contenido_alerta_borrar">
                 <label for="fecha_reseña">Fecha: </label>
@@ -88,19 +84,6 @@
                 <button onclick="Quitar_Ventana_Reseña()">Cancelar</button>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Bug Travel. Todos los derechos reservados.</p>
-        <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
-        <p>Dirección: Calle Ejemplo 123, Barcelona, España</p>
-        <div class="redes">
-            <a href="https://facebook.com" target="_blank">🌐 Facebook</a>
-            <a href="https://instagram.com" target="_blank">📸 Instagram</a>
-            <a href="https://linkedin.com" target="_blank">💼 LinkedIn</a>
-        </div>
-    </footer>
+    </div>
 </body>
 </html>
-
