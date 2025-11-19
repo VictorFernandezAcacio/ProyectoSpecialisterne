@@ -175,3 +175,8 @@ footer p {
 footer .redes {
     margin-top: 10px;
 }
+
+.estrella {
+    cursor: pointer;
+    color: black;
+}
