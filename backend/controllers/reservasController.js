@@ -6,7 +6,8 @@ exports.crearReserva = async (req, res) => {
   try {
     const result = await pool.query(
       `INSERT INTO reservas (usuario_id, viaje_id, estado) 
-       VALUES ($1, $2, COALESCE($3, 'confirmada')) RETURNING *`,
+       VALUES ($1, $2, COALESCE($3::estado_reserva, 'confirmada'::estado_reserva)) 
+       RETURNING *`,
       [usuario_id, viaje_id, estado]
     );
     res.status(201).json(result.rows[0]);
@@ -43,7 +44,9 @@ exports.actualizarReserva = async (req, res) => {
   const { estado } = req.body;
   try {
     await pool.query(
-      `UPDATE reservas SET estado=$1, fecha_reserva=CURRENT_DATE WHERE id=$2`,
+      `UPDATE reservas 
+       SET estado=$1::estado_reserva, fecha_reserva=CURRENT_DATE 
+       WHERE id=$2`,
       [estado, req.params.id]
     );
     res.json({ message: 'Reserva actualizada' });
