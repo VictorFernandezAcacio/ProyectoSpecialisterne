@@ -1,9 +1,10 @@
-const array_de_usuarios = [];
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { auth } from "./firebaseConfig.js";
 
-function mostrarError(mensaje) {
+function mostrarError(msg) {
   const box = document.getElementById("mensaje_de_error");
   box.style.display = "block";
-  box.textContent = mensaje;
+  box.textContent = msg;
 }
 
 function limpiarError() {
@@ -12,7 +13,7 @@ function limpiarError() {
   box.textContent = "";
 }
 
-function registrarse() {
+async function registrarse() {
   limpiarError();
 
   const usuario = document.getElementById("usuario").value.trim();
@@ -21,42 +22,34 @@ function registrarse() {
   const confirmar = document.getElementById("confirmar_contrasenya").value.trim();
   const fecha_nacimiento = document.getElementById("fecha_de_nacimiento").value;
 
-  if (!usuario || !correo || !contrasenya || !confirmar) {
-    mostrarError("Por favor, complete todos los campos.");
-    return;
+  if (!usuario || !correo || !contrasenya || !confirmar) return mostrarError("Por favor, complete todos los campos.");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return mostrarError("El correo no parece válido.");
+  if (contrasenya.length < 8) return mostrarError("La contraseña es demasiado corta.");
+  if (contrasenya !== confirmar) return mostrarError("Las contraseñas no coinciden.");
+
+  try {
+    // 1. Crear usuario en tu backend (que a su vez lo crea en Firebase)
+    const response = await fetch("http://localhost:3000/usuarios", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        usuario,
+        email: correo,
+        password: contrasenya,      
+        fecha_nacimiento,
+        tipo_usuario: "cliente"
+      })
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Error al crear usuario en la BBDD");
+
+    localStorage.setItem("usuario", JSON.stringify(data));
+    alert("Registro completado. Inicia sesión para continuar.");
+    window.location.href = "./Inicio de sesión.html";
+  } catch (err) {
+    mostrarError(err.message || "Error en el registro");
   }
-
-  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
-  if (!emailValido) {
-    mostrarError("El correo no parece válido.");
-    return;
-  }
-
-  if (contrasenya.length < 8) {
-    mostrarError("La contraseña es demasiado corta.");
-    return;
-  }
-
-  if (contrasenya !== confirmar) {
-    mostrarError("Las contraseñas no coinciden.");
-    return;
-  }
-
-  if (fecha_nacimiento && (fecha_nacimiento <= "1909-04-21" || fecha_nacimiento >= "2025-11-14")) {
-    mostrarError("Por favor, introduzca su fecha de nacimiento real.");
-    return;
-  }
-
-  const usuario_actual = {
-    username: usuario,
-    correo: correo,
-    contrasenya: contrasenya,
-    fecha_nacimiento: fecha_nacimiento,
-  };
-
-  array_de_usuarios.push(usuario_actual);
-  console.log("Usuario registrado:", usuario_actual);
-  console.log("Usuarios:", array_de_usuarios);
-
-  window.location.href = "../html/Inicio de sesión.html"; 
 }
+
+window.registrarse = registrarse;

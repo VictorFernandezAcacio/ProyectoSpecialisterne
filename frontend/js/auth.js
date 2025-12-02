@@ -31,7 +31,7 @@ async function Iniciar_Sesion() {
     const idToken = await userCredential.user.getIdToken();
 
     // 2. Validar contra tu backend
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("http://localhost:3000/usuarios/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idToken })
@@ -41,7 +41,7 @@ async function Iniciar_Sesion() {
     if (!response.ok) throw new Error(data.message || "Error en login");
 
     localStorage.setItem("usuario", JSON.stringify(data.usuario));
-    console.log("Inicio de sesión correcto");
+    alert("Inicio de sesión correcto");
     window.location.href = "../html/Inicio.html";
   } catch (err) {
     mostrarError("error_contrasena", err.message || "Error al iniciar sesión");

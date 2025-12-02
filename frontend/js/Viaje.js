@@ -1,111 +1,121 @@
-
-// Hardcoaded ejemplos de viajes:
-
-const Viaje_Japon = {
-  nombre: "Al Sol Naciente...",
-  imagen: scr="../Viaje_a_Japon.png",
-  descripcion:"Algo sobre el viaje a Japón...Algo sobre el viaje a Japón...Algo sobre el viaje a Japón...Algo sobre el viaje a Japón...",
-  destinacion: "Tokyo, Kyoto, Osaka",
-  fecha: "2025-06-15",
-  precio: "5000€",
-  resenyas: [
-    {
-      fecha_resenya: "02/02/2022",
-      autor: "Alice",
-      comentario: "Amazing trip! Loved the temples and food.",
-      estrellas: 5
-    },
-    {
-      fecha_resenya: "01/01/2020",
-      autor: "Bob",
-      comentario: "Great experience, but a bit crowded.",
-      estrellas: 4
-    }
-  ],
-  rating: 4.5
-};
-const Viaje_Antartida = {
-  nombre: "Al Fin del Mundo",
-  imagen: scr="../Pole_Sur.png",
-  descripcion: "Algo sobre el viaje al Antartida",
-  destinacion: "Tierra de Fuego, Antartida",
-  fecha: "2026-09-19",
-  precio: "2400€",
-  resenya: [
-    {
-      fecha_resenya: "02/02/2022",
-      autor: "Anna",
-      comentario: "Amazing trip! Loved the views and the penguins.",
-      estrellas: 5
-    },
-    {
-      fecha_resenya: "01/01/2020",
-      autor: "Bobert",
-      comentario: "Great experience, but a bit chilly.",
-      estrellas: 4
-    }
-  ],
-  rating: 4.5
-};
-
-function Mostrar_Ventana_Reseña() {
-    document.getElementById('alerta_reseña').style.display = 'block';
-}
-
-function Quitar_Ventana_Reseña() {
-    document.getElementById('alerta_reseña').style.display = 'none';
-}
-
-function RESEÑAR() {
-  resenya = {
-      fecha_resenya: "",
-      autor: "",
-      comentario: "",
-      estrellas: ""
-    }
-    resenya.fecha_resenya = document.getElementById("fecha_reseña").value;
-    resenya.comentario = document.getElementById("comentario_reseña").value
-    resenya.estrellas = document.getElementById("estrellas_reseña").value
-  Viaje_Japon.resenyas.push(resenya)
-  console.log(Viaje_Japon.resenyas)
-  renovar_resenyas()
-  Quitar_Ventana_Reseña()
-}
-
-// Funciones para la ventana de pago
-function abrirCardModal() {
-  document.getElementById("overlay").style.display = "flex";
-}
-function cerrarCardModal() {
-  document.getElementById("overlay").style.display = "none";
-}
-function submitCard() {
-  alert("Card data submitted (demo only — not real processing).");
-  cerrarCardModal();
-}
-
-window.document.getElementById("titulo_pagina").innerHTML = Viaje_Japon.nombre
-window.document.getElementById("titulo_viaje").innerHTML = Viaje_Japon.nombre
-window.document.getElementById("precio_viaje").innerHTML = Viaje_Japon.precio
-window.document.getElementById("imagen_viaje").src = Viaje_Japon.imagen
-window.document.getElementById("descripción_viaje").innerHTML = Viaje_Japon.descripcion
-
-function renovar_resenyas () {
-  htmlpa = "";
-  for (i = 0; i < Viaje_Japon.resenyas.length; i++) {
-    var estrellas = "";
-    for (ii = 0; ii < Viaje_Japon.resenyas[i].estrellas; ii++) {
-      estrellas += "⭐"
-    }
-    htmlpa += "<div class='reseña'>" +
-    "<div class='contenedor_datos_reseña'>" + 
-    "<span class='usuario_viaje' id='usuario_1'>" + Viaje_Japon.resenyas[i].autor + "</span>" +
-    "<span id='fecha_1'>" + Viaje_Japon.resenyas[i].fecha_resenya + "</span>" +
-    "<span class='estrellas_viaje' id='estrellas_1'>" + estrellas + "</span>" +
-    "</div><span class='texto_reseña'>" + Viaje_Japon.resenyas[i].comentario + "</span></div>";
+// -------------------- Datos de viajes --------------------
+const viajes = {
+  1: {
+    titulo: "Viaje 1",
+    estrellas: "⭐⭐⭐⭐⭐",
+    precio: "500€",
+    descripcion: "Incluye transporte, alojamiento y visitas guiadas.",
+    imagen: "../img/viaje1.jpg"
+  },
+  2: {
+    titulo: "Viaje 2",
+    estrellas: "⭐⭐⭐⭐",
+    precio: "650€",
+    descripcion: "Vuelo y hotel 4 estrellas.",
+    imagen: "../img/viaje2.jpg"
+  },
+  3: {
+    titulo: "Viaje 3",
+    estrellas: "⭐⭐⭐⭐⭐",
+    precio: "700€",
+    descripcion: "Paquete completo con actividades.",
+    imagen: "../img/viaje3.jpg"
+  },
+  4: {
+    titulo: "Viaje 4",
+    estrellas: "⭐⭐⭐",
+    precio: "450€",
+    descripcion: "Escapada económica con alojamiento básico.",
+    imagen: "../img/viaje4.jpg"
+  },
+  5: {
+    titulo: "Viaje 5",
+    estrellas: "⭐⭐⭐⭐",
+    precio: "800€",
+    descripcion: "Viaje de lujo con todo incluido.",
+    imagen: "../img/viaje5.jpg"
   }
-  document.getElementById("viajes_pend").innerHTML = htmlpa;
+  // Añade más viajes aquí si lo necesitas
+};
+
+// -------------------- Cargar datos dinámicos --------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const viaje = viajes[id];
+
+  if (viaje) {
+    document.getElementById("titulo_banner").textContent = viaje.titulo;
+    document.getElementById("imagen_viaje").src = viaje.imagen;
+    document.getElementById("titulo_viaje").textContent = viaje.titulo;
+    document.getElementById("estrellas_viaje").textContent = viaje.estrellas;
+    document.getElementById("precio_viaje").textContent = viaje.precio;
+    document.getElementById("descripcion_viaje").textContent = viaje.descripcion;
+  } else {
+    document.getElementById("toda_informacion").innerHTML = "<p>Viaje no encontrado</p>";
+  }
+});
+
+// -------------------- Ventana reseñas --------------------
+const Resena = { Fecha: "", Estrellas: 0, Comentario: "" };
+
+function MostrarVentanaResena() {
+  document.getElementById('alerta_resena').style.display = 'block';
+}
+function QuitarVentanaResena() {
+  document.getElementById('alerta_resena').style.display = 'none';
+}
+function Resenar() {
+  Resena.Fecha = document.getElementById("fecha_resena").value;
+  Resena.Estrellas = document.getElementById("estrellas_resena").value;
+  Resena.Comentario = document.getElementById("comentario_resena").value;
+
+  if (Resena.Fecha === "" || Resena.Estrellas == 0 || Resena.Comentario === "") {
+    alert("Por favor, completa todos los campos antes de enviar la reseña.");
+    return;
+  }
+
+  const contenedor = document.getElementById("contenedor_resenas");
+  const nueva = document.createElement("div");
+  nueva.classList.add("resena");
+  nueva.innerHTML = `
+    <div class="contenedor_datos_resena">
+      <span class="usuario_viaje">Usuario</span>
+      <span class="fecha_resena">${Resena.Fecha}</span>
+      <span class="estrellas_viaje">${"⭐".repeat(Resena.Estrellas)}</span>
+    </div>
+    <span class="texto_resena">${Resena.Comentario}</span>
+  `;
+  contenedor.appendChild(nueva);
+
+  QuitarVentanaResena();
+  document.getElementById("fecha_resena").value = "";
+  document.getElementById("estrellas_resena").value = 0;
+  document.getElementById("comentario_resena").value = "";
 }
 
-window.renovar_resenyas()
+// -------------------- Ventana compra --------------------
+function MostrarCompra() {
+  document.getElementById('alerta_compra').style.display = 'block';
+}
+function QuitarCompra() {
+  document.getElementById('alerta_compra').style.display = 'none';
+}
+function ConfirmarCompra() {
+  const nombre = document.getElementById("nombre").value;
+  const email = document.getElementById("email").value;
+  const tarjeta = document.getElementById("tarjeta").value;
 
+  if (nombre === "" || email === "" || tarjeta === "") {
+    alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  alert("Compra realizada con éxito. Gracias por confiar en Bug Travel.");
+  QuitarCompra();
+
+  // Limpiar campos
+  document.getElementById("nombre").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("tarjeta").value = "";
+}
