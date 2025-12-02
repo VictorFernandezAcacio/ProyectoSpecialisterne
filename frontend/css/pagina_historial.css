@@ -1,34 +1,20 @@
-/* ----------------------
-   RESET
------------------------ */
+/* Reset */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 
-/* ----------------------
-   BODY & FONT
------------------------ */
+/* Fondo crema */
 body {
   font-family: Arial, sans-serif;
-  background-color: #FFFDD0; /* fondo crema */
+  background-color: #FFFDD0 !important;
 }
 
-/* ----------------------
-   BARRA SUPERIOR
------------------------ */
+/* Barra superior */
 #barra_superior {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: lightslategray;
   padding: 10px 20px;
-  height: 46px;
-  box-sizing: border-box;
-}
-#barra_superior img#logo {
-  max-height: 100%;
-  width: auto;
-  height: 50px;
-  object-fit: contain;
 }
 #menu_superior a {
   color: #fff;
@@ -39,9 +25,7 @@ body {
 #menu_superior a:hover { text-decoration: underline; }
 #usuario { color: #fff; font-weight: bold; }
 
-/* ----------------------
-   BLOQUES DE VIAJES
------------------------ */
+/* Bloques de viajes */
 .bloque_viajes {
   background: #fff;
   border-radius: 12px;
@@ -56,18 +40,14 @@ body {
   color: #222;
 }
 
-/* ----------------------
-   GRID RESPONSIVO
------------------------ */
+/* Grid responsivo */
 .grid_viajes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 18px;
 }
 
-/* ----------------------
-   TARJETA DE VIAJE
------------------------ */
+/* Tarjeta de viaje */
 .card_viaje {
   display: flex;
   flex-direction: column;
@@ -102,44 +82,21 @@ body {
   text-align: center;
 }
 
-/* ----------------------
-   BOTONES
------------------------ */
+/* Botones */
 .btn_eliminar, .btn_resena {
-  width: 40px;
-  height: 40px;
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
   border: none;
   cursor: pointer;
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
   background-size: contain;
-  display: inline-block;
-  margin-top: 10px;
-  outline: none;
+  background-repeat: no-repeat;
+  background-color: transparent;
 }
+.btn_eliminar { background-image: url("../img/bin.png"); }
+.btn_resena   { background-image: url("../img/scroll.png"); }
 
-/* Background images (paths relative to CSS file, same folder) */
-.btn_eliminar { background-image: url("../bin.png"); }
-.btn_resena   { background-image: url("../scroll.png"); }
-
-/* Hover effect for visual feedback */
-.btn_eliminar:hover, .btn_resena:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s ease;
-}
-
-/* ----------------------
-   FOOTER
------------------------ */
-#site_footer {
-  background: #000;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  margin-top: 50px;
-  font-size: 14px;
-}
+/* Footer complementario */
 #site_footer p { margin: 5px 0; }
 #site_footer .redes { margin-top: 10px; }
 #site_footer .redes a {
