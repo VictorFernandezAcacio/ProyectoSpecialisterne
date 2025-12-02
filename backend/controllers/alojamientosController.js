@@ -1,4 +1,5 @@
 const pool = require('../db');
+const admin = require("../firebase");
 
 // Listar todos los alojamientos
 exports.listarAlojamientos = async (req, res) => {

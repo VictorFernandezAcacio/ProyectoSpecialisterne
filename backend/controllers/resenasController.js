@@ -1,4 +1,5 @@
 const pool = require('../db');
+const admin = require("../firebase");
 
 exports.listarResenas = async (req, res) => {
   const result = await pool.query('SELECT * FROM resenas');

@@ -1,4 +1,5 @@
 const pool = require('../db');
+const admin = require("../firebase");
 
 // Listar todos los transportes
 exports.listarTransportes = async (req, res) => {
