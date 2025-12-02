@@ -31,9 +31,10 @@
 <body>
   <!-- Barra superior -->
   <header id="barra_superior">
-    <a href="Inicio.html"><img id="logo" src="../logo.png" alt="logo"></a>
+    <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
     <nav id="menu_superior">
       <a href="Inicio.html">Inicio</a>
+      <a href="Historial.html">Historial</a>
       <a href="Viaje.html">Viajes</a>
     </nav>
     <div id="usuario">Usuario</div>
@@ -41,17 +42,45 @@
 
   <!-- Viajes pendientes -->
   <section class="bloque_viajes">
-    <h2 id="viajes_pend">Viajes pendientes</h2>
+    <h2>Viajes pendientes</h2>
     <div class="grid_viajes">
-      <!-- JS will populate pending trips here -->
+      <article class="card_viaje">
+        <h3 class="card_titulo">Viaje 1</h3>
+        <img src="../img/viaje1.jpg" alt="Viaje 1" class="card_img">
+        <p class="card_meta">Fecha: 12/12/2025</p>
+        <p class="card_meta">Precio: 500€</p>
+        <button class="btn_eliminar" aria-label="Eliminar"></button>
+      </article>
+
+      <article class="card_viaje">
+        <h3 class="card_titulo">Viaje 2</h3>
+        <img src="../img/viaje2.jpg" alt="Viaje 2" class="card_img">
+        <p class="card_meta">Fecha: 20/01/2026</p>
+        <p class="card_meta">Precio: 650€</p>
+        <button class="btn_eliminar" aria-label="Eliminar"></button>
+      </article>
     </div>
   </section>
 
   <!-- Viajes realizados -->
   <section class="bloque_viajes">
-    <h2 id="viajes_realizados">Viajes realizados</h2>
+    <h2>Viajes realizados</h2>
     <div class="grid_viajes">
-      <!-- JS will populate completed trips here -->
+      <article class="card_viaje">
+        <h3 class="card_titulo">Viaje 4</h3>
+        <img src="../img/viaje4.jpg" alt="Viaje 4" class="card_img">
+        <p class="card_meta">Fecha: 05/09/2025</p>
+        <p class="card_meta">Precio: 700€</p>
+        <button class="btn_resena" aria-label="Resena"></button>
+      </article>
+
+      <article class="card_viaje">
+        <h3 class="card_titulo">Viaje 5</h3>
+        <img src="../img/viaje5.jpg" alt="Viaje 5" class="card_img">
+        <p class="card_meta">Fecha: 15/10/2025</p>
+        <p class="card_meta">Precio: 450€</p>
+        <button class="btn_resena" aria-label="Resena"></button>
+      </article>
     </div>
   </section>
 
