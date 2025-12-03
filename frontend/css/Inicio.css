@@ -1,7 +1,7 @@
 /* --- Estilos generales de la página de inicio --- */
 body {
     margin: 0;
-    user-select: none;
+    user-select: none; /* evita selección de texto */
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
 }
@@ -11,6 +11,7 @@ main {
     padding: 20px;
 }
 
+/* --- Footer --- */
 footer {
     background-color: #000;   /* negro */
     color: #fff;
@@ -37,7 +38,6 @@ footer .redes a {
 footer .redes a:hover {
     text-decoration: underline;
 }
-
 
 /* --- Banner de descuentos --- */
 #banner_descuentos {
@@ -137,13 +137,25 @@ footer .redes a:hover {
     margin-bottom: 10px;
 }
 
+/* Precio original */
 .precio {
     display: block;
     margin: 10px 0;
     font-weight: bold;
-    color: #007BFF;
+    color: #888;
+    text-decoration: line-through;
 }
 
+/* Precio con descuento */
+.descuento {
+    display: block;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #2e8b57;
+    font-size: 16px;
+}
+
+/* Botón reservar/comprar */
 .btn-reservar {
     background-color: #007BFF;
     color: #fff;
@@ -159,6 +171,7 @@ footer .redes a:hover {
     background-color: #0056b3;
 }
 
+/* Imagen fallback */
 img {
     background-image: url('../img/inexistente.png');
 }
