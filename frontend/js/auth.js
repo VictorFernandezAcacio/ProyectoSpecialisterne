@@ -1,5 +1,4 @@
-// auth.js
-import { loginEmailPassword, logout } from "./firebase-init.js";
+import { loginEmailPassword, logout } from "./firebaseConfig.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const correo = document.getElementById("correo");
@@ -7,16 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnIniciar = document.getElementById("btn_iniciar");
   const btnRegistro = document.getElementById("btn_registro");
 
+  // Botón INICIAR SESIÓN
   btnIniciar.addEventListener("click", async () => {
     try {
-      await loginEmailPassword(correo.value, contrasena.value);
-      alert("Sesión iniciada. Vuelve a Inicio para reservar.");
+      await loginEmailPassword(correo.value.trim(), contrasena.value.trim());
+      console.log("Sesión iniciada correctamente");
+      // Redirigir al inicio
+      window.location.href = "../html/inicio.html";
     } catch (e) {
-      console.error(e);
+      console.error("Error al iniciar sesión:", e);
+      alert("Error al iniciar sesión: " + (e.message || e));
     }
   });
 
-  btnRegistro.addEventListener("click", async () => {
-    alert("Implementa registro o usa una cuenta ya creada en Firebase Auth.");
+  // Botón REGISTRO
+  btnRegistro.addEventListener("click", () => {
+    // Redirigir a la página de registro
+    window.location.href = "../html/pagina_registro.html";
   });
 });
