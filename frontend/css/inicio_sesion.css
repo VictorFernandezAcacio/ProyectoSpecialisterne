@@ -1,0 +1,140 @@
+body {
+  font-family: Arial, sans-serif;
+  user-select: none;
+  background-color: #FFFDD0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#barra_superior {
+  background-color: #333;
+  color: #fff;
+  height: 80px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+#barra_superior h1 {
+  margin: 0;
+  font-size: 24px;
+  text-align: center;
+}
+
+#espacio_barra_superior {
+  height: 100px;
+}
+
+#sesion {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#centrar_contenido {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 400px;
+}
+
+#inicio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.divs_inicio {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.divs_inicio label {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.divs_inicio input {
+  margin: 0 auto;
+  width: 170px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.div_error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.centrar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  border: 1px solid #333;
+  background-color: green;
+  border-radius: 15px;
+  height: 35px;
+  width: 200px;
+  font-weight: bold;
+  margin: 10px;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: black;
+  color: #fff;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+footer p {
+  margin: 5px 0;
+}
+
+footer .redes {
+  margin-top: 10px;
+}
+
+footer .redes a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+footer .redes a:hover {
+  text-decoration: underline;
+}
