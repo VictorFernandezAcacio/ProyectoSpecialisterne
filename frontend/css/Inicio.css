@@ -1,6 +1,7 @@
 /* --- Estilos generales de la página de inicio --- */
 body {
     margin: 0;
+    user-select: none;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
 }
@@ -159,5 +160,5 @@ footer .redes a:hover {
 }
 
 img {
-    background-image: url('../img/inexistente.png');7
+    background-image: url('../img/inexistente.png');
 }
