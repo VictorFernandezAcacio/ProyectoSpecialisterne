@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../db'); 
 const descuentosController = require('../controllers/descuentosController');
 
+// Rutas de descuentos
 router.get('/', descuentosController.obtenerDescuentos);
 router.get('/activos', descuentosController.obtenerDescuentosActivos);
 router.get('/:id', descuentosController.obtenerDescuento);
