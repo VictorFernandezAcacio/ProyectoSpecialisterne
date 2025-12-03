@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const usuariosController = require('../controllers/usuariosController');
+const pool = require('../db'); 
 
 // Crear usuario
 router.post('/', usuariosController.crearUsuario);

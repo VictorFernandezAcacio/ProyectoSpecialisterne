@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const alojamientosController = require('../controllers/alojamientosController');
+const pool = require('../db'); 
+
 
 router.get('/', alojamientosController.listarAlojamientos);
 router.get('/:id', alojamientosController.obtenerAlojamiento);

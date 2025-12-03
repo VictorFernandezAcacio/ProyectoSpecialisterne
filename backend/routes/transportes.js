@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const transportesController = require('../controllers/transportesController');
+const pool = require('../db'); 
 
 router.get('/', transportesController.listarTransportes);
 router.get('/:id', transportesController.obtenerTransporte);

@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const viajesController = require('../controllers/viajesController');
+const pool = require('../db'); 
 
-router.get('/', viajesController.obtenerViajes);
-router.get('/:id', viajesController.obtenerViaje);
-router.post('/', viajesController.crearViaje);
-router.put('/:id', viajesController.actualizarViaje);
-router.delete('/:id', viajesController.eliminarViaje);
-
-router.get('/:id/resenas', viajesController.obtenerResenasViaje);
-router.get('/:id/alojamientos', viajesController.obtenerAlojamientosViaje);
-router.get('/:id/transportes', viajesController.obtenerTransportesViaje);
-
-//router.post('/:id/reservar', viajesController.reservarViaje); // ⚠️ crea stub o elimina
+// Obtener todos los viajes
+router.get('/', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM viajes ORDER BY id ASC');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error al obtener viajes:', err);
+    res.status(500).json({ error: 'Error al obtener viajes' });
+  }
+});
 
 module.exports = router;
