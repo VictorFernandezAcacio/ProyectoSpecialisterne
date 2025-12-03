@@ -157,3 +157,7 @@ footer .redes a:hover {
 .btn-reservar:hover {
     background-color: #0056b3;
 }
+
+img {
+    background-image: url('../img/inexistente.png');7
+}
