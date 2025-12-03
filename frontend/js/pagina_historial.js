@@ -17,8 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
     boton.addEventListener("click", () => {
       const viaje = boton.closest(".card_viaje");
       const nombreViaje = viaje?.querySelector(".card_titulo")?.textContent || "este viaje";
-      alert(`Anadir resena para ${nombreViaje}`);
+      alert(`Anadir reseña para ${nombreViaje}`);
       // Aqui podrias abrir un modal para escribir la resena
     });
   });
 });
+
