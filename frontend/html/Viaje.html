@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del viaje</title>
   <link rel="stylesheet" href="../css/Viaje.css">
-  <link rel="stylesheet" href="../css/barra superior.css">
-  <script src="../js/Viaje.js" defer></script>
-  <title>Viaje</title>
+  <link rel="stylesheet" href="../css/barra_superior.css">
+  <script src="../js/detalle_viaje.js" defer></script>
 </head>
 <body>
+
   <!-- Barra superior -->
   <div id="barra_superior">
     <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
     <div id="hueco_buscador"></div>
     <div id="div_derecha_barra_superior">
       <a href="pagina_historial.html"><button>RESERVAS</button></a>
-      <a href="Inicio de sesion.html"><button>Iniciar Sesion</button></a>
+      <a href="Inicio de sesion.html"><button>Iniciar Sesión</button></a>
     </div>
   </div>
   <div id="espacio_barra_superior"></div>
 
-  <!-- Banner arriba -->
+  <!-- Banner -->
   <div id="banner">
     <div id="texto_banner">
       <h1 id="titulo_banner">Detalles del Viaje</h1>
@@ -30,19 +31,15 @@
 
   <!-- Información del viaje -->
   <section id="toda_informacion">
-    <div id="div_img"><img src="" alt="Imagen del viaje" id="imagen_viaje"></div>
+    <div id="div_img">
+      <img src="" alt="Imagen del viaje" id="imagen_viaje">
+    </div>
     <div id="informacion_viaje">
       <span id="descripcion_viaje"></span>
       <div id="titulo_estrellas_precio">
-        <div>
-          <div><span id="titulo_viaje"></span></div>
-          <div><span id="estrellas_viaje"></span></div>
-        </div>
-        <div>
-          <div><span id="precio_viaje"></span></div>
-        </div>
+        <div><span id="titulo_viaje"></span></div>
+        <div><span id="precio_viaje"></span></div>
       </div>
-      <!-- Botón comprar en su propia línea -->
       <div class="boton_compra_linea">
         <button onclick="MostrarCompra()">Comprar</button>
       </div>
@@ -51,31 +48,8 @@
 
   <!-- Reseñas -->
   <section id="resenas">
-    <div id="contenedor_linea">
-      <div id="contenedor_superior_linea">
-        <div id="titulo_resena">RESEÑAS</div>
-      </div>
-      <div id="linea"></div>
-    </div>
+    <h2>Reseñas de otros viajeros</h2>
     <div id="contenedor_resenas"></div>
-
-    <!-- Botón nueva reseña en su propia línea -->
-    <div class="boton_resena_linea">
-      <button onclick="MostrarVentanaResena()" id="btn_nueva_resena">Nueva Reseña</button>
-    </div>
-
-    <!-- Ventana nueva reseña -->
-    <div id="alerta_resena">
-      <div class="contenido_alerta_borrar">
-        <label for="fecha_resena">Fecha: </label>
-        <input type="date" id="fecha_resena" name="fecha_resena">
-        <label for="estrellas_resena">Estrellas: </label>
-        <input type="number" id="estrellas_resena" name="estrellas_resena" min="1" max="5" value="0"><br><br>
-        <textarea name="comentario" id="comentario_resena" maxlength="500"></textarea><br><br>
-        <button onclick="Resenar()">Reseñar</button><br><br>
-        <button onclick="QuitarVentanaResena()">Cancelar</button>
-      </div>
-    </div>
   </section>
 
   <!-- Ventana compra -->
@@ -84,9 +58,9 @@
       <h2>Finalizar compra</h2>
       <label for="nombre">Nombre completo:</label><br>
       <input type="text" id="nombre" name="nombre"><br><br>
-      <label for="email">Correo electronico:</label><br>
+      <label for="email">Correo electrónico:</label><br>
       <input type="email" id="email" name="email"><br><br>
-      <label for="tarjeta">Numero de tarjeta:</label><br>
+      <label for="tarjeta">Número de tarjeta:</label><br>
       <input type="text" id="tarjeta" name="tarjeta"><br><br>
       <button onclick="ConfirmarCompra()">Confirmar</button><br><br>
       <button onclick="QuitarCompra()">Cancelar</button>
@@ -97,7 +71,7 @@
   <footer>
     <p>&copy; 2025 Bug Travel. Todos los derechos reservados.</p>
     <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
-    <p>Direccion: Calle Ejemplo 123, Barcelona, Espana</p>
+    <p>Dirección: Calle Ejemplo 123, Barcelona, España</p>
     <div class="redes">
       <a href="https://facebook.com" target="_blank">Facebook</a>
       <a href="https://instagram.com" target="_blank">Instagram</a>
