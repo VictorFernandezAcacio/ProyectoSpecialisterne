@@ -1,137 +1,21 @@
-/* Estilo general */
+/* --- Estilos generales de la página de inicio --- */
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    user-select: none;
-    background-color: #FFFDD0;
-    margin: 0;
-    padding: 0;
+    background-color: #f9f9f9;
 }
 
-/* Logo más pequeño */
-#logo {
-    height: 60px;
-    width: auto;
-}
-
-/* Banner arriba */
-#banner {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-#banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-#texto_banner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-    background: rgba(0,0,0,0.4);
+/* Contenedor principal */
+main {
     padding: 20px;
-    border-radius: 10px;
 }
 
-#texto_banner h1 {
-    font-size: 36px;
-    margin: 0;
-}
-
-#texto_banner p {
-    font-size: 18px;
-    margin-top: 10px;
-}
-
-/* Descuentos */
-#centrar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-#descuentos {
-    border: 1px solid black;
-    background-color: rgb(230, 230, 230);
-    height: 60px;
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#img_descuentos {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-/* Viajes */
-.contenido_viajes {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px auto;
-    width: 90%;
-    flex-wrap: wrap;
-}
-
-.viajes {
-    border: 1px solid black;
-    width: 275px;
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    transition: transform 0.2s ease-in-out;
-}
-
-.viajes:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-img.viajes {
-    width: 100%;
-    height: 275px;
-    object-fit: cover;
-}
-
-.titulo_viaje {
-    font-weight: bold;
-    font-size: 20px;
-    text-align: center;
-    margin-top: 5px;
-}
-
-.precio_estrellas {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10px;
-    margin-top: 10px;
-    font-size: 16px;
-}
-
-a.enlace_viaje {
-    color: black;
-    text-decoration: none;
-}
-
-/* Footer */
 footer {
-    background-color: #333;
+    background-color: #000;   /* negro */
     color: #fff;
     text-align: center;
     padding: 20px;
-    margin-top: 50px;
-    font-size: 14px;
+    margin-top: 40px;
 }
 
 footer p {
@@ -144,11 +28,132 @@ footer .redes {
 
 footer .redes a {
     color: #fff;
-    text-decoration: none;
     margin: 0 10px;
+    text-decoration: none;
     font-weight: bold;
 }
 
 footer .redes a:hover {
     text-decoration: underline;
+}
+
+
+/* --- Banner de descuentos --- */
+#banner_descuentos {
+    background: linear-gradient(135deg, #007BFF, #00C6FF);
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 900px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#banner_descuentos h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#lista_descuentos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.banner-item {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+    padding: 15px 20px;
+    min-width: 200px;
+    max-width: 250px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.banner-item:hover {
+    transform: scale(1.05);
+}
+
+/* --- Estilos para viajes destacados --- */
+#viajes_destacados {
+    text-align: center;
+    margin: 40px auto;
+}
+
+#viajes_destacados h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.contenido_viajes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.viaje-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.viaje-card:hover {
+    transform: translateY(-5px);
+}
+
+.viaje-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.viaje-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #007BFF;
+}
+
+.viaje-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.precio {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.btn-reservar {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-reservar:hover {
+    background-color: #0056b3;
 }

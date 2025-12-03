@@ -1,0 +1,41 @@
+#banner_descuentos {
+    background: linear-gradient(135deg, #007BFF, #00C6FF);
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 900px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#banner_descuentos h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#lista_descuentos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.banner-item {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+    padding: 15px 20px;
+    min-width: 200px;
+    max-width: 250px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.banner-item:hover {
+    transform: scale(1.05);
+}
