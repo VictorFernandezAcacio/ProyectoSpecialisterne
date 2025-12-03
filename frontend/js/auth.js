@@ -1,54 +1,22 @@
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { auth } from "./firebaseConfig.js";
+// auth.js
+import { loginEmailPassword, logout } from "./firebase-init.js";
 
-function mostrarError(id, mensaje) {
-  document.getElementById(id).textContent = mensaje;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const correo = document.getElementById("correo");
+  const contrasena = document.getElementById("contrasena");
+  const btnIniciar = document.getElementById("btn_iniciar");
+  const btnRegistro = document.getElementById("btn_registro");
 
-function limpiarErrores() {
-  document.getElementById("error_correo").textContent = "";
-  document.getElementById("error_contrasena").textContent = "";
-}
+  btnIniciar.addEventListener("click", async () => {
+    try {
+      await loginEmailPassword(correo.value, contrasena.value);
+      alert("Sesión iniciada. Vuelve a Inicio para reservar.");
+    } catch (e) {
+      console.error(e);
+    }
+  });
 
-async function Iniciar_Sesion() {
-  limpiarErrores();
-
-  const correo = document.getElementById("correo").value.trim();
-  const contrasena = document.getElementById("contrasena").value.trim();
-
-  if (!correo) {
-    mostrarError("error_correo", "ERROR: NO SE HA PUESTO EL CORREO");
-    return;
-  }
-  if (!contrasena) {
-    mostrarError("error_contrasena", "ERROR: NO SE HA PUESTO LA CONTRASEÑA");
-    return;
-  }
-
-  try {
-    // 1. Login con Firebase
-    const userCredential = await signInWithEmailAndPassword(auth, correo, contrasena);
-    const idToken = await userCredential.user.getIdToken();
-
-    // 2. Validar contra tu backend
-    const response = await fetch("http://localhost:3000/usuarios/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idToken })
-    });
-
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Error en login");
-
-    localStorage.setItem("usuario", JSON.stringify(data.usuario));
-    alert("Inicio de sesión correcto");
-    window.location.href = "../html/Inicio.html";
-  } catch (err) {
-    mostrarError("error_contrasena", err.message || "Error al iniciar sesión");
-  }
-}
-
-document.getElementById("btn_iniciar").addEventListener("click", Iniciar_Sesion);
-document.getElementById("btn_registro").addEventListener("click", function () {
-  window.location.href = "../html/pagina_registro.html";
+  btnRegistro.addEventListener("click", async () => {
+    alert("Implementa registro o usa una cuenta ya creada en Firebase Auth.");
+  });
 });
