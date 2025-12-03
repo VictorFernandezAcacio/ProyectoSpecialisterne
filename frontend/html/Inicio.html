@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inicio</title>
   <link rel="stylesheet" href="../css/Inicio.css">
-  <link rel="stylesheet" href="../css/barra superior.css">
+  <link rel="stylesheet" href="../css/barra_superior.css">
   <link rel="stylesheet" href="../css/descuentos.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
 
     <div id="div_derecha_barra_superior">
       <a href="pagina_historial.html" class="btn-secundario">RESERVAS</a>
-      <a href="Inicio de sesión.html" class="btn-secundario">ENTRAR</a>
+      <a href="inicio_sesion.html" class="btn-secundario">ENTRAR</a>
     </div>
   </div>
   <div id="espacio_barra_superior"></div>
@@ -35,9 +35,7 @@
   <!-- Bloques de viajes -->
   <section id="viajes_destacados">
     <h2>🌍 Viajes destacados</h2>
-    <div class="contenido_viajes" id="lista_viajes">
-      <!-- Aquí se pintan dinámicamente los viajes -->
-    </div>
+    <div class="contenido_viajes" id="lista_viajes"></div>
   </section>
 
   <!-- Footer -->
@@ -52,13 +50,9 @@
     </div>
   </footer>
 
-  <!-- JS -->
-  <script src="../js/Inicio.js" defer></script>
-  <script src="../js/barra_superior.js" defer></script>
-  <script src="../js/descuentos.js" defer></script>
-  <script src="../js/viajes.js" defer></script>
-
+  <!-- Scripts: usa ES Modules -->
+  <script type="module" src="../js/firebaseConfig.js"></script>
+  <script type="module" src="../js/descuentos.js"></script>
+  <script type="module" src="../js/viajes.js"></script>
 </body>
 </html>
-
-
