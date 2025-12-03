@@ -1,8 +1,7 @@
 const pool = require('../db');
 
-
 // Obtener todos los descuentos
-exports.obtenerDescuentos = async (req, res) => {
+const obtenerDescuentos = async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM descuentos ORDER BY id_descuento ASC');
     res.json(result.rows);
@@ -12,13 +11,14 @@ exports.obtenerDescuentos = async (req, res) => {
   }
 };
 
-// Obtener descuentos activos (los que están vigentes hoy)
-exports.obtenerDescuentosActivos = async (req, res) => {
+// Obtener solo descuentos activos (fecha actual entre inicio y fin y activo = true)
+const obtenerDescuentosActivos = async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT * FROM descuentos
-      WHERE activo = TRUE
-      AND CURRENT_DATE BETWEEN fecha_inicio AND fecha_fin
+      WHERE fecha_inicio <= NOW()
+        AND fecha_fin >= NOW()
+        AND activo = true
       ORDER BY id_descuento ASC
     `);
     res.json(result.rows);
@@ -29,9 +29,9 @@ exports.obtenerDescuentosActivos = async (req, res) => {
 };
 
 // Obtener un descuento por ID
-exports.obtenerDescuento = async (req, res) => {
-  const { id } = req.params;
+const obtenerDescuento = async (req, res) => {
   try {
+    const { id } = req.params;
     const result = await pool.query('SELECT * FROM descuentos WHERE id_descuento = $1', [id]);
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Descuento no encontrado' });
@@ -44,49 +44,62 @@ exports.obtenerDescuento = async (req, res) => {
 };
 
 // Crear un nuevo descuento
-exports.crearDescuento = async (req, res) => {
-  const { titulo, descripcion, porcentaje, fecha_inicio, fecha_fin, activo } = req.body;
+const crearDescuento = async (req, res) => {
   try {
-    await pool.query(
+    const { titulo, descripcion, porcentaje, fecha_inicio, fecha_fin, activo } = req.body;
+    const result = await pool.query(
       `INSERT INTO descuentos (titulo, descripcion, porcentaje, fecha_inicio, fecha_fin, activo)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
+       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
       [titulo, descripcion, porcentaje, fecha_inicio, fecha_fin, activo]
     );
-    res.json({ mensaje: 'Descuento creado con éxito' });
+    res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error('Error al crear descuento:', err);
     res.status(500).json({ error: 'Error al crear descuento' });
   }
 };
 
-// Actualizar descuento
-exports.actualizarDescuento = async (req, res) => {
-  const { id } = req.params;
-  const { titulo, descripcion, porcentaje, fecha_inicio, fecha_fin, activo } = req.body;
+// Actualizar un descuento
+const actualizarDescuento = async (req, res) => {
   try {
-    await pool.query(
+    const { id } = req.params;
+    const { titulo, descripcion, porcentaje, fecha_inicio, fecha_fin, activo } = req.body;
+    const result = await pool.query(
       `UPDATE descuentos
-       SET titulo = $1, descripcion = $2, porcentaje = $3,
-           fecha_inicio = $4, fecha_fin = $5, activo = $6,
-           updated_at = CURRENT_TIMESTAMP
-       WHERE id_descuento = $7`,
+       SET titulo = $1, descripcion = $2, porcentaje = $3, fecha_inicio = $4, fecha_fin = $5, activo = $6
+       WHERE id_descuento = $7 RETURNING *`,
       [titulo, descripcion, porcentaje, fecha_inicio, fecha_fin, activo, id]
     );
-    res.json({ mensaje: 'Descuento actualizado con éxito' });
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Descuento no encontrado' });
+    }
+    res.json(result.rows[0]);
   } catch (err) {
     console.error('Error al actualizar descuento:', err);
     res.status(500).json({ error: 'Error al actualizar descuento' });
   }
 };
 
-// Eliminar descuento
-exports.eliminarDescuento = async (req, res) => {
-  const { id } = req.params;
+// Eliminar un descuento
+const eliminarDescuento = async (req, res) => {
   try {
-    await pool.query('DELETE FROM descuentos WHERE id_descuento = $1', [id]);
-    res.json({ mensaje: 'Descuento eliminado con éxito' });
+    const { id } = req.params;
+    const result = await pool.query('DELETE FROM descuentos WHERE id_descuento = $1 RETURNING *', [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Descuento no encontrado' });
+    }
+    res.json({ mensaje: 'Descuento eliminado correctamente' });
   } catch (err) {
     console.error('Error al eliminar descuento:', err);
     res.status(500).json({ error: 'Error al eliminar descuento' });
   }
+};
+
+module.exports = {
+  obtenerDescuentos,
+  obtenerDescuentosActivos,
+  obtenerDescuento,
+  crearDescuento,
+  actualizarDescuento,
+  eliminarDescuento
 };
