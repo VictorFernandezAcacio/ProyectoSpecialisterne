@@ -60,7 +60,6 @@
     flex: 0 0 auto;
     display: flex;
     gap: 12px;
-    justify-content: flex-end;
     min-width: 260px;              
 }
 
