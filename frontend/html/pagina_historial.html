@@ -4,22 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Historial</title>
-  <link rel="stylesheet" href="../css/pagina_historial.css">
-  <link rel="stylesheet" href="../css/barra_superior.css">
-  <script src="../js/pagina_historial.js" defer></script>
+  <link rel="stylesheet" href="pagina_historial.css">
+  <script src="pagina_historial.js" defer></script>
+
+  <!-- Overrides para asegurar logo y fondo crema -->
+  <style>
+    body {
+      background-color: #FFFDD0 !important; /* fondo crema */
+    }
+    #barra_superior img#logo {
+      height: 50px !important;
+      width: auto !important;
+      object-fit: contain !important;
+    }
+    #site_footer {
+      background: #000 !important;
+      color: #fff !important;
+      text-align: center !important;
+      padding: 20px !important;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+    #site_footer .redes a { color: #fff !important; }
+  </style>
 </head>
 <body>
-
   <!-- Barra superior -->
-  <div id="barra_superior">
+  <header id="barra_superior">
     <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
-    <div id="hueco_buscador"></div>
-    <div id="div_derecha_barra_superior">
-      <a href="pagina_historial.html"><button class="btn-secundario">RESERVAS</button></a>
-      <a href="Inicio de sesión.html"><button class="btn-secundario">ENTRAR</button></a>
-    </div>
-  </div>
-  <div id="espacio_barra_superior"></div>
+    <nav id="menu_superior">
+      <a href="Inicio.html">Inicio</a>
+      <a href="Historial.html">Historial</a>
+      <a href="Viaje.html">Viajes</a>
+    </nav>
+    <div id="usuario">Usuario</div>
+  </header>
 
   <!-- Viajes pendientes -->
   <section class="bloque_viajes">
