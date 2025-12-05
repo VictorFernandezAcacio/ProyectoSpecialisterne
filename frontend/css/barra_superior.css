@@ -60,13 +60,13 @@
     flex: 0 0 auto;
     display: flex;
     gap: 12px;
-    justify-content: flex-end;
     min-width: 260px;              
 }
 
 .btn-secundario {
     background-color: var(--color-principal);
     color: #fff;
+    border: 2px solid black;
     text-decoration: none;
     border-radius: 18px;
     padding: 9px 18px;             

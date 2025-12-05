@@ -6,11 +6,13 @@ body {
   user-select: none;
 }
 
+/* Logo más pequeño */
 #logo {
   height: 60px;
   width: auto;
 }
 
+/* Banner negro y centrado */
 #banner {
   width: 100%;
   height: 250px;
@@ -36,6 +38,7 @@ body {
   margin-top: 10px;
 }
 
+/* Información del viaje */
 #toda_informacion {
   display: flex;
   justify-content: center;
@@ -76,6 +79,7 @@ body {
   color: green;
 }
 
+/* Botones generales */
 button {
   border: 1px solid black;
   background-color: green;
@@ -90,11 +94,13 @@ button:hover {
   color: white;
 }
 
+/* Botón comprar en su propia línea */
 .boton_compra_linea {
   margin-top: 20px;
   text-align: center;
 }
 
+/* Reseñas */
 #resenas {
   margin: 40px auto;
   width: 80%;
@@ -102,6 +108,17 @@ button:hover {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#contenedor_superior_linea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#titulo_resena {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .resena {
@@ -125,6 +142,36 @@ button:hover {
   line-height: 1.4;
 }
 
+/* Botón nueva reseña en su propia línea */
+.boton_resena_linea {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Ventana reseña */
+#alerta_resena {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.contenido_alerta_borrar {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  margin: 100px auto;
+  text-align: center;
+}
+
+textarea {
+  height: 200px;
+  width: 400px;
+}
+
+/* Ventana compra */
 #alerta_compra {
   display: none;
   position: fixed;
@@ -142,6 +189,7 @@ button:hover {
   text-align: center;
 }
 
+/* Footer */
 footer {
   background-color: #333;
   color: #fff;
