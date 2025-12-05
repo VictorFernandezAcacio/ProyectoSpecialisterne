@@ -5,6 +5,10 @@ const admin = require("../firebase");
 exports.crearReserva = async (req, res) => {
   const { usuario_id, viaje_id, estado } = req.body;
   try {
+    if (!usuario_id || !viaje_id) {
+      return res.status(400).json({ error: 'usuario_id y viaje_id son obligatorios' });
+    }
+
     // Comprobar si ya existe una reserva para este usuario y viaje
     const check = await pool.query(
       `SELECT 1 FROM reservas WHERE usuario_id = $1 AND viaje_id = $2`,
@@ -12,21 +16,20 @@ exports.crearReserva = async (req, res) => {
     );
 
     if (check.rowCount > 0) {
-      // Ya existe → no permitir reservar de nuevo
       return res.status(400).json({ error: 'Ya has reservado este viaje' });
     }
 
-    // Si no existe, crear la reserva
+    // Crear la reserva
     const result = await pool.query(
       `INSERT INTO reservas (usuario_id, viaje_id, estado, fecha_reserva) 
        VALUES ($1, $2, COALESCE($3::estado_reserva, 'confirmada'::estado_reserva), NOW()) 
        RETURNING *`,
-      [usuario_id || null, viaje_id, estado]
+      [usuario_id, viaje_id, estado]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error('Error al crear reserva:', err);
-    res.status(500).send('Error al crear reserva');
+    res.status(500).json({ error: 'Error al crear reserva' });
   }
 };
 
@@ -43,7 +46,7 @@ exports.obtenerReservas = async (req, res) => {
     res.json(result.rows);
   } catch (err) {
     console.error('Error al obtener reservas:', err);
-    res.status(500).send('Error al obtener reservas');
+    res.status(500).json({ error: 'Error al obtener reservas' });
   }
 };
 
@@ -65,7 +68,7 @@ exports.obtenerReserva = async (req, res) => {
     res.json(result.rows[0]);
   } catch (err) {
     console.error('Error al obtener reserva:', err);
-    res.status(500).send('Error al obtener reserva');
+    res.status(500).json({ error: 'Error al obtener reserva' });
   }
 };
 
@@ -87,7 +90,7 @@ exports.actualizarReserva = async (req, res) => {
     res.json(result.rows[0]);
   } catch (err) {
     console.error('Error al actualizar reserva:', err);
-    res.status(500).send('Error al actualizar reserva');
+    res.status(500).json({ error: 'Error al actualizar reserva' });
   }
 };
 
@@ -103,7 +106,7 @@ exports.eliminarReserva = async (req, res) => {
     res.json({ message: 'Reserva eliminada con éxito' });
   } catch (err) {
     console.error('Error al eliminar reserva:', err);
-    res.status(500).send('Error al eliminar reserva');
+    res.status(500).json({ error: 'Error al eliminar reserva' });
   }
 };
 
@@ -121,7 +124,7 @@ exports.obtenerReservasUsuario = async (req, res) => {
     res.json(result.rows);
   } catch (err) {
     console.error('Error al obtener reservas del usuario:', err);
-    res.status(500).send('Error al obtener reservas del usuario');
+    res.status(500).json({ error: 'Error al obtener reservas del usuario' });
   }
 };
 
@@ -141,6 +144,6 @@ exports.obtenerReservasViaje = async (req, res) => {
     res.json(result.rows);
   } catch (err) {
     console.error('Error al obtener reservas del viaje:', err);
-    res.status(500).send('Error al obtener reservas del viaje');
+    res.status(500).json({ error: 'Error al obtener reservas del viaje' });
   }
 };

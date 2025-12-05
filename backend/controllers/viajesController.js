@@ -3,14 +3,14 @@ const admin = require("../firebase");
 
 // Crear viaje
 exports.crearViaje = async (req, res) => {
-  const { nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte } = req.body;
+  const { nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte, imagen } = req.body;
   try {
     const descuentoFinal = descuento === 0 ? null : descuento;
     const result = await pool.query(
       `INSERT INTO viajes 
-       (nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte) 
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
-      [nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuentoFinal, id_transporte]
+       (nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte, imagen) 
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,
+      [nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuentoFinal, id_transporte, imagen]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -57,24 +57,35 @@ exports.obtenerViajes = async (req, res) => {
 // Obtener viaje por ID
 exports.obtenerViaje = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM viajes WHERE id=$1', [req.params.id]);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+      return res.status(400).json({ error: 'ID de viaje inválido' });
+    }
+
+    const result = await pool.query('SELECT * FROM viajes WHERE id=$1', [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Viaje no encontrado' });
+    }
+
     res.json(result.rows[0]);
   } catch (err) {
     console.error('Error al obtener viaje:', err);
-    res.status(500).send('Error al obtener viaje');
+    res.status(500).json({ error: 'Error al obtener viaje' });
   }
 };
 
+
 // Actualizar viaje
 exports.actualizarViaje = async (req, res) => {
-  const { nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte } = req.body;
+  const { nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte, imagen } = req.body;
   try {
     const descuentoFinal = descuento === 0 ? null : descuento;
     await pool.query(
       `UPDATE viajes 
-       SET nombre=$1, descripcion=$2, fecha_inicio=$3, fecha_fin=$4, origen=$5, destino=$6, precio=$7, plazas_disponibles=$8, descuento=$9, id_transporte=$10, updated_at=now() 
-       WHERE id=$11`,
-      [nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuentoFinal, id_transporte, req.params.id]
+       SET nombre=$1, descripcion=$2, fecha_inicio=$3, fecha_fin=$4, origen=$5, destino=$6, precio=$7, plazas_disponibles=$8, descuento=$9, id_transporte=$10, imagen=$11, updated_at=now() 
+       WHERE id=$12`,
+      [nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuentoFinal, id_transporte, imagen, req.params.id]
     );
     res.json({ message: 'Viaje actualizado' });
   } catch (err) {
