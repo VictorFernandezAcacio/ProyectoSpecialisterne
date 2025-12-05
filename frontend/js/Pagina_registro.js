@@ -28,7 +28,6 @@ async function registrarse() {
   if (contrasenya !== confirmar) return mostrarError("Las contraseñas no coinciden.");
 
   try {
-    // 1. Crear usuario en tu backend (que a su vez lo crea en Firebase)
     const response = await fetch("http://localhost:3000/usuarios", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -46,10 +45,17 @@ async function registrarse() {
 
     localStorage.setItem("usuario", JSON.stringify(data));
     alert("Registro completado. Inicia sesión para continuar.");
-    window.location.href = "./Inicio de sesión.html";
+    window.location.href = "./inicio_sesion.html";
   } catch (err) {
     mostrarError(err.message || "Error en el registro");
   }
 }
 
+// 👉 Nueva función para el botón del banner
+function volverLogin() {
+  window.location.href = "./inicio_sesion.html";
+}
+
+// Exponer funciones al scope global
 window.registrarse = registrarse;
+window.volverLogin = volverLogin;

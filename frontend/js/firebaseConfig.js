@@ -2,6 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } 
   from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+export {onAuthStateChanged };
+
 const firebaseConfig = {
   apiKey: "AIzaSyAa8ISWH_61S_4w5Lyu50le8jaU0U0r44s",
   authDomain: "test-f27bd.firebaseapp.com",
