@@ -6,10 +6,16 @@ html, body { margin: 0; padding: 0; }
 body {
   font-family: Arial, sans-serif;
   background-color: #FFFDD0 !important;
-  user-select: none;
 }
 
 /* Barra superior */
+#barra_superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: lightslategray;
+  padding: 10px 20px;
+}
 #menu_superior a {
   color: #fff;
   margin: 0 10px;
@@ -91,14 +97,6 @@ body {
 .btn_resena   { background-image: url("../img/scroll.png"); }
 
 /* Footer complementario */
-#site_footer {
-  background: #000 !important;
-  color: #fff !important;
-  text-align: center !important;
-  padding: 20px !important;
-  margin-top: 50px;
-  font-size: 14px;
-}
 #site_footer p { margin: 5px 0; }
 #site_footer .redes { margin-top: 10px; }
 #site_footer .redes a {

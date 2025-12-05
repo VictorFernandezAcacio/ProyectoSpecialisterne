@@ -1,7 +1,7 @@
 /* --- Estilos generales de la página de inicio --- */
 body {
     margin: 0;
-    user-select: none; /* evita selección de texto */
+    user-select: none;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
 }
@@ -13,7 +13,7 @@ main {
 
 /* --- Footer --- */
 footer {
-    background-color: #000;   /* negro */
+    background-color: #000;
     color: #fff;
     text-align: center;
     padding: 20px;
@@ -137,6 +137,14 @@ footer .redes a:hover {
     margin-bottom: 10px;
 }
 
+/* Origen destacado */
+.viaje-origen {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
 /* Precio original */
 .precio {
     display: block;
@@ -169,9 +177,4 @@ footer .redes a:hover {
 
 .btn-reservar:hover {
     background-color: #0056b3;
-}
-
-/* Imagen fallback */
-img {
-    background-image: url('../img/inexistente.png');
 }

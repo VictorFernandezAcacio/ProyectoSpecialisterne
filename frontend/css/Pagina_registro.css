@@ -9,7 +9,6 @@ body {
   min-height: 100vh;
 }
 
-
 #barra_superior {
   background-color: #000;
   color: #fff;
@@ -29,6 +28,29 @@ body {
   margin: 0;
   font-size: 26px;
   text-align: center;
+}
+
+#volver_login_contenedor {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.btn-volver {
+  border: none;
+  background: #444;
+  border-radius: 20px;
+  height: 35px;
+  padding: 0 15px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+  background: #888;
+  transform: scale(1.05);
 }
 
 #espacio_barra_superior {
