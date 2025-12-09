@@ -97,10 +97,16 @@
     width: 35px;
     border-radius: 100%;
 
+    background-color: #fff;
+    border: 1px solid black;
+
     display: flex;
     justify-content: center;
-    align-items: center;   /* centra la imagen verticalmente */
+    align-items: center;
     cursor: pointer;
+}
+#btn_Perfil:hover {
+    background-color: #eee;
 }
 #img_Perfil {
     height: 30px;
@@ -128,4 +134,5 @@
     #buscador { max-width: clamp(260px, 60vw, 480px); }
     .btn-secundario { font-size: 13px; padding: 7px 12px; }
     #div_derecha_barra_superior { min-width: 200px; gap: 8px; }
+
 }
