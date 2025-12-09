@@ -11,10 +11,12 @@ function limpiarErrores() {
 }
 
 async function Iniciar_Sesion() {
+  console.log("Entrando en Iniciar_Sesion"); // <-- primer log
   limpiarErrores();
 
   const correo = document.getElementById("correo").value.trim();
   const contrasena = document.getElementById("contrasena").value.trim();
+  console.log("Datos introducidos:", { correo, contrasena });
 
   if (!correo) {
     mostrarError("error_correo", "ERROR: NO SE HA PUESTO EL CORREO");
@@ -27,27 +29,47 @@ async function Iniciar_Sesion() {
 
   try {
     // 1. Login con Firebase
+    console.log("Intentando login con Firebase...");
     const userCredential = await signInWithEmailAndPassword(auth, correo, contrasena);
+    console.log("Login Firebase correcto:", userCredential.user.uid);
+
     const idToken = await userCredential.user.getIdToken();
+    console.log("Token Firebase obtenido:", idToken);
 
     // 2. Validar contra tu backend
-    const response = await fetch("http://localhost:3000/login", {
+    console.log("Llamando al backend /usuarios/login...");
+    const response = await fetch("http://localhost:3000/usuarios/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idToken })
     });
 
+    console.log("Respuesta cruda del backend:", response);
     const data = await response.json();
+    console.log("Respuesta backend (JSON):", data);
+
     if (!response.ok) throw new Error(data.message || "Error en login");
 
-    localStorage.setItem("usuario", JSON.stringify(data.usuario));
-    console.log("Inicio de sesión correcto");
-    window.location.href = "../html/Inicio.html";
+    // 3. Guardar usuario en localStorage
+    const usuarioGuardado = {
+      uid: data.usuario.uid,
+      email: data.usuario.correo,          // backend lo llama "correo"
+      tipo_usuario: data.usuario.tipo_usuario,
+      token: idToken                       // token de Firebase
+    };
+
+    localStorage.setItem("usuario", JSON.stringify(usuarioGuardado));
+    console.log("Usuario guardado en localStorage:", usuarioGuardado);
+
+    console.log("Inicio de sesión correcto, redirigiendo...");
+    window.location.href = "../html/Inicio.html"; // redirigir a la página principal
   } catch (err) {
+    console.error("Error en login:", err);
     mostrarError("error_contrasena", err.message || "Error al iniciar sesión");
   }
 }
 
+// Eventos de botones
 document.getElementById("btn_iniciar").addEventListener("click", Iniciar_Sesion);
 document.getElementById("btn_registro").addEventListener("click", function () {
   window.location.href = "../html/pagina_registro.html";
