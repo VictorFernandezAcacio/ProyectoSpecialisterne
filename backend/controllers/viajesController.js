@@ -1,17 +1,33 @@
 const pool = require('../db');
-const admin = require("../firebase");
 
 // Crear viaje
 exports.crearViaje = async (req, res) => {
-  const { nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte, imagen } = req.body;
   try {
-    const descuentoFinal = descuento === 0 ? null : descuento;
+    console.log("req.body:", req.body);
+
+    const {
+      nombre,
+      descripcion,
+      fecha_inicio,
+      fecha_fin,
+      origen,
+      destino,
+      precio,
+      plazas_disponibles,
+      descuento,
+      id_transporte,
+      imagen // aquí guardamos solo el nombre del archivo (ej: Asturias.jpg)
+    } = req.body;
+
+    const descuentoFinal = (!descuento || descuento === "0") ? null : descuento;
+
     const result = await pool.query(
       `INSERT INTO viajes 
        (nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte, imagen) 
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,
       [nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuentoFinal, id_transporte, imagen]
     );
+
     res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error('Error al crear viaje:', err);
@@ -33,14 +49,14 @@ exports.obtenerViajes = async (req, res) => {
              v.fecha_inicio,
              v.fecha_fin,
              v.imagen,
-             d.porcentaje,
+             COALESCE(d.porcentaje, 0) AS porcentaje,
              CASE 
                WHEN d.id_descuento IS NOT NULL
                     AND d.activo = true
                     AND d.fecha_inicio <= CURRENT_DATE
                     AND d.fecha_fin >= CURRENT_DATE
-               THEN ROUND(v.precio * (100 - LEAST(d.porcentaje, 99)) / 100, 2)
-               ELSE v.precio
+               THEN ROUND(v.precio * (100 - LEAST(d.porcentaje, 99)) / 100.0, 2)
+               ELSE NULL
              END AS precio_final
       FROM viajes v
       LEFT JOIN descuentos d
@@ -75,18 +91,34 @@ exports.obtenerViaje = async (req, res) => {
   }
 };
 
-
 // Actualizar viaje
 exports.actualizarViaje = async (req, res) => {
-  const { nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuento, id_transporte, imagen } = req.body;
   try {
-    const descuentoFinal = descuento === 0 ? null : descuento;
+    console.log("req.body:", req.body);
+
+    const {
+      nombre,
+      descripcion,
+      fecha_inicio,
+      fecha_fin,
+      origen,
+      destino,
+      precio,
+      plazas_disponibles,
+      descuento,
+      id_transporte,
+      imagen // igual que en crear, solo nombre del archivo
+    } = req.body;
+
+    const descuentoFinal = (!descuento || descuento === "0") ? null : descuento;
+
     await pool.query(
       `UPDATE viajes 
        SET nombre=$1, descripcion=$2, fecha_inicio=$3, fecha_fin=$4, origen=$5, destino=$6, precio=$7, plazas_disponibles=$8, descuento=$9, id_transporte=$10, imagen=$11, updated_at=now() 
        WHERE id=$12`,
       [nombre, descripcion, fecha_inicio, fecha_fin, origen, destino, precio, plazas_disponibles, descuentoFinal, id_transporte, imagen, req.params.id]
     );
+
     res.json({ message: 'Viaje actualizado' });
   } catch (err) {
     console.error('Error al actualizar viaje:', err);

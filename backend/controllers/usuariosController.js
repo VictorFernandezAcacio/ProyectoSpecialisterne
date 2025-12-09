@@ -103,10 +103,19 @@ exports.loginUsuario = async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado en la BBDD" });
     }
 
-    // 3. Devolver datos del usuario
+    const usuario = result.rows[0];
+    console.log("Usuario encontrado en login:", usuario); // <-- depuración aquí
+
+    // 3. Devolver datos del usuario con tipo_usuario incluido
     res.status(200).json({
       message: "Login correcto",
-      usuario: result.rows[0]
+      usuario: {
+        id: usuario.id,
+        uid: usuario.uid,
+        correo: usuario.email,
+        usuario: usuario.usuario,
+        tipo_usuario: usuario.tipo_usuario, // <- clave para mostrar panel admin
+      }
     });
 
   } catch (err) {
