@@ -16,7 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;           
+    gap: 16px;
     padding: 0 24px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 1000;
@@ -38,10 +38,10 @@
 
 /* Buscador: ancho adaptable con clamp */
 #hueco_buscador {
-    flex: 1 1 auto;                 
+    flex: 1 1 auto;
     display: flex;
     justify-content: center;
-    min-width: 0;                   
+    min-width: 0;
 }
 
 #buscador {
@@ -60,7 +60,8 @@
     flex: 0 0 auto;
     display: flex;
     gap: 12px;
-    min-width: 260px;              
+    min-width: 260px;
+    margin-right: 26px;
 }
 
 .btn-secundario {
@@ -69,12 +70,12 @@
     border: 2px solid black;
     text-decoration: none;
     border-radius: 18px;
-    padding: 9px 18px;             
+    padding: 9px 18px;
     cursor: pointer;
     font-weight: bold;
     font-family: var(--fuente-base);
-    white-space: nowrap;            
-    flex: 0 0 auto;                 
+    white-space: nowrap;
+    flex: 0 0 auto;
     text-align: center;
     display: inline-block;
     transition: background-color 0.3s ease;
@@ -82,6 +83,28 @@
 
 .btn-secundario:hover {
     background-color: #0056b3;
+}
+
+#div_usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#btn_Perfil {
+    height: 35px;
+    width: 35px;
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;   /* centra la imagen verticalmente */
+    cursor: pointer;
+}
+#img_Perfil {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
 }
 
 #espacio_barra_superior { height: 120px; }
