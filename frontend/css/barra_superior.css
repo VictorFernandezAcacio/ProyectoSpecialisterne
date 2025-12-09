@@ -7,6 +7,7 @@
 
 /* Layout base */
 #barra_superior {
+    box-sizing: border-box;
     background-color: var(--color-fondo);
     height: 100px;
     width: 100%;
