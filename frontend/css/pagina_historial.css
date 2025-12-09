@@ -5,6 +5,7 @@ html, body { margin: 0; padding: 0; }
 /* Fondo crema */
 body {
   font-family: Arial, sans-serif;
+  user-select: none;
   background-color: #FFFDD0 !important;
 }
 
@@ -97,6 +98,14 @@ body {
 .btn_resena   { background-image: url("../img/scroll.png"); }
 
 /* Footer complementario */
+#site_footer {
+  background: #000 !important;
+  color: #fff !important;
+  text-align: center !important;
+  padding: 20px !important;
+  margin-top: 50px;
+  font-size: 14px;
+}
 #site_footer p { margin: 5px 0; }
 #site_footer .redes { margin-top: 10px; }
 #site_footer .redes a {
