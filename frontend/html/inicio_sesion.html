@@ -6,7 +6,11 @@
   <title>Inicio de sesión</title>
 
   <link rel="stylesheet" href="../css/inicio_sesion.css">
+  <link rel="stylesheet" href="../css/mostrar_contrasena.css">
+
   <link rel="icon" type="image/png" href="../img/logo.png">
+
+  <script src="../js/mostrar_contrasena.js"></script>
 </head>
 <body>
   <div id="barra_superior">
@@ -27,7 +31,13 @@
         <!-- Campo de contraseña -->
         <div class="divs_inicio">
           <label for="contrasena">Contraseña:</label>
-          <input type="password" id="contrasena" name="contrasena" maxlength="50">
+          <div style="display: flex; justify-content: end; gap: 1px">
+            <input type="password" id="contrasena" name="contrasena" maxlength="50" style="margin-right: 15px;">
+              <button class="mostrar_contrasena" onclick="mostrar_contrasena()">👁 Mostrar</button>
+              <span><i class="fa-solid fa-eye"></i></span>
+              <i class="fa-regular fa-eye-slash"></i>
+          </div>
+
           <div class="div_error" id="error_contrasena"></div>
         </div>
       </div>
@@ -53,7 +63,5 @@
   <!-- Script de login -->
   <script type="module" src="../js/auth.js" defer></script>
   <script type="module" src="../js/inicio_sesion.js" defer></script>
-
 </body>
 </html>
-
