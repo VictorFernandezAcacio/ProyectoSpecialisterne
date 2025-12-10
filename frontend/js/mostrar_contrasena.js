@@ -1,10 +1,10 @@
-function mostrar_contrasena() {
-  switch (document.getElementById("contrasena").type) {
+function mostrar_contrasena(value) {
+  switch (document.getElementById(value).type) {
     case ("password"):
-      document.getElementById("contrasena").type = "text"
+      document.getElementById(value).type = "text"
       break;
     case ("text"):
-      document.getElementById("contrasena").type = "password"
+      document.getElementById(value).type = "password"
       break;
   }
 }
