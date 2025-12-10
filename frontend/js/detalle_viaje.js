@@ -1,13 +1,23 @@
 // Configuración base de la API
 const BASE_URL = 'http://localhost:3000';
 
+// Función auxiliar para formatear fecha en DD/MM/AAAA
+function formatearFecha(fechaISO) {
+  if (!fechaISO) return "No disponible";
+  const fecha = new Date(fechaISO);
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const año = fecha.getFullYear();
+  return `${dia}/${mes}/${año}`;
+}
+
 // Obtener parámetro id de la URL
 function getIdViaje() {
   const params = new URLSearchParams(window.location.search);
   return params.get('id');
 }
 
-// Renderizar detalle del viaje en los elementos del HTML
+// Renderizar detalle del viaje
 function renderDetalle(viaje) {
   // Imagen
   const img = document.getElementById('imagen_viaje');
@@ -30,23 +40,35 @@ function renderDetalle(viaje) {
         : `Precio: ${viaje.precio} €`;
   }
 
-  // Reseñas
-  const contResenas = document.getElementById('contenedor_resenas');
-  if (contResenas) {
-    const reseñasHTML =
-      viaje.reseñas && viaje.reseñas.length > 0
-        ? viaje.reseñas
-            .map(
-              (r) =>
-                `<p>⭐ ${r.puntuacion} - ${r.comentario} <br><em>${r.usuario_nombre || ''}</em></p>`
-            )
-            .join('')
-        : '<p>No hay reseñas disponibles.</p>';
-    contResenas.innerHTML = reseñasHTML;
+  // Fechas
+  const fecha = document.getElementById('fecha_viaje');
+  if (fecha) {
+    const inicio = formatearFecha(viaje.fecha_inicio);
+    const fin = formatearFecha(viaje.fecha_fin);
+    fecha.textContent =
+      viaje.fecha_inicio || viaje.fecha_fin
+        ? `Del ${inicio} al ${fin}`
+        : 'Fechas no disponibles';
   }
 }
 
-// Cargar datos del viaje desde el backend
+// Renderizar reseñas
+function renderResenas(resenas) {
+  const contResenas = document.getElementById('contenedor_resenas');
+  if (!contResenas) return;
+
+  contResenas.innerHTML =
+    resenas.length > 0
+      ? resenas
+          .map(
+            (r) =>
+              `<p>⭐ ${r.valoracion} - ${r.resena_texto} <br><em>Usuario: ${r.id_usuario}</em></p>`
+          )
+          .join('')
+      : '<p>No hay reseñas disponibles.</p>';
+}
+
+// Cargar datos del viaje y sus reseñas
 export async function cargarDetalle() {
   const idViaje = getIdViaje();
   if (!idViaje) {
@@ -55,10 +77,18 @@ export async function cargarDetalle() {
   }
 
   try {
-    const res = await fetch(`${BASE_URL}/viajes/${idViaje}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const viaje = await res.json();
+    // Viaje
+    const resViaje = await fetch(`${BASE_URL}/viajes/${idViaje}`);
+    if (!resViaje.ok) throw new Error(`HTTP ${resViaje.status}`);
+    const viaje = await resViaje.json();
     renderDetalle(viaje);
+
+    // Reseñas
+    const resResenas = await fetch(`${BASE_URL}/viajes/${idViaje}/resenas`);
+    if (resResenas.ok) {
+      const resenas = await resResenas.json();
+      renderResenas(resenas);
+    }
   } catch (error) {
     console.error('Error cargando detalle:', error);
     const desc = document.getElementById('descripcion_viaje');
@@ -66,45 +96,27 @@ export async function cargarDetalle() {
   }
 }
 
-// Reservar viaje
-export async function reservarViaje(idViaje) {
-  try {
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-    const usuario_id = usuario?.id;
+// Añadir viaje al carrito
+window.AñadirCarrito = function() {
+  const idViaje = getIdViaje();
+  const destino = document.getElementById("titulo_viaje").textContent;
+  const precioTexto = document.getElementById("precio_viaje").textContent;
+  const precio = precioTexto.match(/\d+/g) ? precioTexto.match(/\d+/g)[0] : "";
+  const imagen = document.getElementById("imagen_viaje").getAttribute("src").split("/").pop();
 
-    if (!usuario_id) {
-      alert('Debes iniciar sesión para reservar.');
-      return;
-    }
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-    const res = await fetch(`${BASE_URL}/reservas`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ usuario_id, viaje_id: idViaje })
-    });
-
-    if (res.ok) {
-      // Redirigir a Viaje.html tras reservar
-      window.location.href = `Viaje.html?id=${idViaje}`;
-    } else {
-      let errorMsg;
-      try {
-        const data = await res.json();
-        errorMsg = data.error || 'Error al realizar la reserva';
-      } catch {
-        const text = await res.text();
-        errorMsg = text || 'Error al realizar la reserva';
-      }
-      alert(errorMsg);
-    }
-  } catch (error) {
-    console.error('Error en la reserva:', error);
-    alert('Error inesperado al realizar la reserva.');
+  if (!carrito.some(v => v.id === idViaje)) {
+    carrito.push({ id: idViaje, destino, precio, imagen });
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    alert("Viaje añadido al carrito 🛒");
+  } else {
+    alert("Este viaje ya está en el carrito");
   }
-}
+
+  const contador = document.getElementById("contador_carrito");
+  if (contador) contador.textContent = carrito.length;
+};
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', cargarDetalle);
-
-// Exponer funciones al ámbito global (para botones en HTML)
-window.reservarViaje = reservarViaje;

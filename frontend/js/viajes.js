@@ -1,6 +1,16 @@
 // Variable global para usuario
 let usuario = null;
 
+// Función auxiliar para formatear fecha en DD/MM/AAAA
+function formatearFecha(fechaISO) {
+  if (!fechaISO) return "No disponible";
+  const fecha = new Date(fechaISO);
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const año = fecha.getFullYear();
+  return `${dia}/${mes}/${año}`;
+}
+
 // Función para cargar viajes desde el backend
 async function cargarViajes() {
   try {
@@ -25,17 +35,22 @@ async function cargarViajes() {
       // ✅ Mostrar precio con descuento solo si precio_final no es null
       const tieneDescuento = v.precio_final !== null;
 
-    const precioHTML = tieneDescuento
-      ? `<span class="precio tachado">Precio: ${v.precio} €</span>
-      <span class="descuento">Precio con descuento: ${v.precio_final} €</span>`
-    : `<span class="precio">Precio: ${v.precio} €</span>`;
+      const precioHTML = tieneDescuento
+        ? `<span class="precio tachado">Precio: ${v.precio} €</span>
+           <span class="descuento">Precio con descuento: ${v.precio_final} €</span>`
+        : `<span class="precio">Precio: ${v.precio} €</span>`;
 
+      // ✅ Mostrar fechas formateadas
+      const fechaInicio = formatearFecha(v.fecha_inicio);
+      const fechaFin = formatearFecha(v.fecha_fin);
 
       card.innerHTML = `
-        <img src="/img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="viaje-img">
+        <img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="viaje-img">
         <h3>${v.destino}</h3>
         <p class="viaje-origen">Salida desde: ${v.origen}</p>
         <p>${v.descripcion || ''}</p>
+        <p class="viaje-fecha">Fecha inicio: ${fechaInicio}</p>
+        <p class="viaje-fecha">Fecha fin: ${fechaFin}</p>
         ${precioHTML}
         <button class="btn-reservar">Ver detalle</button>
       `;
