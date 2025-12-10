@@ -13,6 +13,13 @@ function limpiarError() {
   box.textContent = "";
 }
 
+function esMenorDe18(fecha) {
+  const hoy = new Date();
+  const cumple18 = new Date(fecha);
+  cumple18.setFullYear(cumple18.getFullYear() + 18);
+  return hoy < cumple18;
+}
+
 async function registrarse() {
   limpiarError();
 
@@ -25,6 +32,9 @@ async function registrarse() {
   if (!usuario || !correo || !contrasenya || !confirmar) return mostrarError("Por favor, complete todos los campos.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return mostrarError("El correo no parece válido.");
   if (contrasenya.length < 8) return mostrarError("La contraseña es demasiado corta.");
+  if (esMenorDe18(fecha_nacimiento)) return mostrarError
+  ("Los menores de 18 años no pueden registrarse. ¡Le esperamos más tarde!");
+  if (fecha_nacimiento < Date("1009-04-21")) return mostrarError ("Por favor, introduzca la fecha real.");
   if (contrasenya !== confirmar) return mostrarError("Las contraseñas no coinciden.");
 
   try {
