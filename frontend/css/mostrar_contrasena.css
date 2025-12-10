@@ -1,3 +1,15 @@
 button.mostrar_contrasena {
     width: 90px;
 }
+button.mostrar_contrasena_2 {
+    width: 60px;
+}
+
+div.caja_mostrar_contrasena {
+    display: flex;
+    justify-content: end;
+}
+
+input.input_margen30 {
+    margin-left: 30px;
+}
