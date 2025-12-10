@@ -16,23 +16,8 @@
     <title>Perfil</title>
 </head>
 <body>
-    <div id="barra_superior">
-    <!-- Logo -->
-    <img id="logo" src="../img/logo.png" alt="Logo de la empresa" style="height:90px; width:auto;">
-
-    <!-- Buscador -->
-    <div id="hueco_buscador">
-        <input type="text" id="buscador" placeholder="Buscar...">
-    </div>
-
-    <!-- Botones -->
-    <div id="div_derecha_barra_superior">
-        <a href="pagina_historial.html"><button class="btn-secundario">RESERVAS</button></a>
-        <a href="inicio_sesion.html"><button class="btn-secundario">ENTRAR</button></a>
-    </div>
-    </div>
-    <div id="espacio_barra_superior"></div>
-
+    <!-- Barra superior modular -->
+    <div id="barra_superior_container"></div>
 
     <!-- Apartado Perfil -->
     <section id="perfil">
@@ -96,6 +81,18 @@
             <a href="https://linkedin.com" target="_blank">💼 LinkedIn</a>
         </div>
     </footer>
+
+    <!-- Inyección de barra superior -->
+    <script>
+      fetch("barra_superior.html")
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("barra_superior_container").innerHTML = html;
+          // cargar la lógica JS de la barra superior
+          const script = document.createElement("script");
+          script.src = "../js/barra_superior.js";
+          document.body.appendChild(script);
+        });
+    </script>
 </body>
 </html>
-

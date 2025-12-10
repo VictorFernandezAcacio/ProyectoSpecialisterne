@@ -6,22 +6,13 @@
   <title>Detalle del viaje</title>
   <link rel="stylesheet" href="../css/Viaje.css">
   <link rel="stylesheet" href="../css/barra_superior.css">
-  <script src="../js/Viaje.js" defer></script>
   <script type="module" src="../js/detalle_viaje.js"></script>
   <link rel="icon" type="image/png" href="../img/logo.png">
 </head>
 <body>
 
-  <!-- Barra superior -->
-  <div id="barra_superior">
-    <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
-    <div id="hueco_buscador"></div>
-    <div id="div_derecha_barra_superior">
-      <a href="pagina_historial.html"><button class="btn-secundario">RESERVAS</button></a>
-      <a href="inicio_sesion.html"><button class="btn-secundario">ENTRAR</button></a>
-    </div>
-  </div>
-  <div id="espacio_barra_superior"></div>
+  <!-- Barra superior modular -->
+  <div id="barra_superior_container"></div>
 
   <!-- Banner -->
   <div id="banner">
@@ -41,12 +32,13 @@
       <div id="titulo_estrellas_precio">
         <div><span id="titulo_viaje"></span></div>
         <div><span id="precio_viaje"></span></div>
+        <p id="fecha_viaje"></p>
       </div>
     </div>
   </section>
 
   <div class="boton_compra_linea">
-    <button onclick="MostrarCompra()">Comprar</button>
+    <button onclick="AñadirCarrito()">Añadir al carrito 🛒</button>
   </div>
 
   <!-- Reseñas -->
@@ -81,5 +73,17 @@
       <a href="https://linkedin.com" target="_blank">LinkedIn</a>
     </div>
   </footer>
+
+  <!-- Inyección de barra superior -->
+  <script>
+    fetch("barra_superior.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("barra_superior_container").innerHTML = html;
+        const script = document.createElement("script");
+        script.src = "../js/barra_superior.js";
+        document.body.appendChild(script);
+      });
+  </script>
 </body>
 </html>

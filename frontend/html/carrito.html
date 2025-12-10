@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito</title>
+  <link rel="stylesheet" href="../css/carrito.css">
+  <link rel="stylesheet" href="../css/barra_superior.css">
+</head>
+<body>
+  <!-- Barra superior modular -->
+  <div id="barra_superior_container"></div>
+
+  <h1>Tu carrito 🛒</h1>
+  <div id="lista_carrito"></div>
+
+  <!-- Datos de pago centrados -->
+  <h2>Datos de Pago</h2>
+  <form id="form_pago">
+    <label for="nombre">Nombre completo:</label><br>
+    <input type="text" id="nombre" required><br><br>
+
+    <label for="email">Correo electrónico:</label><br>
+    <input type="email" id="email" required><br><br>
+
+    <label for="tarjeta">Número de tarjeta:</label><br>
+    <input type="text" id="tarjeta" required><br><br>
+
+    <button type="submit">Finalizar compra</button>
+  </form>
+
+  <!-- Inyección de barra superior -->
+  <script>
+    fetch("barra_superior.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("barra_superior_container").innerHTML = html;
+        const script = document.createElement("script");
+        script.src = "../js/barra_superior.js";
+        document.body.appendChild(script);
+      });
+  </script>
+
+  <script src="../js/carrito.js"></script>
+</body>
+</html>

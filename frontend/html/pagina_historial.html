@@ -3,79 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Historial</title>
-  <link rel="stylesheet" href="../css/pagina_historial.css">
+  <title>Mis Reservas</title>
+  <link rel="stylesheet" href="../css/reservas.css">
   <link rel="stylesheet" href="../css/barra_superior.css">
-  <script src="../js/pagina_historial.js" defer></script>
-
   <link rel="icon" type="image/png" href="../img/logo.png">
-
-  <!-- Overrides para asegurar logo y fondo crema -->
+  <script src="../js/reservas.js" defer></script>
 </head>
 <body>
-  <!-- Barra superior -->
-  <div id="barra_superior">
-    <div id="logo_container">
-      <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
-    </div>
-
-    <div id="hueco_buscador"></div>
-
-    <div id="div_derecha_barra_superior">
-      <div id="div_Entrar">
-        <a href="inicio_sesion.html"><button class="btn-secundario">ENTRAR</button></a>
-      </div>
-      <div id="div_usuario">
-        <a href="pagina_historial.html"><button class="btn-secundario">RESERVAS</button></a>
-        <div style="display: inline-block;">
-          <a href="Perfil.html"><button id="btn_Perfil"><img src="../img/usuario.png" alt="" id="img_Perfil"></button></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="espacio_barra_superior"></div>
+  <!-- Barra superior modular -->
+  <div id="barra_superior_container"></div>
 
   <!-- Viajes pendientes -->
   <section class="bloque_viajes">
-    <h2>Viajes pendientes</h2>
-    <div class="grid_viajes">
-      <article class="card_viaje">
-        <h3 class="card_titulo">Viaje 1</h3>
-        <img src="../img/viaje1.jpg" alt="Viaje 1" class="card_img">
-        <p class="card_meta">Fecha: 12/12/2025</p>
-        <p class="card_meta">Precio: 500€</p>
-        <button class="btn_eliminar" aria-label="Eliminar"></button>
-      </article>
-
-      <article class="card_viaje">
-        <h3 class="card_titulo">Viaje 2</h3>
-        <img src="../img/viaje2.jpg" alt="Viaje 2" class="card_img">
-        <p class="card_meta">Fecha: 20/01/2026</p>
-        <p class="card_meta">Precio: 650€</p>
-        <button class="btn_eliminar" aria-label="Eliminar"></button>
-      </article>
+    <h2>✈️ Viajes pendientes</h2>
+    <div class="grid_viajes" id="viajes_pendientes">
+      <!-- Aquí se insertan dinámicamente los viajes pendientes -->
     </div>
   </section>
 
   <!-- Viajes realizados -->
   <section class="bloque_viajes">
-    <h2>Viajes realizados</h2>
-    <div class="grid_viajes">
-      <article class="card_viaje">
-        <h3 class="card_titulo">Viaje 4</h3>
-        <img src="../img/viaje4.jpg" alt="Viaje 4" class="card_img">
-        <p class="card_meta">Fecha: 05/09/2025</p>
-        <p class="card_meta">Precio: 700€</p>
-        <button class="btn_resena" aria-label="Resena"></button>
-      </article>
-
-      <article class="card_viaje">
-        <h3 class="card_titulo">Viaje 5</h3>
-        <img src="../img/viaje5.jpg" alt="Viaje 5" class="card_img">
-        <p class="card_meta">Fecha: 15/10/2025</p>
-        <p class="card_meta">Precio: 450€</p>
-        <button class="btn_resena" aria-label="Resena"></button>
-      </article>
+    <h2>✅ Viajes realizados</h2>
+    <div class="grid_viajes" id="viajes_realizados">
+      <!-- Aquí se insertan dinámicamente los viajes realizados -->
     </div>
   </section>
 
@@ -83,12 +33,24 @@
   <footer id="site_footer">
     <p>&copy; 2025 Bug Travel. Todos los derechos reservados.</p>
     <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
-    <p>Direccion: Calle Ejemplo 123, Barcelona, Espana</p>
+    <p>Dirección: Calle Ejemplo 123, Barcelona, España</p>
     <div class="redes">
       <a href="https://facebook.com" target="_blank">Facebook</a>
       <a href="https://instagram.com" target="_blank">Instagram</a>
       <a href="https://linkedin.com" target="_blank">LinkedIn</a>
     </div>
   </footer>
+
+  <!-- Inyección de barra superior -->
+  <script>
+    fetch("barra_superior.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("barra_superior_container").innerHTML = html;
+        const script = document.createElement("script");
+        script.src = "../js/barra_superior.js";
+        document.body.appendChild(script);
+      });
+  </script>
 </body>
 </html>

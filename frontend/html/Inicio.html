@@ -10,27 +10,8 @@
   <link rel="icon" type="image/png" href="../img/logo.png">
 </head>
 <body>
-  <!-- Barra superior -->
-  <div id="barra_superior">
-    <div id="logo_container">
-      <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
-    </div>
-    <div id="hueco_buscador">
-      <input type="text" id="buscador" placeholder="Buscar viajes, destinos..." />
-    </div>
-    <div id="div_derecha_barra_superior">
-      <div id="div_Entrar">
-        <a href="inicio_sesion.html"><button class="btn-secundario">ENTRAR</button></a>
-      </div>
-      <div id="div_usuario">
-        <a href="pagina_historial.html"><button class="btn-secundario">RESERVAS</button></a>
-        <div style="display: inline-block;">
-          <a href="Perfil.html"><button id="btn_Perfil"><img src="../img/usuario.png" alt="" id="img_Perfil"></button></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="espacio_barra_superior"></div>
+  <!-- Barra superior modular -->
+  <div id="barra_superior_container"></div>
 
   <!-- Banner de descuentos -->
   <div id="banner_descuentos">
@@ -41,36 +22,32 @@
   <!-- Bloques de viajes -->
   <section id="viajes_destacados">
     <h2>🌍 Viajes destacados</h2>
-    <div class="contenido_viajes" id="lista_viajes"></div>
+    <div class="contenido_viajes" id="lista_viajes">
+      <!-- Aquí se insertan dinámicamente las tarjetas de viajes desde viajes.js -->
+    </div>
   </section>
 
   <!-- Panel de administración (solo visible para admin) -->
-<section id="admin_viajes" style="display:none;">
-  <!-- ✅ Título dinámico -->
-  <h2 id="form_title">Crear viaje</h2>
-  
-  <form id="form_viaje">
-    <input type="hidden" id="id_viaje">
-    <input type="text" id="nombre" placeholder="Nombre" required>
-    <textarea id="descripcion" placeholder="Descripción"></textarea>
-    <input type="date" id="fecha_inicio" required>
-    <input type="date" id="fecha_fin" required>
-    <input type="text" id="origen" placeholder="Origen" required>
-    <input type="text" id="destino" placeholder="Destino" required>
-    <input type="number" id="precio" placeholder="Precio" required>
-    <input type="number" id="plazas_disponibles" placeholder="Plazas disponibles" required>
-    <input type="number" id="descuento" placeholder="ID descuento">
-    <input type="number" id="id_transporte" placeholder="ID transporte">
-    <input type="text" id="imagen" placeholder="Nombre de la imagen (ej: Asturias.jpg)" required>
-    
-    <!-- ✅ Botón guardar con id -->
-    <button type="submit" id="btn_guardar">Crear viaje</button>
-    
-    <!-- ✅ Botón eliminar oculto por defecto -->
-    <button type="button" id="btn_eliminar" style="display:none;">Eliminar viaje</button>
-  </form>
-</section>
-
+  <section id="admin_viajes" style="display:none;">
+    <h2 id="form_title">Crear viaje</h2>
+    <form id="form_viaje">
+      <input type="hidden" id="id_viaje">
+      <input type="text" id="nombre" placeholder="Nombre" required>
+      <textarea id="descripcion" placeholder="Descripción"></textarea>
+      <input type="date" id="fecha_inicio" required>
+      <input type="date" id="fecha_fin" required>
+      <input type="text" id="origen" placeholder="Origen" required>
+      <input type="text" id="destino" placeholder="Destino" required>
+      <input type="number" id="precio" placeholder="Precio" required>
+      <input type="number" id="plazas_disponibles" placeholder="Plazas disponibles" required>
+      <input type="number" id="descuento" placeholder="ID descuento">
+      <input type="number" id="id_transporte" placeholder="ID transporte">
+      <input type="text" id="imagen" placeholder="Nombre de la imagen (ej: Asturias.jpg)" required>
+      
+      <button type="submit" id="btn_guardar">Crear viaje</button>
+      <button type="button" id="btn_eliminar" style="display:none;">Eliminar viaje</button>
+    </form>
+  </section>
 
   <!-- Footer -->
   <footer>
@@ -88,5 +65,17 @@
   <script type="module" src="../js/firebaseConfig.js"></script>
   <script type="module" src="../js/descuentos.js"></script>
   <script type="module" src="../js/viajes.js"></script>
+
+  <!-- Inyección de barra superior -->
+  <script>
+    fetch("barra_superior.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("barra_superior_container").innerHTML = html;
+        const script = document.createElement("script");
+        script.src = "../js/barra_superior.js";
+        document.body.appendChild(script);
+      });
+  </script>
 </body>
 </html>
