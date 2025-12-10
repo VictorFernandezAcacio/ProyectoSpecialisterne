@@ -11,7 +11,7 @@ function limpiarErrores() {
 }
 
 async function Iniciar_Sesion() {
-  console.log("Entrando en Iniciar_Sesion"); // <-- primer log
+  console.log("Entrando en Iniciar_Sesion");
   limpiarErrores();
 
   const correo = document.getElementById("correo").value.trim();
@@ -52,17 +52,19 @@ async function Iniciar_Sesion() {
 
     // 3. Guardar usuario en localStorage
     const usuarioGuardado = {
+      id: data.usuario.id,
       uid: data.usuario.uid,
-      email: data.usuario.correo,          // backend lo llama "correo"
+      usuario: data.usuario.usuario,
+      email: data.usuario.email,
       tipo_usuario: data.usuario.tipo_usuario,
-      token: idToken                       // token de Firebase
+      token: idToken
     };
 
     localStorage.setItem("usuario", JSON.stringify(usuarioGuardado));
     console.log("Usuario guardado en localStorage:", usuarioGuardado);
 
-    console.log("Inicio de sesión correcto, redirigiendo...");
-    window.location.href = "../html/Inicio.html"; // redirigir a la página principal
+    // Redirigir al inicio
+    window.location.href = "../html/Inicio.html";
   } catch (err) {
     console.error("Error en login:", err);
     mostrarError("error_contrasena", err.message || "Error al iniciar sesión");
