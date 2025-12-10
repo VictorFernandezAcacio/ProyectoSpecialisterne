@@ -6,7 +6,11 @@
   <title>Registro</title>
 
   <link rel="stylesheet" href="../css/Pagina_registro.css"/>
+  <link rel="stylesheet" href="../css/mostrar_contrasena.css"/>
+
   <script type="module" src="../js/Pagina_registro.js"></script>
+  <script src="../js/mostrar_contrasena.js"></script>
+
   <link rel="icon" type="image/png" href="../img/logo.png">
 </head>
 <body>
@@ -33,12 +37,18 @@
 
         <div class="divs_registro">
           <label for="contrasenya">Contraseña:</label>
-          <input type="password" id="contrasenya" name="contrasenya" maxlength="50" />
+          <div class="caja_mostrar_contrasena">
+            <input type="password" id="contrasenya" name="contrasenya" maxlength="50" class="input_margen30" />
+            <button class="mostrar_contrasena_2" onclick="mostrar_contrasena('contrasenya')">👁 Mostrar</button>
+          </div>
         </div>
 
         <div class="divs_registro">
           <label for="confirmar_contrasenya">Confirme la contraseña:</label>
-          <input type="password" id="confirmar_contrasenya" name="confirmar_contrasenya" maxlength="50" />
+          <div class="caja_mostrar_contrasena">
+            <input type="password" id="confirmar_contrasenya" name="confirmar_contrasenya" maxlength="50" class="input_margen30" />
+            <button class="mostrar_contrasena_2" onclick="mostrar_contrasena('confirmar_contrasenya')">👁 Mostrar</button>
+          </div>
         </div>
 
         <div class="divs_registro">
@@ -67,4 +77,3 @@
   </footer>
 </body>
 </html>
-
