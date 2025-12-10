@@ -2,29 +2,12 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 
-/* Fondo crema */
 body {
   font-family: Arial, sans-serif;
   user-select: none;
-  background-color: #FFFDD0 !important;
+  background-color: #FFFDD0; /* crema */
+  color: #333;
 }
-
-/* Barra superior */
-#barra_superior {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: lightslategray;
-  padding: 10px 20px;
-}
-#menu_superior a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-  font-weight: bold;
-}
-#menu_superior a:hover { text-decoration: underline; }
-#usuario { color: #fff; font-weight: bold; }
 
 /* Bloques de viajes */
 .bloque_viajes {
@@ -35,10 +18,12 @@ body {
   width: 92%;
   padding: 22px;
 }
+
 .bloque_viajes h2 {
   margin: 0 0 20px;
   font-size: 22px;
   color: #222;
+  text-align: center;
 }
 
 /* Grid responsivo */
@@ -53,7 +38,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f9f9f9;
+  background: #fffdf2; /* crema claro */
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
@@ -64,18 +49,21 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.18);
 }
+
 .card_titulo {
   margin: 12px 0 8px;
   font-size: 18px;
   color: #111;
   text-align: center;
 }
+
 .card_img {
   width: 100%;
   height: 160px;
   object-fit: cover;
   display: block;
 }
+
 .card_meta {
   margin: 4px 0;
   font-size: 14px;
@@ -94,15 +82,25 @@ body {
   background-repeat: no-repeat;
   background-color: transparent;
 }
+
+/* Iconos diferenciados */
 .btn_eliminar { background-image: url("../img/bin.png"); }
 .btn_resena   { background-image: url("../img/scroll.png"); }
 
-/* Footer complementario */
+/* Diferenciar bloques */
+#viajes_pendientes .card_viaje {
+  border: 2px solid #f0c040; /* amarillo suave */
+}
+#viajes_realizados .card_viaje {
+  border: 2px solid #2e8b57; /* verde */
+}
+
+/* Footer */
 #site_footer {
-  background: #000 !important;
-  color: #fff !important;
-  text-align: center !important;
-  padding: 20px !important;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
   margin-top: 50px;
   font-size: 14px;
 }

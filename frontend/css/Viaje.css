@@ -169,3 +169,11 @@ footer .redes a {
 footer .redes a:hover {
   text-decoration: underline;
 }
+
+#fecha_viaje, .card_fecha {
+  font-size: 15px;
+  color: #444;
+  margin-top: 6px;
+  text-align: center;
+}
+
