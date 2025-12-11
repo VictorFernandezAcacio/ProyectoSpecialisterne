@@ -1,9 +1,18 @@
+// Función auxiliar para formatear fecha en DD/MM/AAAA
+function formatearFecha(fechaISO) {
+  if (!fechaISO) return "No disponible";
+  const fecha = new Date(fechaISO);
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const año = fecha.getFullYear();
+  return `${dia}/${mes}/${año}`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const lista = document.getElementById("lista_carrito");
   const formPago = document.getElementById("form_pago");
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  // Renderizar viajes del carrito
   function renderCarrito() {
     if (carrito.length === 0) {
       lista.innerHTML = "<p>El carrito está vacío.</p>";
@@ -16,12 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="carrito-info">
           <h3>${v.destino}</h3>
           <p>Precio: ${v.precio} €</p>
+          <p>Fecha inicio: ${formatearFecha(v.fecha_inicio || v.fechaInicio)}</p>
+          <p>Fecha fin: ${formatearFecha(v.fecha_fin || v.fechaFin)}</p>
         </div>
         <button class="btn-eliminar" data-index="${index}">Eliminar</button>
       </div>
     `).join("");
 
-    // Botones eliminar
     document.querySelectorAll(".btn-eliminar").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const idx = e.target.dataset.index;
@@ -33,60 +43,64 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Actualizar contador en barra superior
   function actualizarContador() {
     const contador = document.getElementById("contador_carrito");
     if (contador) contador.textContent = carrito.length;
   }
 
-  // Botón volver a la página de origen
-  const btnVolver = document.createElement("button");
-  btnVolver.textContent = "⬅️ Volver";
-  btnVolver.id = "btn_volver";
-  document.body.insertBefore(btnVolver, lista);
+  // Finalizar compra
+  if (formPago) {
+    formPago.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-  btnVolver.addEventListener("click", () => {
-    const origen = localStorage.getItem("pagina_origen");
-    if (origen) {
-      window.location.href = origen;
-    } else {
-      window.location.href = "Inicio.html"; // fallback
-    }
-  });
+      if (carrito.length === 0) {
+        alert("No hay viajes en el carrito");
+        return;
+      }
 
-  // Finalizar compra con formulario
-  formPago.addEventListener("submit", (e) => {
-    e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const email = document.getElementById("email").value;
+      const tarjeta = document.getElementById("tarjeta").value;
 
-    if (carrito.length === 0) {
-      alert("No hay viajes en el carrito");
-      return;
-    }
+      if (!nombre || !email || !tarjeta) {
+        alert("Por favor, rellena todos los campos");
+        return;
+      }
 
-    const nombre = document.getElementById("nombre").value;
-    const email = document.getElementById("email").value;
-    const tarjeta = document.getElementById("tarjeta").value;
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      const usuarioId = usuario ? usuario.id : null;
+      if (!usuarioId) {
+        alert("No se encontró usuario en sesión");
+        return;
+      }
 
-    if (!nombre || !email || !tarjeta) {
-      alert("Por favor, rellena todos los campos");
-      return;
-    }
+      try {
+        for (const v of carrito) {
+          await fetch("http://localhost:3000/reservas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              usuario_id: usuarioId,
+              viaje_id: v.id,
+              estado: "confirmada"
+            })
+          });
+        }
 
-    // Guardar viajes pagados en reservas
-    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
-    reservas = reservas.concat(carrito);
-    localStorage.setItem("reservas", JSON.stringify(reservas));
+        alert(`Compra finalizada ✅\nGracias ${nombre}, recibirás la confirmación en ${email}`);
 
-    alert(`Compra finalizada ✅\nGracias ${nombre}, recibirás la confirmación en ${email}`);
+        carrito = [];
+        localStorage.removeItem("carrito");
+        renderCarrito();
+        actualizarContador();
+        formPago.reset();
+      } catch (err) {
+        console.error("Error creando reservas:", err);
+        alert("Error al procesar la compra");
+      }
+    });
+  }
 
-    carrito = [];
-    localStorage.removeItem("carrito");
-    renderCarrito();
-    actualizarContador();
-    formPago.reset();
-  });
-
-  // Inicialización
   renderCarrito();
   actualizarContador();
 });

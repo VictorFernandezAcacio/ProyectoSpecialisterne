@@ -17,6 +17,9 @@ function getIdViaje() {
   return params.get('id');
 }
 
+// Variable global para guardar el viaje actual
+let viajeActual = null;
+
 // Renderizar detalle del viaje
 function renderDetalle(viaje) {
   // Imagen
@@ -81,6 +84,7 @@ export async function cargarDetalle() {
     const resViaje = await fetch(`${BASE_URL}/viajes/${idViaje}`);
     if (!resViaje.ok) throw new Error(`HTTP ${resViaje.status}`);
     const viaje = await resViaje.json();
+    viajeActual = viaje; // guardamos el viaje para usarlo en AñadirCarrito
     renderDetalle(viaje);
 
     // Reseñas
@@ -98,6 +102,11 @@ export async function cargarDetalle() {
 
 // Añadir viaje al carrito
 window.AñadirCarrito = function() {
+  if (!viajeActual) {
+    alert("No se pudo cargar el viaje");
+    return;
+  }
+
   const idViaje = getIdViaje();
   const destino = document.getElementById("titulo_viaje").textContent;
   const precioTexto = document.getElementById("precio_viaje").textContent;
@@ -107,7 +116,14 @@ window.AñadirCarrito = function() {
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
   if (!carrito.some(v => v.id === idViaje)) {
-    carrito.push({ id: idViaje, destino, precio, imagen });
+    carrito.push({
+      id: idViaje,
+      destino,
+      precio,
+      imagen,
+      fecha_inicio: viajeActual.fecha_inicio, // añadimos fecha inicio
+      fecha_fin: viajeActual.fecha_fin        // añadimos fecha fin
+    });
     localStorage.setItem("carrito", JSON.stringify(carrito));
     alert("Viaje añadido al carrito 🛒");
   } else {

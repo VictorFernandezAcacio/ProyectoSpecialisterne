@@ -1,14 +1,21 @@
-// Inicializar contador al cargar
-document.addEventListener("DOMContentLoaded", () => {
-  actualizarContador();
-});
-
 // Función para actualizar el contador
 function actualizarContador() {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const contador = document.getElementById("contador_carrito");
   if (contador) contador.textContent = carrito.length;
 }
+
+// Inicializar contador al cargar
+document.addEventListener("DOMContentLoaded", actualizarContador);
+// Ejecutar también inmediatamente por si el script se carga al final del body
+actualizarContador();
+
+// Escuchar cambios en localStorage (sincroniza el contador entre páginas/pestañas)
+window.addEventListener("storage", (event) => {
+  if (event.key === "carrito") {
+    actualizarContador();
+  }
+});
 
 // Función para añadir viaje al carrito evitando duplicados
 function addToCart(viaje) {
