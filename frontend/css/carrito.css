@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
+  user-select: none;
 }
 
 h1 {
@@ -135,3 +136,4 @@ h2 {
 #form_pago button:hover {
   background: #4cae4c;
 }
+
