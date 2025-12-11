@@ -1,18 +1,9 @@
-// Función auxiliar para formatear fecha en DD/MM/AAAA
-function formatearFecha(fechaISO) {
-  if (!fechaISO) return "No disponible";
-  const fecha = new Date(fechaISO);
-  const dia = String(fecha.getDate()).padStart(2, '0');
-  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-  const año = fecha.getFullYear();
-  return `${dia}/${mes}/${año}`;
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const lista = document.getElementById("lista_carrito");
   const formPago = document.getElementById("form_pago");
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+  // Renderizar viajes del carrito
   function renderCarrito() {
     if (carrito.length === 0) {
       lista.innerHTML = "<p>El carrito está vacío.</p>";
@@ -21,17 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     lista.innerHTML = carrito.map((v, index) => `
       <div class="carrito-item">
-        <img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="carrito-img">
+        <a href="Viaje.html?id=${v.id}"><img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="carrito-img">
         <div class="carrito-info">
           <h3>${v.destino}</h3>
-          <p>Precio: ${v.precio} €</p>
-          <p>Fecha inicio: ${formatearFecha(v.fecha_inicio || v.fechaInicio)}</p>
-          <p>Fecha fin: ${formatearFecha(v.fecha_fin || v.fechaFin)}</p>
+          <p>Precio: ${v.precio} €</p></a>
         </div>
         <button class="btn-eliminar" data-index="${index}">Eliminar</button>
       </div>
     `).join("");
 
+    // Botones eliminar
     document.querySelectorAll(".btn-eliminar").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const idx = e.target.dataset.index;
@@ -43,64 +33,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Actualizar contador en barra superior
   function actualizarContador() {
     const contador = document.getElementById("contador_carrito");
     if (contador) contador.textContent = carrito.length;
   }
 
-  // Finalizar compra
-  if (formPago) {
-    formPago.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  // Botón volver a la página de origen
+  const btnVolver = document.createElement("button");
+  btnVolver.textContent = "⬅️ Volver";
+  btnVolver.id = "btn_volver";
+  document.body.insertBefore(btnVolver, lista);
 
-      if (carrito.length === 0) {
-        alert("No hay viajes en el carrito");
-        return;
-      }
+  btnVolver.addEventListener("click", () => {
+    const origen = localStorage.getItem("pagina_origen");
+    if (origen) {
+      window.location.href = origen;
+    } else {
+      window.location.href = "Inicio.html"; // fallback
+    }
+  });
 
-      const nombre = document.getElementById("nombre").value;
-      const email = document.getElementById("email").value;
-      const tarjeta = document.getElementById("tarjeta").value;
+  // Finalizar compra con formulario
+  formPago.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-      if (!nombre || !email || !tarjeta) {
-        alert("Por favor, rellena todos los campos");
-        return;
-      }
+    if (carrito.length === 0) {
+      alert("No hay viajes en el carrito");
+      return;
+    }
 
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
-      const usuarioId = usuario ? usuario.id : null;
-      if (!usuarioId) {
-        alert("No se encontró usuario en sesión");
-        return;
-      }
+    const nombre = document.getElementById("nombre").value;
+    const email = document.getElementById("email").value;
+    const tarjeta = document.getElementById("tarjeta").value;
 
-      try {
-        for (const v of carrito) {
-          await fetch("http://localhost:3000/reservas", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              usuario_id: usuarioId,
-              viaje_id: v.id,
-              estado: "confirmada"
-            })
-          });
-        }
+    if (!nombre || !email || !tarjeta) {
+      alert("Por favor, rellena todos los campos");
+      return;
+    }
 
-        alert(`Compra finalizada ✅\nGracias ${nombre}, recibirás la confirmación en ${email}`);
+    // Guardar viajes pagados en reservas
+    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    reservas = reservas.concat(carrito);
+    localStorage.setItem("reservas", JSON.stringify(reservas));
 
-        carrito = [];
-        localStorage.removeItem("carrito");
-        renderCarrito();
-        actualizarContador();
-        formPago.reset();
-      } catch (err) {
-        console.error("Error creando reservas:", err);
-        alert("Error al procesar la compra");
-      }
-    });
-  }
+    alert(`Compra finalizada ✅\nGracias ${nombre}, recibirás la confirmación en ${email}`);
 
+    carrito = [];
+    localStorage.removeItem("carrito");
+    renderCarrito();
+    actualizarContador();
+    formPago.reset();
+  });
+
+  // Inicialización
   renderCarrito();
   actualizarContador();
 });
