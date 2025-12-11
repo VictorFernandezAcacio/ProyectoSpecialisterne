@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Reservas</title>
+  <link rel="stylesheet" href="../css/pagina_historial.css">
+  <link rel="stylesheet" href="../css/barra_superior.css">
+  <link rel="icon" type="image/png" href="../img/logo.png">
+  <script src="../js/pagina_historial.js" defer></script>
+</head>
+<body>
+  <!-- Barra superior modular -->
+  <div id="barra_superior_container"></div>
+
+  <!-- Viajes pendientes -->
+  <section class="bloque_viajes">
+    <h2>✈️ Viajes pendientes</h2>
+    <div class="grid_viajes" id="viajes_pendientes">
+      <!-- Aquí se insertan dinámicamente los viajes pendientes -->
+    </div>
+  </section>
+
+  <!-- Viajes realizados -->
+  <section class="bloque_viajes">
+    <h2>✅ Viajes realizados</h2>
+    <div class="grid_viajes" id="viajes_realizados">
+      <!-- Aquí se insertan dinámicamente los viajes realizados -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="site_footer">
+    <p>&copy; 2025 Bug Travel. Todos los derechos reservados.</p>
+    <p>Contacto: info@miempresa.com | Tel: +34 600 123 456</p>
+    <p>Dirección: Calle Ejemplo 123, Barcelona, España</p>
+    <div class="redes">
+      <a href="https://facebook.com" target="_blank">Facebook</a>
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+  <!-- Inyección de barra superior -->
+  <script>
+    fetch("barra_superior.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("barra_superior_container").innerHTML = html;
+        const script = document.createElement("script");
+        script.src = "../js/barra_superior.js";
+        document.body.appendChild(script);
+      });
+  </script>
+</body>
+</html>
