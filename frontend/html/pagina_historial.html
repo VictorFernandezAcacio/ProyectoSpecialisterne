@@ -6,8 +6,10 @@
   <title>Mis Reservas</title>
   <link rel="stylesheet" href="../css/pagina_historial.css">
   <link rel="stylesheet" href="../css/barra_superior.css">
+  <link rel="stylesheet" href="../css/resena.css">
   <link rel="icon" type="image/png" href="../img/logo.png">
   <script src="../js/pagina_historial.js" defer></script>
+  <script src="../js/resena.js" defer></script>
 </head>
 <body>
   <!-- Barra superior modular -->
@@ -28,6 +30,26 @@
       <!-- Aquí se insertan dinámicamente los viajes realizados -->
     </div>
   </section>
+
+  <div id="ventana_resena">
+    <div class="contenido_resenas">
+      <div style="text-align: start;">
+        Estrellas:
+        <div class="rating">
+          <span data-value="5">★</span>
+          <span data-value="4">★</span>
+          <span data-value="3">★</span>
+          <span data-value="2">★</span>
+          <span data-value="1">★</span>
+        </div>
+      </div><br>
+      <div style="text-align: start;">
+        texto:<br>
+        <textarea name="message" rows="16" cols="60"></textarea><br>
+      </div>
+      <button onclick="cerrarResena()">Cancelar</button>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer id="site_footer">
