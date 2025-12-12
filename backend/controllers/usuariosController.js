@@ -5,11 +5,9 @@ const admin = require("../firebase");
 exports.crearUsuario = async (req, res) => {
   const { usuario, email, password, fecha_nacimiento, tipo_usuario } = req.body;
   try {
-    // Crear usuario en Firebase Auth
     const userRecord = await admin.auth().createUser({ email, password });
     console.log("UID creado en Firebase:", userRecord.uid);
 
-    // Guardar datos adicionales en tu tabla vinculados al UID de Firebase
     const result = await pool.query(
       `INSERT INTO usuarios (uid, usuario, email, fecha_nacimiento, tipo_usuario) 
        VALUES ($1, $2, $3, $4, $5) RETURNING *`,
@@ -61,18 +59,13 @@ exports.actualizarUsuario = async (req, res) => {
 exports.eliminarUsuario = async (req, res) => {
   try {
     const { id_usuario } = req.params;
-
-    // Buscar UID en la tabla antes de eliminar en Firebase
     const result = await pool.query('SELECT uid FROM usuarios WHERE id=$1', [id_usuario]);
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "Usuario no encontrado en la BBDD" });
     }
     const uid = result.rows[0].uid;
 
-    // Eliminar en Firebase
     await admin.auth().deleteUser(uid);
-
-    // Eliminar en tu tabla
     await pool.query('DELETE FROM usuarios WHERE id=$1', [id_usuario]);
 
     res.json({ message: 'Usuario eliminado' });
@@ -85,13 +78,10 @@ exports.eliminarUsuario = async (req, res) => {
 // Login de usuario con Firebase + tabla local
 exports.loginUsuario = async (req, res) => {
   const { idToken } = req.body;
-
   try {
-    // 1. Verificar el idToken con Firebase Admin
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const uid = decodedToken.uid;
 
-    // 2. Buscar el usuario en tu tabla local usando el UID
     const result = await pool.query(
       `SELECT id, usuario, email, fecha_nacimiento, tipo_usuario, uid
        FROM usuarios
@@ -104,9 +94,6 @@ exports.loginUsuario = async (req, res) => {
     }
 
     const usuario = result.rows[0];
-    console.log("Usuario encontrado en login:", usuario); // <-- depuración aquí
-
-    // 3. Devolver datos del usuario con tipo_usuario incluido
     res.status(200).json({
       message: "Login correcto",
       usuario: {
@@ -114,21 +101,20 @@ exports.loginUsuario = async (req, res) => {
         uid: usuario.uid,
         correo: usuario.email,
         usuario: usuario.usuario,
-        tipo_usuario: usuario.tipo_usuario, // <- clave para mostrar panel admin
+        tipo_usuario: usuario.tipo_usuario,
       }
     });
-
   } catch (err) {
     console.error("Error en login:", err);
     res.status(401).json({ message: "Token inválido o expirado" });
   }
 };
 
-// Reseñas de usuario (por id_usuario)
+// Reseñas de usuario (por usuario_id)
 exports.obtenerReseñasUsuario = async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT * FROM resenas WHERE id_usuario=$1',
+      'SELECT * FROM resenas WHERE usuario_id=$1',
       [req.params.id_usuario]
     );
     res.json(result.rows);
@@ -138,14 +124,14 @@ exports.obtenerReseñasUsuario = async (req, res) => {
   }
 };
 
-// Viajes de usuario (a través de reservas, por id_usuario)
+// Viajes de usuario (a través de reservas, por usuario_id)
 exports.obtenerViajesUsuario = async (req, res) => {
   try {
     const result = await pool.query(
       `SELECT v.* 
        FROM reservas r 
        JOIN viajes v ON r.viaje_id = v.id 
-       WHERE r.id_usuario=$1`,
+       WHERE r.usuario_id=$1`,
       [req.params.id_usuario]
     );
     res.json(result.rows);
