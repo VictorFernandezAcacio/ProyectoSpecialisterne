@@ -12,11 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     lista.innerHTML = carrito.map((v, index) => `
       <div class="carrito-item">
-        <a href="Viaje.html?id=${v.id}"><img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="carrito-img">
-        <div class="carrito-info">
-          <h3>${v.destino}</h3>
-          <p>Precio: ${v.precio} €</p></a>
-        </div>
+        <a href="Viaje.html?id=${v.id}">
+          <img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="carrito-img">
+          <div class="carrito-info">
+            <h3>${v.destino}</h3>
+            <p>Precio: ${v.precio} €</p>
+          </div>
+        </a>
         <button class="btn-eliminar" data-index="${index}">Eliminar</button>
       </div>
     `).join("");
@@ -55,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Finalizar compra con formulario
-  formPago.addEventListener("submit", (e) => {
+  formPago.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     if (carrito.length === 0) {
@@ -72,18 +74,37 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Guardar viajes pagados en reservas
-    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
-    reservas = reservas.concat(carrito);
-    localStorage.setItem("reservas", JSON.stringify(reservas));
+    try {
+      // Obtener token del usuario logueado
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      const token = usuario?.token; // asegúrate de guardar el idToken en loginUsuario
 
-    alert(`Compra finalizada ✅\nGracias ${nombre}, recibirás la confirmación en ${email}`);
+      // Enviar cada viaje del carrito al backend
+      for (const v of carrito) {
+        const res = await fetch("http://localhost:3000/reservas", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ viaje_id: v.id })
+        });
 
-    carrito = [];
-    localStorage.removeItem("carrito");
-    renderCarrito();
-    actualizarContador();
-    formPago.reset();
+        if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
+      }
+
+      alert(`Compra finalizada ✅\nGracias ${nombre}, recibirás la confirmación en ${email}`);
+
+      carrito = [];
+      localStorage.removeItem("carrito");
+      renderCarrito();
+      actualizarContador();
+      formPago.reset();
+
+    } catch (err) {
+      console.error("Error al crear reservas:", err);
+      alert("No se pudo registrar la compra en el sistema. Inténtalo más tarde.");
+    }
   });
 
   // Inicialización

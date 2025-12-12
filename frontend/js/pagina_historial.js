@@ -34,8 +34,11 @@ function renderReservas(reservas) {
       <p class="card_meta">Fecha inicio: ${formatearFecha(v.fecha_inicio)}</p>
       <p class="card_meta">Fecha fin: ${formatearFecha(v.fecha_fin)}</p>
       <p class="card_meta">Precio: ${v.precio} €</p>
-      <button class="${fechaFin && fechaFin < hoy ? 'btn_resena' : 'btn_eliminar'}"
-              aria-label="${fechaFin && fechaFin < hoy ? 'Reseña' : 'Eliminar'}"></button>
+      ${
+        fechaFin && fechaFin < hoy
+          ? `<button class="btn-secundario btn_resena" aria-label="Reseña">Reseña</button>`
+          : `<button class="btn-secundario btn_eliminar" aria-label="Cancelar reserva">Cancelar reserva</button>`
+      }
     `;
 
     if (fechaFin && fechaFin < hoy) {
@@ -47,8 +50,19 @@ function renderReservas(reservas) {
     } else {
       listaPendientes.appendChild(article);
       const btnEliminar = article.querySelector(".btn_eliminar");
-      btnEliminar.addEventListener("click", () => {
-        alert("Funcionalidad de cancelar/eliminar reserva pendiente.");
+      btnEliminar.addEventListener("click", async () => {
+        try {
+          const res = await fetch(`http://localhost:3000/reservas/${v.id}`, {
+            method: "DELETE"
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          article.remove();
+          alert(`Reserva a ${v.destino} cancelada correctamente ✅`);
+        } catch (err) {
+          console.error("Error al cancelar reserva:", err);
+          alert("No se pudo cancelar la reserva. Inténtalo más tarde.");
+        }
       });
     }
   });

@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } 
   from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-export {onAuthStateChanged };
+export { onAuthStateChanged };
 
 const firebaseConfig = {
   apiKey: "AIzaSyAa8ISWH_61S_4w5Lyu50le8jaU0U0r44s",
@@ -29,7 +29,21 @@ export async function logout() {
   alert("Sesión cerrada");
 }
 
+// ✅ Obtener token del usuario actual (siempre fresco)
+export async function getCurrentUserToken() {
+  const user = auth.currentUser;
+  if (!user) return null;
+  // fuerza siempre la renovación → evita tokens caducados
+  return await user.getIdToken(true);
+}
+
+// Listener de cambios de sesión
 onAuthStateChanged(auth, (user) => {
-  if (user) console.log("Usuario activo:", user.uid);
-  else console.log("No hay usuario autenticado");
+  if (user) {
+    console.log("Usuario activo:", user.uid);
+    window.usuarioActivo = user.uid; // opcional: guardar UID en global
+  } else {
+    console.log("No hay usuario autenticado");
+    window.usuarioActivo = null;
+  }
 });

@@ -1,4 +1,4 @@
-// Función para actualizar el contador
+// Función para actualizar el contador del carrito
 function actualizarContador() {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
   const contador = document.getElementById("contador_carrito");
@@ -6,9 +6,9 @@ function actualizarContador() {
 }
 
 // Inicializar contador al cargar
-document.addEventListener("DOMContentLoaded", actualizarContador);
-// Ejecutar también inmediatamente por si el script se carga al final del body
-actualizarContador();
+document.addEventListener("DOMContentLoaded", () => {
+  actualizarContador();
+});
 
 // Escuchar cambios en localStorage (sincroniza el contador entre páginas/pestañas)
 window.addEventListener("storage", (event) => {
@@ -33,7 +33,7 @@ function addToCart(viaje) {
   alert("Viaje añadido al carrito 🛒");
 }
 
-// Abrir carrito.html y guardar página de origen
+// 👉 Abrir carrito.html y guardar página de origen
 document.addEventListener("click", (e) => {
   if (e.target.closest("#btn_carrito")) {
     const currentPage = window.location.href;
@@ -41,6 +41,20 @@ document.addEventListener("click", (e) => {
     window.location.href = "carrito.html";
   }
 });
+
+// 👉 MutationObserver para enganchar el botón de perfil cuando aparezca
+const observer = new MutationObserver(() => {
+  const btnPerfil = document.getElementById("btn_Perfil");
+  if (btnPerfil && !btnPerfil.dataset.listenerAdded) {
+    btnPerfil.addEventListener("click", () => {
+      window.location.href = "Perfil.html";
+    });
+    btnPerfil.dataset.listenerAdded = "true"; // marca para no duplicar
+  }
+});
+
+// Observa todo el body por cambios en hijos
+observer.observe(document.body, { childList: true, subtree: true });
 
 // Exponer funciones globales
 window.addToCart = addToCart;

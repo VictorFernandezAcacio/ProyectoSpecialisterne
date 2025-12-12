@@ -106,6 +106,8 @@ document.getElementById('form_viaje')?.addEventListener('submit', async (e) => {
     imagen: document.getElementById('imagen').value
   };
 
+  console.log("Datos enviados al backend:", viajeData);
+
   const token = usuario?.token;
   const url = idViaje
     ? `http://localhost:3000/viajes/${idViaje}`
@@ -130,7 +132,9 @@ document.getElementById('form_viaje')?.addEventListener('submit', async (e) => {
     document.getElementById('btn_guardar').textContent = "Crear viaje";
     document.getElementById('btn_eliminar').style.display = 'none';
   } else {
-    alert('Error al guardar el viaje');
+    const error = await res.json();
+    console.error("Error backend:", error);
+    alert(`❌ Error al guardar el viaje: ${error.error}`);
   }
 });
 
@@ -170,7 +174,9 @@ function editarViaje(viaje) {
         document.getElementById('btn_guardar').textContent = "Crear viaje";
         btnEliminar.style.display = 'none';
       } else {
-        alert("Error al eliminar el viaje");
+        const error = await res.json();
+        console.error("Error backend:", error);
+        alert(`❌ Error al eliminar el viaje: ${error.error}`);
       }
     }
   };
