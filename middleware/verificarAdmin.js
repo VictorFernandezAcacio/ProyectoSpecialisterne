@@ -29,9 +29,13 @@ async function verificarAdmin(req, res, next) {
     next();
   } catch (err) {
     console.error("Error verificando token:", err);
-    res.status(401).json({ error: "Token inválido" });
+
+    if (err.code === "auth/id-token-expired") {
+      return res.status(401).json({ error: "Token caducado. Por favor, inicia sesión de nuevo." });
+    }
+
+    return res.status(401).json({ error: "Token inválido" });
   }
 }
 
 module.exports = verificarAdmin;
-
