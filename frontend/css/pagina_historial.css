@@ -74,18 +74,34 @@ body {
 /* Botones */
 .btn_eliminar, .btn_resena {
   margin-top: 10px;
-  width: 30px;
-  height: 30px;
+  padding: 8px 14px;
   border: none;
   cursor: pointer;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-/* Iconos diferenciados */
-.btn_eliminar { background-image: url("../img/bin.png"); }
-.btn_resena   { background-image: url("../img/scroll.png"); }
+/* Botón cancelar reserva */
+.btn_eliminar {
+  background-color: #f44336; /* rojo estilo cancelar */
+  color: #fff;
+}
+.btn_eliminar:hover {
+  background-color: #d32f2f;
+  transform: translateY(-1px);
+}
+
+/* Botón reseña */
+.btn_resena {
+  background-color: #2e8b57; /* verde estilo reseña */
+  color: #fff;
+}
+.btn_resena:hover {
+  background-color: #256b45;
+  transform: translateY(-1px);
+}
 
 /* Diferenciar bloques */
 #viajes_pendientes .card_viaje {

@@ -94,12 +94,40 @@ body {
 }
 
 .divs_registro input {
-  margin: 0 auto;
-  width: 80%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+  box-sizing: border-box;
+}
+
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 40px; /* espacio para el ojito */
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.password-field .toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.password-field .toggle-eye:hover {
+  color: #000;
 }
 
 #mensaje_de_error {

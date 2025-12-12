@@ -60,24 +60,50 @@ body {
 .divs_inicio {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100px;
   margin-bottom: 20px;
   width: 100%;
 }
 
 .divs_inicio label {
   text-align: center;
-  display: block;
-  width: 100%;
+  margin-bottom: 5px;
 }
 
 .divs_inicio input {
-  margin: 0 auto;
-  width: 170px;
-  padding: 8px;
+  width: 100%;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 40px; /* espacio para el ojito */
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.password-field .toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.password-field .toggle-eye:hover {
+  color: #000;
 }
 
 .div_error {
