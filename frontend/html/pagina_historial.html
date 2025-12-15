@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis Reservas</title>
-  <link rel="stylesheet" href="../css/pagina_historial.css">
+  <link rel="stylesheet" href="../css/reservas.css">
   <link rel="stylesheet" href="../css/barra_superior.css">
+  <link rel="stylesheet" href="../css/pagina_historial.css">
   <link rel="stylesheet" href="../css/resena.css">
   <link rel="icon" type="image/png" href="../img/logo.png">
-  <script src="../js/pagina_historial.js" defer></script>
-  <script src="../js/resena.js" defer></script>
+  <script src="../js/reservas.js" defer></script>
+  <script src="../js/resenar.js" defer></script>
 </head>
 <body>
   <!-- Barra superior modular -->
@@ -30,7 +31,7 @@
       <!-- Aquí se insertan dinámicamente los viajes realizados -->
     </div>
   </section>
-
+  <button onclick="abrirResena()">Reseñar</button>
   <div id="ventana_resena">
     <div class="contenido_resenas">
       <div style="text-align: start;">
@@ -44,9 +45,10 @@
         </div>
       </div><br>
       <div style="text-align: start;">
-        texto:<br>
-        <textarea name="message" rows="16" cols="60"></textarea><br>
+        Comentario:<br>
+        <textarea name="message" id="comentario" rows="16" cols="60"></textarea><br>
       </div>
+      <input type="submit" onclick="EnviarResena()">
       <button onclick="cerrarResena()">Cancelar</button>
     </div>
   </div>
