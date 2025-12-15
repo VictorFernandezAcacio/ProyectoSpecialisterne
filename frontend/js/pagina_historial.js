@@ -48,6 +48,7 @@ function renderReservas(reservas) {
       listaRealizados.appendChild(article);
       const btnResena = article.querySelector(".btn_resena");
       btnResena.addEventListener("click", () => {
+        abrirResena(v.viaje_id)
         alert(`Añadir reseña para ${v.destino}`);
       });
     } else {

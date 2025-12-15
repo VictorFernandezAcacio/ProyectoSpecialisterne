@@ -1,8 +1,17 @@
-function abrirResena() {
-    document.getElementById("ventana_resena").style.display = "block"
+function abrirResena(id) {
+  document.getElementById("ventana_resena").style.display = "block"
+  idResena = id
 }
 function cerrarResena() {
-    document.getElementById("ventana_resena").style.display = "none"
+  document.getElementById("ventana_resena").style.display = "none"
+  resetear()
+}
+
+function resetear() {
+  valueStar = 0
+  stars.forEach(s => s.classList.remove('selected'));
+
+  document.getElementById("comentario").value = "";
 }
 
 const stars = document.querySelectorAll('.rating span');
@@ -10,6 +19,7 @@ const stars = document.querySelectorAll('.rating span');
 stars.forEach(star => {
   star.addEventListener('click', function() {
     const value = this.getAttribute('data-value');
+    valueStar = value
 
     // Limpiar selección anterior
     stars.forEach(s => s.classList.remove('selected'));
@@ -39,3 +49,14 @@ stars.forEach(star => {
     stars.forEach(s => s.classList.remove('hover'));
   });
 });
+
+
+function EnviarResena() {
+  const variableComentario = document.getElementById("comentario").value
+  if (variableComentario.length >= 1 && valueStar >= 1) {
+    alert("FUNCIONA.")
+    
+  } else {
+    alert("Debe rellenar las estrellas y el comentario.")
+  }
+}
