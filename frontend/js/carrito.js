@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formPago = document.getElementById("form_pago");
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  // Renderizar viajes del carrito
+  // Renderizar viajes del carrito con estilo de historial
   function renderCarrito() {
     if (carrito.length === 0) {
       lista.innerHTML = "<p>El carrito está vacío.</p>";
@@ -11,20 +11,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     lista.innerHTML = carrito.map((v, index) => `
-      <div class="carrito-item">
-        <a href="Viaje.html?id=${v.id}">
-          <img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="carrito-img">
-          <div class="carrito-info">
-            <h3>${v.destino}</h3>
-            <p>Precio: ${v.precio} €</p>
-          </div>
-        </a>
-        <button class="btn-eliminar" data-index="${index}">Eliminar</button>
-      </div>
+      <article class="card_viaje">
+        <h3 class="card_titulo">
+          <!-- 🔗 El título es un enlace al detalle -->
+          <a href="Viaje.html?id=${v.id}" class="link-detalle">${v.destino}</a>
+        </h3>
+        <img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="card_img">
+        <p class="card_meta">Precio: ${v.precio} €</p>
+        <button class="btn-secundario btn_eliminar" data-index="${index}">Eliminar</button>
+      </article>
     `).join("");
 
     // Botones eliminar
-    document.querySelectorAll(".btn-eliminar").forEach(btn => {
+    document.querySelectorAll(".btn_eliminar").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const idx = e.target.dataset.index;
         carrito.splice(idx, 1);
@@ -41,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (contador) contador.textContent = carrito.length;
   }
 
-  // Botón volver a la página de origen
+  // Botón volver
   const btnVolver = document.createElement("button");
   btnVolver.textContent = "⬅️ Volver";
   btnVolver.id = "btn_volver";
@@ -49,17 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnVolver.addEventListener("click", () => {
     const origen = localStorage.getItem("pagina_origen");
-    if (origen) {
-      window.location.href = origen;
-    } else {
-      window.location.href = "Inicio.html"; // fallback
-    }
+    window.location.href = origen || "Inicio.html";
   });
 
-  // Finalizar compra con formulario
+  // Finalizar compra
   formPago.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     if (carrito.length === 0) {
       alert("No hay viajes en el carrito");
       return;
@@ -75,11 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      // Obtener token del usuario logueado
       const usuario = JSON.parse(localStorage.getItem("usuario"));
-      const token = usuario?.token; // asegúrate de guardar el idToken en loginUsuario
+      const token = usuario?.token;
 
-      // Enviar cada viaje del carrito al backend
       for (const v of carrito) {
         const res = await fetch("http://localhost:3000/reservas", {
           method: "POST",
@@ -89,12 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
           },
           body: JSON.stringify({ viaje_id: v.id })
         });
-
         if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
       }
 
       alert(`Compra finalizada ✅\nGracias ${nombre}, recibirás la confirmación en ${email}`);
-
       carrito = [];
       localStorage.removeItem("carrito");
       renderCarrito();

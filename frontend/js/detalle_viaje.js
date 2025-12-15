@@ -65,7 +65,7 @@ function renderResenas(resenas) {
       ? resenas
           .map(
             (r) =>
-              `<p>⭐ ${r.valoracion} - ${r.resena_texto} <br><em>Usuario: ${r.id_usuario}</em></p>`
+              `<p>⭐ ${r.valoracion} - ${r.resena_texto} <br><em>Usuario: ${r.nombre_usuario}</em></p>`
           )
           .join('')
       : '<p>No hay reseñas disponibles.</p>';
@@ -121,8 +121,8 @@ window.AñadirCarrito = function() {
       destino,
       precio,
       imagen,
-      fecha_inicio: viajeActual.fecha_inicio, // añadimos fecha inicio
-      fecha_fin: viajeActual.fecha_fin        // añadimos fecha fin
+      fecha_inicio: viajeActual.fecha_inicio,
+      fecha_fin: viajeActual.fecha_fin
     });
     localStorage.setItem("carrito", JSON.stringify(carrito));
     alert("Viaje añadido al carrito 🛒");

@@ -29,15 +29,18 @@ function renderReservas(reservas) {
     const article = document.createElement("article");
     article.classList.add("card_viaje");
     article.innerHTML = `
-      <h3 class="card_titulo">${v.destino}</h3>
+      <h3 class="card_titulo">
+        <!-- 🔗 El título es un enlace al detalle del viaje -->
+        <a href="Viaje.html?id=${v.viaje_id}" class="link-detalle">${v.destino}</a>
+      </h3>
       <img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="card_img">
       <p class="card_meta">Fecha inicio: ${formatearFecha(v.fecha_inicio)}</p>
       <p class="card_meta">Fecha fin: ${formatearFecha(v.fecha_fin)}</p>
       <p class="card_meta">Precio: ${v.precio} €</p>
       ${
         fechaFin && fechaFin < hoy
-          ? `<button class="btn-secundario btn_resena" aria-label="Reseña">Reseña</button>`
-          : `<button class="btn-secundario btn_eliminar" aria-label="Cancelar reserva">Cancelar reserva</button>`
+          ? `<button class="btn-secundario btn_resena">Reseña</button>`
+          : `<button class="btn-secundario btn_eliminar">Cancelar reserva</button>`
       }
     `;
 
@@ -52,11 +55,8 @@ function renderReservas(reservas) {
       const btnEliminar = article.querySelector(".btn_eliminar");
       btnEliminar.addEventListener("click", async () => {
         try {
-          const res = await fetch(`http://localhost:3000/reservas/${v.id}`, {
-            method: "DELETE"
-          });
+          const res = await fetch(`http://localhost:3000/reservas/${v.id}`, { method: "DELETE" });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
           article.remove();
           alert(`Reserva a ${v.destino} cancelada correctamente ✅`);
         } catch (err) {

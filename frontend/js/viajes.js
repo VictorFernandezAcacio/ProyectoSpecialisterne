@@ -4,7 +4,9 @@ let usuario = null;
 // Función auxiliar para formatear fecha en DD/MM/AAAA
 function formatearFecha(fechaISO) {
   if (!fechaISO) return "No disponible";
-  const fecha = new Date(fechaISO);
+  const soloFecha = fechaISO.split("T")[0]; // cortar parte YYYY-MM-DD
+  const [year, month, day] = soloFecha.split("-");
+  const fecha = new Date(Number(year), Number(month) - 1, Number(day));
   const dia = String(fecha.getDate()).padStart(2, '0');
   const mes = String(fecha.getMonth() + 1).padStart(2, '0');
   const año = fecha.getFullYear();
@@ -32,17 +34,39 @@ async function cargarViajes() {
       const card = document.createElement('div');
       card.className = 'viaje-card';
 
-      // ✅ Mostrar precio con descuento solo si precio_final no es null
+      // Precio con descuento
       const tieneDescuento = v.precio_final !== null;
-
       const precioHTML = tieneDescuento
         ? `<span class="precio tachado">Precio: ${v.precio} €</span>
            <span class="descuento">Precio con descuento: ${v.precio_final} €</span>`
         : `<span class="precio">Precio: ${v.precio} €</span>`;
 
-      // ✅ Mostrar fechas formateadas
+      // Fechas formateadas
       const fechaInicio = formatearFecha(v.fecha_inicio);
       const fechaFin = formatearFecha(v.fecha_fin);
+
+      // Alarmas
+      const hoy = new Date();
+      hoy.setHours(0,0,0,0);
+
+      const soloFecha = v.fecha_inicio.split("T")[0];
+      const [year, month, day] = soloFecha.split("-");
+      const inicio = new Date(Number(year), Number(month) - 1, Number(day));
+      inicio.setHours(0,0,0,0);
+
+      const diffDias = Math.round((inicio.getTime() - hoy.getTime()) / (1000*60*60*24));
+      const plazas = parseInt(v.plazas_disponibles, 10);
+
+      const pocasPlazas = Number.isFinite(plazas) && plazas <= 5;
+      const pocosDias = Number.isFinite(diffDias) && diffDias >= 0 && diffDias <= 7;
+
+      let avisoHTML = "";
+      if (pocosDias || pocasPlazas) {
+        const partes = [];
+        if (pocosDias) partes.push(`⚠️ El viaje empieza en ${diffDias} día${diffDias === 1 ? "" : "s"}.`);
+        if (pocasPlazas) partes.push(`⚠️ Solo quedan ${plazas} plaza${plazas === 1 ? "" : "s"}.`);
+        avisoHTML = `<div class="alerta">${partes.join("<br>")}</div>`;
+      }
 
       card.innerHTML = `
         <img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="viaje-img">
@@ -52,6 +76,7 @@ async function cargarViajes() {
         <p class="viaje-fecha">Fecha inicio: ${fechaInicio}</p>
         <p class="viaje-fecha">Fecha fin: ${fechaFin}</p>
         ${precioHTML}
+        ${avisoHTML}
         <button class="btn-reservar">Ver detalle</button>
       `;
 
