@@ -36,7 +36,7 @@ function validarCamposObligatorios(body) {
     'destino',
     'precio',
     'plazas_disponibles',
-    'id_transporte' // obligatorio
+    'id_transporte'
   ];
   for (const campo of obligatorios) {
     if (body[campo] === undefined || body[campo] === null) {
@@ -284,7 +284,7 @@ exports.eliminarViaje = async (req, res) => {
   }
 };
 
-// Reseñas de un viaje
+// Reseñas de un viaje con nombre de usuario
 exports.obtenerResenasViaje = async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -292,7 +292,15 @@ exports.obtenerResenasViaje = async (req, res) => {
       return res.status(400).json({ error: 'ID de viaje inválido' });
     }
 
-    const result = await pool.query('SELECT * FROM resenas WHERE id_viaje=$1', [id]);
+    const result = await pool.query(`
+      SELECT r.id, r.id_usuario, r.id_viaje, r.fecha_resena, r.valoracion, r.resena_texto,
+             u.usuario AS nombre_usuario
+      FROM resenas r
+      JOIN usuarios u ON r.id_usuario = u.id
+      WHERE r.id_viaje = $1
+      ORDER BY r.fecha_resena DESC
+    `, [id]);
+
     res.json(result.rows);
   } catch (err) {
     console.error('Error al obtener reseñas del viaje:', err);

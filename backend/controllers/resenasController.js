@@ -1,22 +1,72 @@
 const pool = require('../db');
 const admin = require("../firebase");
 
+// Listar todas las reseñas con nombre de usuario
 exports.listarResenas = async (req, res) => {
-  const result = await pool.query('SELECT * FROM resenas');
-  res.json(result.rows);
+  try {
+    const result = await pool.query(`
+      SELECT r.id, r.id_usuario, r.id_viaje, r.fecha_resena, r.valoracion, r.resena_texto,
+             u.usuario AS nombre_usuario
+      FROM resenas r
+      JOIN usuarios u ON r.id_usuario = u.id
+      ORDER BY r.fecha_resena DESC
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error al listar reseñas:', err);
+    res.status(500).send('Error al listar reseñas');
+  }
 };
 
+// Listar reseñas de un viaje concreto con nombre de usuario
+exports.listarResenasPorViaje = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT r.id, r.id_usuario, r.id_viaje, r.fecha_resena, r.valoracion, r.resena_texto,
+             u.usuario AS nombre_usuario
+      FROM resenas r
+      JOIN usuarios u ON r.id_usuario = u.id
+      WHERE r.id_viaje = $1
+      ORDER BY r.fecha_resena DESC
+    `, [req.params.id_viaje]);
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error al listar reseñas por viaje:', err);
+    res.status(500).send('Error al listar reseñas por viaje');
+  }
+};
+
+// Obtener una reseña concreta con nombre de usuario
 exports.obtenerResena = async (req, res) => {
-  const result = await pool.query('SELECT * FROM resenas WHERE id=$1', [req.params.id]);
-  res.json(result.rows[0]);
+  try {
+    const result = await pool.query(`
+      SELECT r.id, r.id_usuario, r.id_viaje, r.fecha_resena, r.valoracion, r.resena_texto,
+             u.usuario AS nombre_usuario
+      FROM resenas r
+      JOIN usuarios u ON r.id_usuario = u.id
+      WHERE r.id=$1
+    `, [req.params.id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Reseña no encontrada' });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error al obtener reseña:', err);
+    res.status(500).send('Error al obtener reseña');
+  }
 };
 
+// Crear nueva reseña
 exports.crearResena = async (req, res) => {
   const { id_usuario, id_viaje, fecha_resena, valoracion, resena_texto } = req.body;
 
   if (!id_usuario || !id_viaje || !fecha_resena || !valoracion || !resena_texto) {
     return res.status(400).json({ error: 'Todos los campos son obligatorios' });
   }
+
   try {
     const result = await pool.query(
       `INSERT INTO resenas (id_usuario, id_viaje, fecha_resena, valoracion, resena_texto)
@@ -30,7 +80,7 @@ exports.crearResena = async (req, res) => {
   }
 };
 
-
+// Actualizar reseña existente
 exports.actualizarResena = async (req, res) => {
   const { fecha_resena, valoracion, resena_texto } = req.body;
 
@@ -53,8 +103,13 @@ exports.actualizarResena = async (req, res) => {
   }
 };
 
-
+// Eliminar reseña
 exports.eliminarResena = async (req, res) => {
-  await pool.query('DELETE FROM resenas WHERE id=$1', [req.params.id]);
-  res.json({ message: 'Reseña eliminada' });
+  try {
+    await pool.query('DELETE FROM resenas WHERE id=$1', [req.params.id]);
+    res.json({ message: 'Reseña eliminada' });
+  } catch (err) {
+    console.error('Error al eliminar reseña:', err);
+    res.status(500).send('Error al eliminar reseña');
+  }
 };
