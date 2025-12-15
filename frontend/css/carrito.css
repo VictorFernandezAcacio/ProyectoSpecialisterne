@@ -13,60 +13,81 @@ h1 {
   color: #444;
 }
 
-/* Contenedor del carrito */
-#lista_carrito {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 10px;
-}
-
-/* Cada item del carrito */
-.carrito-item {
-  display: flex;
-  align-items: center;
-  background: #fffdf2; /* crema más claro */
-  padding: 14px;
-  margin: 12px 0;
-  border-radius: 8px;
-  border: 1px solid #e0d9c8; /* borde crema */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.carrito-img {
-  width: 120px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 15px;
-}
-
-.carrito-info {
-  flex-grow: 1;
-}
-
-.carrito-info h3 {
-  margin: 0;
-  font-size: 20px;
+h2 {
+  text-align: center;
+  margin-top: 30px;
   color: #333;
 }
 
-.carrito-info p {
-  margin: 6px 0;
-  color: #555;
-  font-size: 16px;
+/* Contenedor del carrito */
+#lista_carrito {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
-/* Botón eliminar */
+/* Tarjeta de viaje estilo historial */
+.card_viaje {
+  background-color: #fffdf2;
+  border: 1px solid #e0d9c8;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 16px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card_img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.card_titulo {
+  font-size: 20px;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.card_meta {
+  font-size: 15px;
+  color: #555;
+  margin: 4px 0;
+}
+
+/* Enlace en el título */
+.link-detalle {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+.link-detalle:hover {
+  text-decoration: underline;
+}
+
+/* Botón eliminar estilo secundario */
+.btn-secundario,
 .btn-eliminar {
   background: #d9534f;
   color: white;
   border: none;
   padding: 8px 14px;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
   transition: background 0.2s ease;
 }
-
+.btn-secundario:hover,
 .btn-eliminar:hover {
   background: #c9302c;
 }
@@ -83,24 +104,16 @@ h1 {
   cursor: pointer;
   font-size: 15px;
 }
-
 #btn_volver:hover {
   background: #025aa5;
-}
-
-/* Título datos de pago */
-h2 {
-  text-align: center;
-  margin-top: 30px;
-  color: #333;
 }
 
 /* Formulario de pago */
 #form_pago {
   max-width: 400px;
-  margin: 0 auto; /* centra horizontalmente */
+  margin: 0 auto;
   padding: 20px;
-  background: #fffdf2; /* crema */
+  background: #fffdf2;
   border: 1px solid #e0d9c8;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
@@ -131,7 +144,6 @@ h2 {
   font-size: 16px;
   transition: background 0.2s ease;
 }
-
 #form_pago button:hover {
   background: #4cae4c;
 }

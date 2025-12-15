@@ -219,10 +219,11 @@ footer .redes a:hover { text-decoration: underline; }
 #admin_viajes form button:hover { background-color: #0056b3; }
 
 /* --- Avisos de disponibilidad y proximidad --- */
+/* --- Avisos de disponibilidad y proximidad --- */
 .alerta {
-  background: #ffefc1;                  /* crema más intenso para resaltar */
-  border: 1px solid #ffa500;            /* naranja suave para borde */
-  color: #333;
+  background: #ffe5e5;            /* fondo rojo muy claro */
+  border: 1px solid #cc0000;      /* borde rojo intenso */
+  color: #cc0000;                 /* texto rojo */
   padding: 10px 12px;
   margin-top: 10px;
   width: 100%;
@@ -232,6 +233,7 @@ footer .redes a:hover { text-decoration: underline; }
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
   text-align: center;
 }
+
 
 .alerta .badge {
   display: inline-block;

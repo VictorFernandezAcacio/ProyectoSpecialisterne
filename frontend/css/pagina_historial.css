@@ -129,3 +129,12 @@ body {
   font-weight: bold;
 }
 #site_footer .redes a:hover { text-decoration: underline; }
+
+.link-detalle {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+.link-detalle:hover {
+  text-decoration: underline;
+}
