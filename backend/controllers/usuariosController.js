@@ -41,14 +41,31 @@ exports.obtenerUsuario = async (req, res) => {
 // Actualizar usuario por id_usuario
 exports.actualizarUsuario = async (req, res) => {
   const { usuario, email, tipo_usuario } = req.body;
+  const { id_usuario } = req.params;
+
   try {
+    // Comprobar si el nombre de usuario ya existe
+    if (usuario) {
+      const existe = await pool.query(
+        'SELECT id FROM usuarios WHERE usuario=$1 AND id<>$2',
+        [usuario, id_usuario]
+      );
+
+      if (existe.rows.length > 0) {
+        return res.status(400).json({
+          message: 'El nombre de usuario ya está en uso'
+        });
+      }
+    }
+
     await pool.query(
       `UPDATE usuarios 
-       SET usuario=$1, email=$2, tipo_usuario=$3, updated_at=now() 
+       SET usuario=$1, email=$2, tipo_usuario=$3, updated_at=now()
        WHERE id=$4`,
-      [usuario, email, tipo_usuario, req.params.id_usuario]
+      [usuario, email, tipo_usuario, id_usuario]
     );
-    res.json({ message: 'Usuario actualizado' });
+
+    res.json({ message: 'Usuario actualizado correctamente' });
   } catch (err) {
     console.error('Error al actualizar usuario:', err);
     res.status(500).send('Error al actualizar usuario');
@@ -140,3 +157,27 @@ exports.obtenerViajesUsuario = async (req, res) => {
     res.status(500).send('Error al obtener viajes');
   }
 };
+
+exports.cambiarPassword = async (req, res) => {
+  const { uid, nuevaPassword } = req.body;
+
+  if (!uid || !nuevaPassword) {
+    return res.status(400).json({
+      message: 'Faltan datos obligatorios'
+    });
+  }
+
+  try {
+    await admin.auth().updateUser(uid, {
+      password: nuevaPassword
+    });
+
+    res.json({ message: 'Contraseña actualizada correctamente' });
+  } catch (err) {
+    console.error('Error al cambiar contraseña:', err);
+    res.status(500).json({
+      message: 'Error al cambiar la contraseña'
+    });
+  }
+};
+

@@ -134,20 +134,70 @@ exports.eliminarReserva = async (req, res) => {
 };
 
 // Reservas de un usuario con datos de viaje
+// Reservas de un usuario con datos de viaje + descuento + valoración
 exports.obtenerReservasUsuario = async (req, res) => {
   try {
-    const result = await pool.query(`
-      SELECT r.id, r.usuario_id, r.viaje_id, r.estado, r.fecha_reserva,
-             v.nombre AS viaje_nombre, v.destino, v.fecha_inicio, v.fecha_fin, v.precio
+    const usuarioId = parseInt(req.params.id, 10);
+    if (isNaN(usuarioId)) {
+      return res.status(400).json({ error: "ID de usuario inválido" });
+    }
+
+    const query = `
+      SELECT
+        r.id,
+        r.usuario_id,
+        r.viaje_id,
+        r.estado,
+        r.fecha_reserva,
+
+        v.nombre AS viaje_nombre,
+        v.origen,
+        v.destino,
+        v.fecha_inicio,
+        v.fecha_fin,
+        v.imagen,
+
+        v.precio AS precio_original,
+        d.porcentaje,
+
+        CASE 
+          WHEN d.id_descuento IS NOT NULL
+               AND d.activo = true
+               AND d.fecha_inicio <= CURRENT_DATE
+               AND d.fecha_fin >= CURRENT_DATE
+          THEN ROUND(v.precio * (100 - LEAST(d.porcentaje, 99)) / 100.0, 2)
+          ELSE v.precio
+        END AS precio_final,
+
+        COALESCE(AVG(res.valoracion), NULL) AS valoracion_media
+
       FROM reservas r
       JOIN viajes v ON r.viaje_id = v.id
+      LEFT JOIN descuentos d ON v.descuento = d.id_descuento
+      LEFT JOIN resenas res ON res.id_viaje = v.id
+
       WHERE r.usuario_id = $1
-      ORDER BY r.id ASC
-    `, [req.params.id]);
+
+      GROUP BY
+        r.id,
+        v.id,
+        d.id_descuento,
+        d.porcentaje,
+        d.activo,
+        d.fecha_inicio,
+        d.fecha_fin
+
+      ORDER BY r.fecha_reserva DESC
+    `;
+
+    const result = await pool.query(query, [usuarioId]);
     res.json(result.rows);
   } catch (err) {
     console.error("Error al obtener reservas del usuario:", err);
-    res.status(500).json({ error: "Error al obtener reservas del usuario" });
+    res.status(500).json({
+      error: "Error al obtener reservas del usuario",
+      detalle: err.message
+    });
   }
 };
 

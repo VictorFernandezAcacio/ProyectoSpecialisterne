@@ -138,10 +138,12 @@ exports.crearViaje = async (req, res) => {
   }
 };
 
-// Obtener todos los viajes con descuento aplicado
+// Obtener todos los viajes con descuento aplicado, filtros y puntuación
 exports.obtenerViajes = async (req, res) => {
   try {
-    const result = await pool.query(`
+    const { origen, destino, fecha_inicio, fecha_fin, precio_min, precio_max, ordenar } = req.query;
+
+    let query = `
       SELECT v.id,
              v.nombre,
              v.descripcion,
@@ -152,20 +154,63 @@ exports.obtenerViajes = async (req, res) => {
              v.fecha_inicio,
              v.fecha_fin,
              v.imagen,
-             COALESCE(d.porcentaje, 0) AS porcentaje,
+             v.descuento,
+             d.porcentaje,
              CASE 
                WHEN d.id_descuento IS NOT NULL
                     AND d.activo = true
                     AND d.fecha_inicio <= CURRENT_DATE
                     AND d.fecha_fin >= CURRENT_DATE
                THEN ROUND(v.precio * (100 - LEAST(d.porcentaje, 99)) / 100.0, 2)
-               ELSE NULL
-             END AS precio_final
+               ELSE v.precio
+             END AS precio_final,
+             COALESCE(AVG(r.valoracion), NULL) AS valoracion_media
       FROM viajes v
-      LEFT JOIN descuentos d
-        ON v.descuento = d.id_descuento
-      ORDER BY v.id ASC;
-    `);
+      LEFT JOIN descuentos d ON v.descuento = d.id_descuento
+      LEFT JOIN resenas r ON v.id = r.id_viaje
+      WHERE 1=1
+    `;
+    const params = [];
+    let idx = 1;
+
+    if (origen) {
+      query += ` AND LOWER(v.origen) LIKE LOWER($${idx++})`;
+      params.push(`%${origen}%`);
+    }
+    if (destino) {
+      query += ` AND LOWER(v.destino) LIKE LOWER($${idx++})`;
+      params.push(`%${destino}%`);
+    }
+    if (fecha_inicio) {
+      query += ` AND v.fecha_inicio >= $${idx++}`;
+      params.push(fecha_inicio);
+    }
+    if (fecha_fin) {
+      query += ` AND v.fecha_fin <= $${idx++}`;
+      params.push(fecha_fin);
+    }
+    if (precio_min) {
+      query += ` AND v.precio >= $${idx++}`;
+      params.push(precio_min);
+    }
+    if (precio_max) {
+      query += ` AND v.precio <= $${idx++}`;
+      params.push(precio_max);
+    }
+
+    query += ` GROUP BY v.id, d.id_descuento, d.porcentaje, d.activo, d.fecha_inicio, d.fecha_fin`;
+
+    if (ordenar === 'precio_asc') {
+      query += ` ORDER BY precio_final ASC`;
+    } else if (ordenar === 'precio_desc') {
+      query += ` ORDER BY precio_final DESC`;
+    } else if (ordenar === 'reseñas') {
+      query += ` ORDER BY valoracion_media DESC`;
+    } else {
+      query += ` ORDER BY v.id ASC`;
+    }
+
+    const result = await pool.query(query, params);
     res.json(result.rows);
   } catch (err) {
     console.error('Error al obtener viajes:', err);
@@ -173,7 +218,7 @@ exports.obtenerViajes = async (req, res) => {
   }
 };
 
-// Obtener viaje por ID
+// Obtener un viaje por ID con descuento aplicado y puntuación
 exports.obtenerViaje = async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
@@ -181,7 +226,36 @@ exports.obtenerViaje = async (req, res) => {
       return res.status(400).json({ error: 'ID de viaje inválido' });
     }
 
-    const result = await pool.query('SELECT * FROM viajes WHERE id=$1', [id]);
+    const query = `
+      SELECT v.id,
+             v.nombre,
+             v.descripcion,
+             v.origen,              -- ✅ incluir origen
+             v.destino,
+             v.precio,
+             v.plazas_disponibles,
+             v.fecha_inicio,
+             v.fecha_fin,
+             v.imagen,
+             v.descuento,
+             d.porcentaje,
+             CASE 
+               WHEN d.id_descuento IS NOT NULL
+                    AND d.activo = true
+                    AND d.fecha_inicio <= CURRENT_DATE
+                    AND d.fecha_fin >= CURRENT_DATE
+               THEN ROUND(v.precio * (100 - LEAST(d.porcentaje, 99)) / 100.0, 2)
+               ELSE v.precio
+             END AS precio_final,
+             COALESCE(AVG(r.valoracion), NULL) AS valoracion_media -- ✅ incluir media reseñas
+      FROM viajes v
+      LEFT JOIN descuentos d ON v.descuento = d.id_descuento
+      LEFT JOIN resenas r ON v.id = r.id_viaje
+      WHERE v.id = $1
+      GROUP BY v.id, d.id_descuento, d.porcentaje, d.activo, d.fecha_inicio, d.fecha_fin
+    `;
+
+    const result = await pool.query(query, [id]);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Viaje no encontrado' });
@@ -193,6 +267,7 @@ exports.obtenerViaje = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener viaje', detalle: err.message });
   }
 };
+
 
 // Actualizar viaje
 exports.actualizarViaje = async (req, res) => {

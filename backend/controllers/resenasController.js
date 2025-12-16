@@ -1,5 +1,4 @@
 const pool = require('../db');
-const admin = require("../firebase");
 
 // Listar todas las reseñas con nombre de usuario
 exports.listarResenas = async (req, res) => {
@@ -18,7 +17,7 @@ exports.listarResenas = async (req, res) => {
   }
 };
 
-// Listar reseñas de un viaje concreto con nombre de usuario
+// Listar reseñas de un viaje concreto
 exports.listarResenasPorViaje = async (req, res) => {
   try {
     const result = await pool.query(`
@@ -37,7 +36,7 @@ exports.listarResenasPorViaje = async (req, res) => {
   }
 };
 
-// Obtener una reseña concreta con nombre de usuario
+// Obtener una reseña concreta
 exports.obtenerResena = async (req, res) => {
   try {
     const result = await pool.query(`
@@ -61,17 +60,18 @@ exports.obtenerResena = async (req, res) => {
 
 // Crear nueva reseña
 exports.crearResena = async (req, res) => {
-  const { id_usuario, id_viaje, fecha_resena, valoracion, resena_texto } = req.body;
+  const { id_usuario, valoracion, resena_texto } = req.body;
+  const id_viaje = req.params.id_viaje || req.body.id_viaje;
 
-  if (!id_usuario || !id_viaje || !fecha_resena || !valoracion || !resena_texto) {
+  if (!id_usuario || !id_viaje || !valoracion || !resena_texto) {
     return res.status(400).json({ error: 'Todos los campos son obligatorios' });
   }
 
   try {
     const result = await pool.query(
       `INSERT INTO resenas (id_usuario, id_viaje, fecha_resena, valoracion, resena_texto)
-       VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-      [id_usuario, id_viaje, fecha_resena, valoracion, resena_texto]
+       VALUES ($1, $2, CURRENT_DATE, $3, $4) RETURNING *`,
+      [id_usuario, id_viaje, valoracion, resena_texto]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -82,14 +82,14 @@ exports.crearResena = async (req, res) => {
 
 // Actualizar reseña existente
 exports.actualizarResena = async (req, res) => {
-  const { fecha_resena, valoracion, resena_texto } = req.body;
+  const { valoracion, resena_texto } = req.body;
 
   try {
     const result = await pool.query(
       `UPDATE resenas 
-       SET fecha_resena=$1, valoracion=$2, resena_texto=$3, updated_at=now()
-       WHERE id=$4 RETURNING *`,
-      [fecha_resena, valoracion, resena_texto, req.params.id]
+       SET valoracion=$1, resena_texto=$2, updated_at=now()
+       WHERE id=$3 RETURNING *`,
+      [valoracion, resena_texto, req.params.id]
     );
 
     if (result.rows.length === 0) {
