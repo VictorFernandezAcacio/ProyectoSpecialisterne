@@ -11,8 +11,8 @@ router.get('/viaje/:id_viaje', resenasController.listarResenasPorViaje);
 // Obtener una reseña concreta
 router.get('/:id', resenasController.obtenerResena);
 
-// Crear nueva reseña
-router.post('/', resenasController.crearResena);
+// Crear nueva reseña (formato esperado por frontend: POST /viajes/:id/resenas)
+router.post('/viaje/:id_viaje', resenasController.crearResena);
 
 // Actualizar reseña
 router.put('/:id', resenasController.actualizarResena);

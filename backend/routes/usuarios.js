@@ -3,11 +3,18 @@ const router = express.Router();
 const usuariosController = require('../controllers/usuariosController');
 const pool = require('../db'); 
 
+// =======================
+// RUTAS FIJAS PRIMERO
+// =======================
+
 // Crear usuario
 router.post('/', usuariosController.crearUsuario);
 
 // Login de usuario
 router.post('/login', usuariosController.loginUsuario);
+
+// Cambiar contraseña
+router.put('/password', usuariosController.cambiarPassword);
 
 // Obtener todos los usuarios
 router.get('/', async (req, res) => {
@@ -18,6 +25,10 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// =======================
+// RUTAS DINÁMICAS DESPUÉS
+// =======================
 
 // Obtener usuario por id
 router.get('/:id_usuario', usuariosController.obtenerUsuario);
