@@ -1,13 +1,18 @@
-<!-- Barra superior 1 -->
+<!-- Barra superior -->
 <div id="barra_superior">
+  <!-- Logo -->
   <div id="logo_container">
     <a href="Inicio.html"><img id="logo" src="../img/logo.png" alt="logo"></a>
   </div>
 
-  <div id="hueco_buscador">
-    <input type="text" id="buscador" placeholder="Buscar viajes, destinos..." />
+  <!-- Bloque de fecha, hora y tiempo -->
+  <div id="info_tiempo">
+    <span id="fecha_actual"></span> |
+    <span id="hora_actual"></span> |
+    <span id="tiempo_actual">Cargando tiempo...</span>
   </div>
 
+  <!-- Botones de usuario y carrito -->
   <div id="div_derecha_barra_superior">
     <div id="div_Entrar">
       <a href="inicio_sesion.html"><button class="btn-secundario">ENTRAR</button></a>
@@ -15,7 +20,7 @@
 
     <div id="div_usuario">
       <a href="pagina_historial.html"><button class="btn-secundario">RESERVAS</button></a>
-      <a href="Perfil.html"><button id="btn_Perfil"><img src="../img/usuario.png" alt="" id="img_Perfil"></button></a>
+      <a href="#"><button id="btn_Perfil"><img src="../img/usuario.png" alt="Perfil" id="img_Perfil"></button></a>
     </div>
 
     <!-- 🛒 Carrito -->
@@ -27,5 +32,7 @@
   </div>
 </div>
 
+<!-- Espacio para que no tape contenido -->
 <div id="espacio_barra_superior"></div>
 
+<script src="../js/barra_superior.js" defer></script>

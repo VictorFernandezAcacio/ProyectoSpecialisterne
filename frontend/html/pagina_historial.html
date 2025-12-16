@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis Reservas</title>
-  <link rel="stylesheet" href="../css/reservas.css">
-  <link rel="stylesheet" href="../css/barra_superior.css">
+  <!-- Estilos -->
   <link rel="stylesheet" href="../css/pagina_historial.css">
+  <link rel="stylesheet" href="../css/barra_superior.css">
   <link rel="stylesheet" href="../css/resena.css">
   <link rel="icon" type="image/png" href="../img/logo.png">
-  <script src="../js/reservas.js" defer></script>
-  <script src="../js/resenar.js" defer></script>
+  <!-- Scripts -->
+  <script src="../js/pagina_historial.js" defer></script>
+  <script src="../js/resena.js" defer></script>
 </head>
 <body>
   <!-- Barra superior modular -->
@@ -19,36 +20,34 @@
   <!-- Viajes pendientes -->
   <section class="bloque_viajes">
     <h2>✈️ Viajes pendientes</h2>
-    <div class="grid_viajes" id="viajes_pendientes">
-      <!-- Aquí se insertan dinámicamente los viajes pendientes -->
-    </div>
+    <div class="grid_viajes" id="viajes_pendientes"></div>
   </section>
 
   <!-- Viajes realizados -->
   <section class="bloque_viajes">
     <h2>✅ Viajes realizados</h2>
-    <div class="grid_viajes" id="viajes_realizados">
-      <!-- Aquí se insertan dinámicamente los viajes realizados -->
-    </div>
+    <div class="grid_viajes" id="viajes_realizados"></div>
   </section>
-  <button onclick="abrirResena()">Reseñar</button>
+
+  <!-- Ventana reseña (se abre solo desde botones en tarjetas) -->
   <div id="ventana_resena">
     <div class="contenido_resenas">
       <div style="text-align: start;">
         Estrellas:
         <div class="rating">
-          <span data-value="5">★</span>
-          <span data-value="4">★</span>
-          <span data-value="3">★</span>
-          <span data-value="2">★</span>
+          <!-- ⭐ Orden ascendente 1 → 5 -->
           <span data-value="1">★</span>
+          <span data-value="2">★</span>
+          <span data-value="3">★</span>
+          <span data-value="4">★</span>
+          <span data-value="5">★</span>
         </div>
       </div><br>
       <div style="text-align: start;">
         Comentario:<br>
-        <textarea name="message" id="comentario" rows="16" cols="60"></textarea><br>
+        <textarea id="comentario" rows="8" cols="60"></textarea><br>
       </div>
-      <input type="submit" onclick="EnviarResena()">
+      <button onclick="EnviarResena()">Enviar reseña</button>
       <button onclick="cerrarResena()">Cancelar</button>
     </div>
   </div>

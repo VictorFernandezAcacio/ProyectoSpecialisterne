@@ -19,6 +19,26 @@
     <div id="lista_descuentos"></div>
   </div>
 
+  <!-- Buscador y filtros SOLO en inicio -->
+  <section id="buscador-filtros">
+    <h2>🔎 Encuentra tu viaje</h2>
+    <form id="form_busqueda">
+      <input type="text" id="origen" placeholder="Ciudad de origen">
+      <input type="text" id="destino" placeholder="Ciudad de destino">
+      <input type="date" id="fecha_inicio" placeholder="Fecha inicio">
+      <input type="date" id="fecha_fin" placeholder="Fecha fin">
+      <input type="number" id="precio_min" placeholder="Precio mínimo (€)" min="0">
+      <input type="number" id="precio_max" placeholder="Precio máximo (€)" min="0">
+      <select id="ordenar">
+        <option value="">Ordenar por:</option>
+        <option value="precio_asc">Precio (menor a mayor)</option>
+        <option value="precio_desc">Precio (mayor a menor)</option>
+        <option value="reseñas">Mejor valorados</option>
+      </select>
+      <button type="submit" id="buscar">Buscar</button>
+    </form>
+  </section>
+
   <!-- Bloques de viajes -->
   <section id="viajes_destacados">
     <h2>🌍 Viajes destacados</h2>
