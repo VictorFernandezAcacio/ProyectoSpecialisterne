@@ -46,6 +46,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
 }
 
 #div_img img {
@@ -57,23 +58,57 @@ body {
 
 #informacion_viaje {
   flex: 1;
+  min-width: 250px;
 }
 
 #titulo_estrellas_precio {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   margin-top: 20px;
 }
 
 #titulo_viaje {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  color: #2c3e50;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+#valoracion_media {
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 #precio_viaje {
+  text-align: center;
   font-size: 20px;
-  font-weight: bold;
+}
+
+.precio-original {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 8px;
+}
+
+.precio-descuento {
   color: green;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#fecha_viaje {
+  font-size: 15px;
+  color: #444;
+  text-align: center;
+  margin-top: 6px;
 }
 
 button {
@@ -105,24 +140,25 @@ button:hover {
 }
 
 .resena {
-  border-bottom: 1px solid #ccc;
-  padding: 15px 0;
-  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .contenedor_datos_resena {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  margin-bottom: 10px;
-  background-color: #e0e0e0;
-  padding: 5px;
-  border-radius: 5px;
+  margin-bottom: 8px;
+  color: #333;
 }
 
 .texto_resena {
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.5;
+  color: #555;
 }
 
 #alerta_compra {
@@ -169,11 +205,3 @@ footer .redes a {
 footer .redes a:hover {
   text-decoration: underline;
 }
-
-#fecha_viaje, .card_fecha {
-  font-size: 15px;
-  color: #444;
-  margin-top: 6px;
-  text-align: center;
-}
-

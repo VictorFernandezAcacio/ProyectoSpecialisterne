@@ -61,6 +61,16 @@ h2 {
   font-size: 15px;
   color: #555;
   margin: 4px 0;
+  text-align: center;
+}
+
+.card_meta strong {
+  color: #333;
+}
+
+.estrellas {
+  color: #FFD700; /* dorado */
+  font-size: 16px;
 }
 
 /* Enlace en el título */
@@ -147,3 +157,15 @@ h2 {
 #form_pago button:hover {
   background: #4cae4c;
 }
+
+.precio-original {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 8px;
+}
+
+.precio-final {
+  font-weight: bold;
+  color: #2e7d32;
+}
+

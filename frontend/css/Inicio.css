@@ -219,11 +219,10 @@ footer .redes a:hover { text-decoration: underline; }
 #admin_viajes form button:hover { background-color: #0056b3; }
 
 /* --- Avisos de disponibilidad y proximidad --- */
-/* --- Avisos de disponibilidad y proximidad --- */
 .alerta {
-  background: #ffe5e5;            /* fondo rojo muy claro */
-  border: 1px solid #cc0000;      /* borde rojo intenso */
-  color: #cc0000;                 /* texto rojo */
+  background: #ffe5e5;
+  border: 1px solid #cc0000;
+  color: #cc0000;
   padding: 10px 12px;
   margin-top: 10px;
   width: 100%;
@@ -234,10 +233,9 @@ footer .redes a:hover { text-decoration: underline; }
   text-align: center;
 }
 
-
 .alerta .badge {
   display: inline-block;
-  background: #fff9e6;                  /* contraste suave dentro del aviso */
+  background: #fff9e6;
   color: #8a5a00;
   border: 1px dashed #ffc04d;
   border-radius: 12px;
@@ -246,11 +244,123 @@ footer .redes a:hover { text-decoration: underline; }
   font-size: 12px;
 }
 
-/* Variantes por tipo de aviso (opcional) */
-.alerta.pocos-dias {
-  border-color: #ff9800;
+.alerta.pocos-dias { border-color: #ff9800; }
+.alerta.pocas-plazas { border-color: #d84315; }
+
+/* --- Buscador y filtros --- */
+#buscador-filtros {
+  background: #fffdf2;
+  padding: 20px;
+  margin: 30px auto;
+  border-radius: 12px;
+  max-width: 900px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
-.alerta.pocas-plazas {
-  border-color: #d84315;
+#buscador-filtros h2 {
+  color: #007BFF;
+  margin-bottom: 15px;
+  font-size: 22px;
+  text-align: center;
+}
+
+#form_busqueda {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  align-items: center;
+}
+
+#form_busqueda input,
+#form_busqueda select,
+#form_busqueda button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+}
+
+#form_busqueda button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+#form_busqueda button:hover { background-color: #0056b3; }
+
+/* --- Responsivo --- */
+@media (max-width: 900px) {
+  /* Ajustar buscador en tablets */
+  #form_busqueda {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .contenido_viajes {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  /* Buscador en una sola columna */
+  #form_busqueda {
+    grid-template-columns: 1fr;
+  }
+
+  #buscador-filtros {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  #buscador-filtros h2 {
+    font-size: 20px;
+  }
+
+  #form_busqueda input,
+  #form_busqueda select,
+  #form_busqueda button {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  /* Tarjetas de viaje más compactas */
+  .viaje-card {
+    padding: 12px;
+  }
+
+  .viaje-img {
+    height: 140px;
+  }
+
+  .viaje-card h3 {
+    font-size: 16px;
+  }
+
+  .viaje-card p {
+    font-size: 13px;
+  }
+
+  .btn-reservar {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Ajustes extra para móviles muy pequeños */
+  #buscador-filtros {
+    width: 95%;
+  }
+
+  .contenido_viajes {
+    grid-template-columns: 1fr;
+  }
+
+  .viaje-img {
+    height: 120px;
+  }
 }

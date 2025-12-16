@@ -26,18 +26,28 @@
 #logo_container { display: flex; align-items: center; }
 #logo { height: 60px; width: auto; max-width: 150px; object-fit: contain; }
 
-#hueco_buscador { flex: 1 1 auto; display: flex; justify-content: center; }
-#buscador {
-    border: 1px solid #aaa;
-    background-color: #fff;
-    width: 100%;
-    max-width: clamp(360px, 45vw, 640px); 
-    padding: 10px 14px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-family: var(--fuente-base);
+/* Menú principal */
+#menu_principal {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
 }
 
+#menu_principal a {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: var(--fuente-base);
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+#menu_principal a:hover {
+    color: var(--color-principal);
+}
+
+/* Botones y usuario */
 #div_derecha_barra_superior {
     display: flex;
     gap: 12px;
@@ -94,3 +104,13 @@
     font-size: 12px;
     font-weight: bold;
 }
+
+#info_tiempo {
+  flex: 1 1 auto;
+  text-align: center;
+  font-family: var(--fuente-base);
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
