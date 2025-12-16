@@ -1,40 +1,41 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const serverless = require('serverless-http');
-const pool = require('../db');
-
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Servir frontend (opcional en Vercel, normalmente se despliega por separado)
-app.use(express.static(path.join(__dirname, '../frontend')));
+// 🔌 Conexión a la base de datos
+let pool;
+try {
+  pool = require('../db');
+} catch (err) {
+  console.error('Error al cargar db.js:', err);
+}
 
-// Importar rutas
-const usuariosRoutes = require('./routes/usuarios');
-const viajesRoutes = require('./routes/viajes');
-const transportesRoutes = require('./routes/transportes');
-const alojamientosRoutes = require('./routes/alojamientos');
-const resenasRoutes = require('./routes/resenas');
-const reservasRoutes = require('./routes/reservas');
-const descuentosRoutes = require('./routes/descuentos');
+// 🚫 Comentado: servir frontend desde backend (no recomendado en Vercel)
+// app.use(express.static(path.join(__dirname, '../frontend')));
 
-// Montar rutas (prefijo /api si quieres mantener consistencia)
-app.use('/api/usuarios', usuariosRoutes);
-app.use('/api/viajes', viajesRoutes);
-app.use('/api/transportes', transportesRoutes);
-app.use('/api/alojamientos', alojamientosRoutes);
-app.use('/api/resenas', resenasRoutes);
-app.use('/api/reservas', reservasRoutes);
-app.use('/api/descuentos', descuentosRoutes);
+// 📦 Importar rutas
+try {
+  app.use('/api/usuarios', require('../routes/usuarios'));
+  app.use('/api/viajes', require('../routes/viajes'));
+  app.use('/api/transportes', require('../routes/transportes'));
+  app.use('/api/alojamientos', require('../routes/alojamientos'));
+  app.use('/api/resenas', require('../routes/resenas'));
+  app.use('/api/reservas', require('../routes/reservas'));
+  app.use('/api/descuentos', require('../routes/descuentos'));
+} catch (err) {
+  console.error('Error al cargar rutas:', err);
+}
 
-// Ruta raíz
+// 🏠 Ruta raíz
 app.get('/api', (req, res) => {
   res.send('Backend funcionando en Vercel 🚀');
 });
 
-// Exportar como función serverless
+// 🚀 Exportar como función serverless
 module.exports = app;
 module.exports.handler = serverless(app);
