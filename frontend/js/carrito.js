@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     lista.innerHTML = carrito.map((v, index) => {
-
       const estrellas = v.valoracion_media
         ? `<span class="estrellas">${Number(v.valoracion_media).toFixed(1)} ⭐</span>`
         : "Sin reseñas";
@@ -23,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ? new Date(v.fecha_fin).toLocaleDateString("es-ES")
         : "No disponible";
 
-      // 🔥 PRECIO SEGURO
       const precioFinal = v.precio_final ?? v.precio;
       const precioOriginal = v.precio_original ?? null;
 
@@ -121,4 +119,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderCarrito();
   actualizarContador();
+
+  // ✅ Botón volver
+  const btnVolver = document.getElementById("btn_volver");
+  if (btnVolver) {
+    btnVolver.addEventListener("click", () => {
+      window.history.back(); 
+    });
+  }
 });
