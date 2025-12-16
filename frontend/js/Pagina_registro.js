@@ -30,7 +30,7 @@ async function registrarse() {
   const fecha_nacimiento = document.getElementById("fecha_de_nacimiento").value;
   const fecha_nacimiento_date = new Date ("fecha_nacimiento")
 
-  if (!usuario || !correo || !contrasenya || !confirmar) return mostrarError("Por favor, complete todos los campos.");
+  if (!usuario || !correo || !contrasenya || !confirmar || !fecha_nacimiento) return mostrarError("Por favor, complete todos los campos.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) return mostrarError("El correo no parece válido.");
   if (contrasenya.length < 8) return mostrarError("La contraseña es demasiado corta.");
   if (esMenorDe18(fecha_nacimiento)) return mostrarError
@@ -70,3 +70,4 @@ function volverLogin() {
 // Exponer funciones al scope global
 window.registrarse = registrarse;
 window.volverLogin = volverLogin;
+
