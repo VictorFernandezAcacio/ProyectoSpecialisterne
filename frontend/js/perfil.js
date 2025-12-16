@@ -75,9 +75,10 @@ async function GuardarPerfil() {
 async function CambiarContraseña() {
   const nueva = document.getElementById("nueva_contraseña").value;
   const confirmar = document.getElementById("confirmar_contraseña").value;
+  const contraseña = document.getElementById("actual_contraseña").value;
 
-  if (!nueva || !confirmar) {
-    alert("Debes rellenar ambos campos");
+  if (!nueva || !confirmar ||!contraseña) {
+    alert("Debe rellenar todos los campos");
     return;
   }
 
@@ -154,3 +155,4 @@ async function BorrarCuenta() {
 
 // Inicialización
 window.addEventListener("DOMContentLoaded", cargarDatosPerfil);
+
