@@ -1,41 +1,106 @@
+let valoracionSeleccionada = 0;
+
 function abrirResena() {
-    document.getElementById("ventana_resena").style.display = "block"
+  const ventana = document.getElementById("ventana_resena");
+  if (ventana) ventana.style.display = "flex";
 }
+
 function cerrarResena() {
-    document.getElementById("ventana_resena").style.display = "none"
+  const ventana = document.getElementById("ventana_resena");
+  if (ventana) ventana.style.display = "none";
+  valoracionSeleccionada = 0;
+  limpiarEstrellas();
+  const comentario = document.getElementById("comentario");
+  if (comentario) comentario.value = "";
 }
 
-const stars = document.querySelectorAll('.rating span');
+function seleccionarEstrella(valor) {
+  valoracionSeleccionada = valor;
+  const estrellas = document.querySelectorAll(".rating span");
+  estrellas.forEach((estrella) => {
+    const val = parseInt(estrella.dataset.value, 10);
+    estrella.classList.toggle("active", val <= valor);
+  });
+}
 
-stars.forEach(star => {
-  star.addEventListener('click', function() {
-    const value = this.getAttribute('data-value');
+function limpiarEstrellas() {
+  document.querySelectorAll(".rating span").forEach((estrella) => {
+    estrella.classList.remove("active");
+  });
+}
 
-    // Limpiar selección anterior
-    stars.forEach(s => s.classList.remove('selected'));
+async function EnviarResena() {
+  const comentarioEl = document.getElementById("comentario");
+  const comentario = comentarioEl ? comentarioEl.value.trim() : "";
 
-    // Marcar las necesarias
-    stars.forEach(s => {
-      if (s.getAttribute('data-value') <= value) {
-        s.classList.add('selected');
-      }
+  if (valoracionSeleccionada === 0) {
+    alert("Por favor, selecciona una puntuación en estrellas.");
+    return;
+  }
+  if (!comentario) {
+    alert("Por favor, escribe un comentario.");
+    return;
+  }
+
+  try {
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuarioId = usuario ? usuario.id : null;
+    const viaje = window.viajeResenaActual;
+
+    if (!viaje || !viaje.viaje_id) {
+      alert("No se ha seleccionado ningún viaje para reseñar.");
+      return;
+    }
+    if (!usuarioId) {
+      alert("No se ha encontrado el usuario en sesión.");
+      return;
+    }
+
+    const url = `http://localhost:3000/resenas/viaje/${viaje.viaje_id}`;
+    const payload = {
+      valoracion: valoracionSeleccionada,
+      resena_texto: comentario,
+      id_usuario: usuarioId
+    };
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
 
-  });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-  // Efecto hover opcional
-  star.addEventListener('mouseover', function() {
-    const value = this.getAttribute('data-value');
+    alert("Reseña enviada correctamente ✅");
+    cerrarResena();
 
-    stars.forEach(s => s.classList.remove('hover'));
-    stars.forEach(s => {
-      if (s.getAttribute('data-value') <= value) {
-        s.classList.add('hover');
-      }
+    document.dispatchEvent(new CustomEvent("resena-enviada", {
+      detail: { viajeId: viaje.viaje_id }
+    }));
+
+  } catch (err) {
+    console.error("Error al enviar reseña:", err);
+    alert("No se pudo enviar la reseña ❌");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const estrellas = document.querySelectorAll(".rating span");
+  estrellas.forEach((estrella) => {
+    estrella.addEventListener("click", () => {
+      const valor = parseInt(estrella.dataset.value, 10);
+      seleccionarEstrella(valor);
     });
   });
 
-  star.addEventListener('mouseout', () => {
-    stars.forEach(s => s.classList.remove('hover'));
-  });
+  const modal = document.getElementById("ventana_resena");
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) cerrarResena();
+    });
+  }
 });
+
+window.abrirResena = abrirResena;
+window.cerrarResena = cerrarResena;
+window.EnviarResena = EnviarResena;

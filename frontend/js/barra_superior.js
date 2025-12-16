@@ -33,7 +33,7 @@ function addToCart(viaje) {
   alert("Viaje añadido al carrito 🛒");
 }
 
-// 👉 Abrir carrito.html y guardar página de origen
+// 👉 Acción del carrito (redirige a carrito.html porque sí existe)
 document.addEventListener("click", (e) => {
   if (e.target.closest("#btn_carrito")) {
     const currentPage = window.location.href;
@@ -42,11 +42,12 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// 👉 MutationObserver para enganchar el botón de perfil cuando aparezca
+// 👉 Acción del perfil (aún no existe Perfil.html, mostramos aviso temporal)
 const observer = new MutationObserver(() => {
   const btnPerfil = document.getElementById("btn_Perfil");
   if (btnPerfil && !btnPerfil.dataset.listenerAdded) {
     btnPerfil.addEventListener("click", () => {
+      // Cuando tengas Perfil.html, cambia esto:
       window.location.href = "Perfil.html";
     });
     btnPerfil.dataset.listenerAdded = "true"; // marca para no duplicar
@@ -55,6 +56,32 @@ const observer = new MutationObserver(() => {
 
 // Observa todo el body por cambios en hijos
 observer.observe(document.body, { childList: true, subtree: true });
+
+// Actualizar fecha y hora en vivo
+function actualizarFechaHora() {
+  const ahora = new Date();
+  const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const fecha = ahora.toLocaleDateString('es-ES', opcionesFecha);
+  const hora = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  document.getElementById("fecha_actual").textContent = fecha;
+  document.getElementById("hora_actual").textContent = hora;
+}
+setInterval(actualizarFechaHora, 1000);
+actualizarFechaHora();
+
+// Obtener tiempo actual en Barcelona
+async function cargarTiempo() {
+  try {
+    const res = await fetch("https://wttr.in/Barcelona?format=%t+%C"); 
+    const texto = await res.text();
+    document.getElementById("tiempo_actual").textContent = texto;
+  } catch (error) {
+    document.getElementById("tiempo_actual").textContent = "Tiempo no disponible";
+  }
+}
+cargarTiempo();
+
 
 // Exponer funciones globales
 window.addToCart = addToCart;

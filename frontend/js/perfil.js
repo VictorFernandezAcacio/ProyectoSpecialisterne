@@ -1,88 +1,156 @@
-// Datos simulados de usuario (mock)
-const mockUser = {
-    correo: "usuario@example.com",
-    usuario: "JuanPerez",
-    contraseña: "123456",
-    cumpleaños: "1995-08-15"
-};
+const BASE_URL = "http://localhost:3000";
 
-// Cargar datos en los inputs del perfil
+// Cargar datos del usuario real
 function cargarDatosPerfil() {
-    const correoInput = document.getElementById("correo");
-    const usuarioInput = document.getElementById("usuario");
-    const cumpleInput = document.getElementById("cumpleaños");
-    const nuevaInput = document.getElementById("nueva_contraseña");
-    const confirmarInput = document.getElementById("confirmar_contraseña");
+  const usuarioLS = JSON.parse(localStorage.getItem("usuario"));
+  if (!usuarioLS) {
+    alert("No hay sesión activa");
+    return;
+  }
 
-    if (correoInput) correoInput.value = mockUser.correo;
-    if (usuarioInput) usuarioInput.value = mockUser.usuario;
-    if (cumpleInput) cumpleInput.value = mockUser.cumpleaños;
-    if (nuevaInput) nuevaInput.value = "";
-    if (confirmarInput) confirmarInput.value = "";
+  const correoInput = document.getElementById("correo");
+  const usuarioInput = document.getElementById("usuario");
+  const cumpleInput = document.getElementById("cumpleaños");
+
+  if (correoInput) correoInput.value = usuarioLS.correo || "";
+  if (usuarioInput) usuarioInput.value = usuarioLS.usuario || "";
+  if (cumpleInput) cumpleInput.value = usuarioLS.fecha_nacimiento || "";
+
+  document.getElementById("nueva_contraseña").value = "";
+  document.getElementById("confirmar_contraseña").value = "";
 }
 
-// Mostrar/ocultar contraseña
+// Mostrar / ocultar contraseña
 function togglePassword(idCampo) {
-    const campo = document.getElementById(idCampo);
-    if (campo) {
-        campo.type = campo.type === "password" ? "text" : "password";
-    }
+  const campo = document.getElementById(idCampo);
+  if (campo) {
+    campo.type = campo.type === "password" ? "text" : "password";
+  }
 }
 
-// Cambiar contraseña
-function CambiarContraseña() {
-    const nueva = document.getElementById("nueva_contraseña");
-    const confirmar = document.getElementById("confirmar_contraseña");
+// Guardar cambios de perfil (usuario / email)
+async function GuardarPerfil() {
+  const usuarioLS = JSON.parse(localStorage.getItem("usuario"));
+  if (!usuarioLS) return alert("No hay sesión");
 
-    if (!nueva || !confirmar) {
-        alert("Faltan campos de contraseña en el formulario.");
-        return;
+  const usuario = document.getElementById("usuario").value.trim();
+  const correo = document.getElementById("correo").value.trim();
+
+  if (!usuario || !correo) {
+    alert("Usuario y correo son obligatorios");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${BASE_URL}/usuarios/${usuarioLS.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        usuario,
+        email: correo,
+        tipo_usuario: usuarioLS.tipo_usuario
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Error al actualizar usuario");
+      return;
     }
 
-    const nuevaValue = nueva.value;
-    const confirmarValue = confirmar.value;
+    // Actualizar localStorage
+    usuarioLS.usuario = usuario;
+    usuarioLS.correo = correo;
+    localStorage.setItem("usuario", JSON.stringify(usuarioLS));
 
-    if (nuevaValue === "" || confirmarValue === "") {
-        alert("Debes rellenar ambos campos.");
-        return;
+    alert("Perfil actualizado correctamente ✅");
+  } catch (err) {
+    console.error(err);
+    alert("Error al actualizar perfil");
+  }
+}
+
+// Cambiar contraseña REAL (Firebase)
+async function CambiarContraseña() {
+  const nueva = document.getElementById("nueva_contraseña").value;
+  const confirmar = document.getElementById("confirmar_contraseña").value;
+
+  if (!nueva || !confirmar) {
+    alert("Debes rellenar ambos campos");
+    return;
+  }
+
+  if (nueva !== confirmar) {
+    alert("Las contraseñas no coinciden");
+    return;
+  }
+
+  const usuarioLS = JSON.parse(localStorage.getItem("usuario"));
+
+  try {
+    const res = await fetch(`${BASE_URL}/usuarios/password`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        uid: usuarioLS.uid,
+        nuevaPassword: nueva
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Error al cambiar contraseña");
+      return;
     }
 
-    if (nuevaValue !== confirmarValue) {
-        alert("Las contraseñas no coinciden.");
-        return;
-    }
+    alert("Contraseña actualizada correctamente 🔐");
+    document.getElementById("nueva_contraseña").value = "";
+    document.getElementById("confirmar_contraseña").value = "";
 
-    mockUser.contraseña = nuevaValue;
-    alert("Contraseña cambiada exitosamente (mock).");
+  } catch (err) {
+    console.error(err);
+    alert("Error al cambiar contraseña");
+  }
 }
 
 // Mostrar ventana de borrar cuenta
 function Mostrar_Ventana_Borrar() {
-    const alerta = document.getElementById("alerta_borrar");
-    if (alerta) alerta.style.display = "block";
+  const alerta = document.getElementById("alerta_borrar");
+  if (alerta) alerta.style.display = "block";
 }
 
 // Ocultar ventana de borrar cuenta
 function Quitar_Ventana_Borrar() {
-    const alerta = document.getElementById("alerta_borrar");
-    if (alerta) alerta.style.display = "none";
+  const alerta = document.getElementById("alerta_borrar");
+  if (alerta) alerta.style.display = "none";
 }
 
-// Borrar cuenta (mock)
-function BorrarCuenta() {
-    const inputPassword = document.getElementById("borrar_cuenta");
-    if (!inputPassword) {
-        alert("Campo de contraseña para borrar cuenta no encontrado.");
-        return;
+// Borrar cuenta REAL (Firebase + BBDD)
+async function BorrarCuenta() {
+  const usuarioLS = JSON.parse(localStorage.getItem("usuario"));
+  if (!usuarioLS) return alert("No hay sesión");
+
+  try {
+    const res = await fetch(`${BASE_URL}/usuarios/${usuarioLS.id}`, {
+      method: "DELETE"
+    });
+
+    if (!res.ok) {
+      alert("No se pudo borrar la cuenta");
+      return;
     }
 
-    if (inputPassword.value === mockUser.contraseña) {
-        alert("Cuenta borrada exitosamente (mock).");
-        Quitar_Ventana_Borrar();
-    } else {
-        alert("Contraseña incorrecta. Intenta nuevamente.");
-    }
+    localStorage.clear();
+    alert("Cuenta eliminada correctamente ❌");
+    window.location.href = "Inicio.html";
+
+  } catch (err) {
+    console.error(err);
+    alert("Error al borrar la cuenta");
+  }
 }
 
-// Inicializar al cargar la página
-window.onload = cargarDatosPerfil;
+// Inicialización
+window.addEventListener("DOMContentLoaded", cargarDatosPerfil);

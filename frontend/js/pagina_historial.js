@@ -1,4 +1,6 @@
-// Función auxiliar para formatear fecha en DD/MM/AAAA
+// ===============================
+// Formatear fecha DD/MM/AAAA
+// ===============================
 function formatearFecha(fechaISO) {
   if (!fechaISO) return "No disponible";
   const fecha = new Date(fechaISO);
@@ -8,10 +10,18 @@ function formatearFecha(fechaISO) {
   return `${dia}/${mes}/${año}`;
 }
 
+// Viaje que se está reseñando
+window.viajeResenaActual = null;
+
+// ===============================
 // Renderizar reservas
+// ===============================
 function renderReservas(reservas) {
   const listaPendientes = document.getElementById("viajes_pendientes");
   const listaRealizados = document.getElementById("viajes_realizados");
+
+  listaPendientes.innerHTML = "";
+  listaRealizados.innerHTML = "";
 
   if (!reservas || reservas.length === 0) {
     listaPendientes.innerHTML = "<p>No tienes viajes pendientes.</p>";
@@ -20,43 +30,97 @@ function renderReservas(reservas) {
   }
 
   const hoy = new Date();
-  hoy.setHours(0,0,0,0);
+  hoy.setHours(0, 0, 0, 0);
 
   reservas.forEach(v => {
     const fechaFin = v.fecha_fin ? new Date(v.fecha_fin) : null;
-    if (fechaFin) fechaFin.setHours(0,0,0,0);
+    if (fechaFin) fechaFin.setHours(0, 0, 0, 0);
 
+    // ===============================
+    // Precio (con o sin descuento)
+    // ===============================
+    let precioHTML = "";
+
+    if (v.porcentaje) {
+      precioHTML = `
+        <p class="card_meta">
+          <span class="precio-original">${v.precio_original} €</span>
+          <span class="precio-final">${v.precio_final} €</span>
+        </p>
+      `;
+    } else {
+      precioHTML = `
+        <p class="card_meta">
+          <span class="precio-final">${v.precio_final} €</span>
+        </p>
+      `;
+    }
+
+    // ===============================
+    // Valoración
+    // ===============================
+    const estrellasHTML = v.valoracion_media
+      ? `<p class="card_meta">Valoración: ${Number(v.valoracion_media).toFixed(1)} ⭐</p>`
+      : `<p class="card_meta">Valoración: Sin reseñas</p>`;
+
+    // ===============================
+    // Card
+    // ===============================
     const article = document.createElement("article");
     article.classList.add("card_viaje");
+
     article.innerHTML = `
       <h3 class="card_titulo">
-        <!-- 🔗 El título es un enlace al detalle del viaje -->
-        <a href="Viaje.html?id=${v.viaje_id}" class="link-detalle">${v.destino}</a>
+        <a href="Viaje.html?id=${v.viaje_id}" class="link-detalle">
+          ${v.viaje_nombre || v.destino}
+        </a>
       </h3>
-      <img src="../img/${v.imagen || 'default.jpg'}" alt="${v.destino}" class="card_img">
-      <p class="card_meta">Fecha inicio: ${formatearFecha(v.fecha_inicio)}</p>
-      <p class="card_meta">Fecha fin: ${formatearFecha(v.fecha_fin)}</p>
-      <p class="card_meta">Precio: ${v.precio} €</p>
+
+      <img src="../img/${v.imagen || 'default.jpg'}"
+           alt="${v.destino}"
+           class="card_img">
+
+      <p class="card_meta"><strong>Origen:</strong> ${v.origen}</p>
+      <p class="card_meta"><strong>Destino:</strong> ${v.destino}</p>
+      <p class="card_meta"><strong>Fecha inicio:</strong> ${formatearFecha(v.fecha_inicio)}</p>
+      <p class="card_meta"><strong>Fecha fin:</strong> ${formatearFecha(v.fecha_fin)}</p>
+
+      ${precioHTML}
+      ${estrellasHTML}
+
       ${
         fechaFin && fechaFin < hoy
-          ? `<button class="btn-secundario btn_resena">Reseña</button>`
+          ? `<button class="btn-secundario btn_resena">Reseñar</button>`
           : `<button class="btn-secundario btn_eliminar">Cancelar reserva</button>`
       }
     `;
 
+    // ===============================
+    // Viaje realizado → reseña
+    // ===============================
     if (fechaFin && fechaFin < hoy) {
       listaRealizados.appendChild(article);
+
       const btnResena = article.querySelector(".btn_resena");
       btnResena.addEventListener("click", () => {
-        abrirResena(v.viaje_id)
-        alert(`Añadir reseña para ${v.destino}`);
+        window.viajeResenaActual = v;
+        abrirResena();
       });
-    } else {
+    } 
+    // ===============================
+    // Viaje pendiente → cancelar
+    // ===============================
+    else {
       listaPendientes.appendChild(article);
+
       const btnEliminar = article.querySelector(".btn_eliminar");
       btnEliminar.addEventListener("click", async () => {
         try {
-          const res = await fetch(`http://localhost:3000/reservas/${v.id}`, { method: "DELETE" });
+          const res = await fetch(
+            `http://localhost:3000/reservas/${v.id}`,
+            { method: "DELETE" }
+          );
+
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           article.remove();
           alert(`Reserva a ${v.destino} cancelada correctamente ✅`);
@@ -69,18 +133,25 @@ function renderReservas(reservas) {
   });
 }
 
-// Cargar reservas desde backend
+// ===============================
+// Cargar reservas
+// ===============================
 async function cargarReservas() {
   try {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
-    const usuarioId = usuario ? usuario.id : null;
+    const usuarioId = usuario?.id;
+
     if (!usuarioId) {
-      console.error("No se encontró usuario_id en sesión/localStorage");
+      console.error("No se encontró usuario en localStorage");
       return;
     }
 
-    const res = await fetch(`http://localhost:3000/reservas/usuario/${usuarioId}`);
+    const res = await fetch(
+      `http://localhost:3000/reservas/usuario/${usuarioId}`
+    );
+
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
     const reservas = await res.json();
     renderReservas(reservas);
   } catch (err) {

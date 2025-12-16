@@ -4,19 +4,34 @@ let usuario = null;
 // Función auxiliar para formatear fecha en DD/MM/AAAA
 function formatearFecha(fechaISO) {
   if (!fechaISO) return "No disponible";
-  const soloFecha = fechaISO.split("T")[0]; // cortar parte YYYY-MM-DD
+  const soloFecha = fechaISO.split("T")[0];
   const [year, month, day] = soloFecha.split("-");
-  const fecha = new Date(Number(year), Number(month) - 1, Number(day));
-  const dia = String(fecha.getDate()).padStart(2, '0');
-  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-  const año = fecha.getFullYear();
-  return `${dia}/${mes}/${año}`;
+  return `${day}/${month}/${year}`;
 }
 
-// Función para cargar viajes desde el backend
+// Función para cargar viajes desde el backend con filtros
 async function cargarViajes() {
   try {
-    const res = await fetch('http://localhost:3000/viajes');
+    // Capturar filtros si existen en inicio
+    const origen = document.getElementById('origen')?.value || '';
+    const destino = document.getElementById('destino')?.value || '';
+    const fechaInicio = document.getElementById('fecha_inicio')?.value || '';
+    const fechaFin = document.getElementById('fecha_fin')?.value || '';
+    const precioMin = document.getElementById('precio_min')?.value || '';
+    const precioMax = document.getElementById('precio_max')?.value || '';
+    const ordenar = document.getElementById('ordenar')?.value || '';
+
+    const params = new URLSearchParams({
+      origen,
+      destino,
+      fecha_inicio: fechaInicio,
+      fecha_fin: fechaFin,
+      precio_min: precioMin,
+      precio_max: precioMax,
+      ordenar
+    });
+
+    const res = await fetch(`http://localhost:3000/viajes?${params.toString()}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const viajes = await res.json();
 
@@ -26,7 +41,7 @@ async function cargarViajes() {
     contenedor.innerHTML = '';
 
     if (!viajes || viajes.length === 0) {
-      contenedor.innerHTML = '<p>No hay viajes disponibles en este momento.</p>';
+      contenedor.innerHTML = '<p>No hay viajes disponibles con esos filtros.</p>';
       return;
     }
 
@@ -35,17 +50,30 @@ async function cargarViajes() {
       card.className = 'viaje-card';
 
       // Precio con descuento
-      const tieneDescuento = v.precio_final !== null;
+      const tieneDescuento = v.precio_final !== null && v.precio_final !== v.precio;
       const precioHTML = tieneDescuento
         ? `<span class="precio tachado">Precio: ${v.precio} €</span>
            <span class="descuento">Precio con descuento: ${v.precio_final} €</span>`
         : `<span class="precio">Precio: ${v.precio} €</span>`;
 
       // Fechas formateadas
-      const fechaInicio = formatearFecha(v.fecha_inicio);
-      const fechaFin = formatearFecha(v.fecha_fin);
+      const fechaInicioFmt = formatearFecha(v.fecha_inicio);
+      const fechaFinFmt = formatearFecha(v.fecha_fin);
 
-      // Alarmas
+      // Puntuación media
+      let puntuacionHTML = '';
+      if (v.valoracion_media && Number(v.valoracion_media) > 0) {
+        puntuacionHTML = `
+      <p class="viaje-rating">
+        Puntuación media: ${Number(v.valoracion_media).toFixed(1)} ⭐
+      </p>
+      `;
+      } else {
+        puntuacionHTML = `<p class="viaje-rating">No hay reseñas disponibles.</p>`;
+    }
+
+
+      // Alarmas de proximidad y plazas
       const hoy = new Date();
       hoy.setHours(0,0,0,0);
 
@@ -73,9 +101,10 @@ async function cargarViajes() {
         <h3>${v.destino}</h3>
         <p class="viaje-origen">Salida desde: ${v.origen}</p>
         <p>${v.descripcion || ''}</p>
-        <p class="viaje-fecha">Fecha inicio: ${fechaInicio}</p>
-        <p class="viaje-fecha">Fecha fin: ${fechaFin}</p>
+        <p class="viaje-fecha">Fecha inicio: ${fechaInicioFmt}</p>
+        <p class="viaje-fecha">Fecha fin: ${fechaFinFmt}</p>
         ${precioHTML}
+        ${puntuacionHTML}
         ${avisoHTML}
         <button class="btn-reservar">Ver detalle</button>
       `;
@@ -104,12 +133,24 @@ function verDetalle(idViaje) {
   window.location.href = `Viaje.html?id=${idViaje}`;
 }
 
+// Inicialización
 document.addEventListener('DOMContentLoaded', () => {
   usuario = JSON.parse(localStorage.getItem('usuario'));
   if (usuario?.tipo_usuario === 'administrador') {
     document.getElementById('admin_viajes').style.display = 'block';
   }
+
+  // Cargar viajes al inicio
   cargarViajes();
+
+  // Activar buscador solo si existe en inicio
+  const btnBuscar = document.getElementById('buscar');
+  if (btnBuscar) {
+    btnBuscar.addEventListener('click', (e) => {
+      e.preventDefault();
+      cargarViajes();
+    });
+  }
 });
 
 // Guardar viaje (crear o actualizar)
@@ -211,3 +252,4 @@ function editarViaje(viaje) {
 window.verDetalle = verDetalle;
 window.cargarViajes = cargarViajes;
 window.editarViaje = editarViaje;
+
