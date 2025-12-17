@@ -35,7 +35,7 @@ async function registrarse() {
   if (contrasenya.length < 8) return mostrarError("La contraseña es demasiado corta.");
   if (esMenorDe18(fecha_nacimiento)) return mostrarError
   ("Los menores de 18 años no pueden registrarse. ¡Le esperamos más tarde!");
-  if (fecha_nacimiento_date < new Date("1909-04-24")) return mostrarError ("Por favor, introduzca la fecha real.");
+  if (fecha_nacimiento_date < new Date("1909-04-21")) return mostrarError ("Por favor, introduzca la fecha real.");
   if (contrasenya !== confirmar) return mostrarError("Las contraseñas no coinciden.");
 
   try {
@@ -70,6 +70,7 @@ function volverLogin() {
 // Exponer funciones al scope global
 window.registrarse = registrarse;
 window.volverLogin = volverLogin;
+
 
 
 
